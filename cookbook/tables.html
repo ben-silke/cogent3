@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tabular data &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building alignments" href="building_alignments.html" />
+    <link rel="prev" title="Phylonodes Methods" href="phylonodes.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Cookbook</a><ul>
+  <li><a href="manipulating_biological_data.html">Manipulating biological data</a><ul>
+      <li>Previous: <a href="phylonodes.html" title="previous chapter">Phylonodes Methods</a></li>
+      <li>Next: <a href="building_alignments.html" title="next chapter">Building alignments</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="tabular-data">
+<h1>Tabular data<a class="headerlink" href="#tabular-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="loading-delimited-formats">
+<h2>Loading delimited formats<a class="headerlink" href="#loading-delimited-formats" title="Permalink to this headline">¶</a></h2>
+<p>We load a comma separated data file using the generic <code class="docutils literal notranslate"><span class="pre">load_table</span></code> function.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_table</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">====================================</span>
+<span class="go">    Locus    Region            Ratio</span>
+<span class="go">------------------------------------</span>
+<span class="go">NP_003077       Con           2.5386</span>
+<span class="go">NP_004893       Con      121351.4264</span>
+<span class="go">NP_005079       Con     9516594.9789</span>
+<span class="go">NP_005500    NonCon           0.0000</span>
+<span class="go">NP_055852    NonCon    10933217.7090</span>
+<span class="go">------------------------------------</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reading-large-files">
+<h2>Reading large files<a class="headerlink" href="#reading-large-files" title="Permalink to this headline">¶</a></h2>
+<p>For really large files the automated conversion used by the standard read mechanism can be quite slow. If the data within a column is consistently of one type, set the <code class="docutils literal notranslate"><span class="pre">load_table</span></code> argument <code class="docutils literal notranslate"><span class="pre">static_column_types=True</span></code>. This causes the <code class="docutils literal notranslate"><span class="pre">Table</span></code> object to create a custom reader.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">static_column_types</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">====================================</span>
+<span class="go">    Locus    Region            Ratio</span>
+<span class="go">------------------------------------</span>
+<span class="go">NP_003077       Con           2.5386</span>
+<span class="go">NP_004893       Con      121351.4264</span>
+<span class="go">NP_005079       Con     9516594.9789</span>
+<span class="go">NP_005500    NonCon           0.0000</span>
+<span class="go">NP_055852    NonCon    10933217.7090</span>
+<span class="go">------------------------------------</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="formatting">
+<h2>Formatting<a class="headerlink" href="#formatting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="changing-displayed-numerical-precision">
+<h3>Changing displayed numerical precision<a class="headerlink" href="#changing-displayed-numerical-precision" title="Permalink to this headline">¶</a></h3>
+<p>We change the <code class="docutils literal notranslate"><span class="pre">Ratio</span></code> column to using scientific notation.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">format_column</span><span class="p">(</span><span class="s1">&#39;Ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%.1e</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">==============================</span>
+<span class="go">    Locus    Region      Ratio</span>
+<span class="go">------------------------------</span>
+<span class="go">NP_003077       Con    2.5e+00</span>
+<span class="go">NP_004893       Con    1.2e+05</span>
+<span class="go">NP_005079       Con    9.5e+06</span>
+<span class="go">NP_005500    NonCon    7.4e-08</span>
+<span class="go">NP_055852    NonCon    1.1e+07</span>
+<span class="go">------------------------------</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="change-digits-or-column-spacing">
+<h3>Change digits or column spacing<a class="headerlink" href="#change-digits-or-column-spacing" title="Permalink to this headline">¶</a></h3>
+<p>This can be done on table loading,</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">=============================</span>
+<span class="go">    Locus  Region       Ratio</span>
+<span class="go">-----------------------------</span>
+<span class="go">NP_003077     Con         2.5</span>
+<span class="go">NP_004893     Con    121351.4</span>
+<span class="go">NP_005079     Con   9516595.0</span>
+<span class="go">NP_005500  NonCon         0.0</span>
+<span class="go">NP_055852  NonCon  10933217.7</span>
+<span class="go">-----------------------------</span>
+</pre></div>
+</div>
+<p>or, for spacing at least, by modifying the attributes</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="s1">&#39;    &#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">=================================</span>
+<span class="go">    Locus    Region         Ratio</span>
+<span class="go">---------------------------------</span>
+<span class="go">NP_003077       Con           2.5</span>
+<span class="go">NP_004893       Con      121351.4</span>
+<span class="go">NP_005079       Con     9516595.0</span>
+<span class="go">NP_005500    NonCon           0.0</span>
+<span class="go">NP_055852    NonCon    10933217.7</span>
+<span class="go">---------------------------------</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="changing-column-headings">
+<h2>Changing column headings<a class="headerlink" href="#changing-column-headings" title="Permalink to this headline">¶</a></h2>
+<p>The table <code class="docutils literal notranslate"><span class="pre">header</span></code> is immutable. Changing column headings is done as follows.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+<span class="go">(&#39;Locus&#39;, &#39;Region&#39;, &#39;Ratio&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">with_new_header</span><span class="p">(</span><span class="s1">&#39;Ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;Stat&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+<span class="go">(&#39;Locus&#39;, &#39;Region&#39;, &#39;Stat&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-new-columns-from-existing-ones">
+<h2>Creating new columns from existing ones<a class="headerlink" href="#creating-new-columns-from-existing-ones" title="Permalink to this headline">¶</a></h2>
+<p>This can be used to take a single, or multiple columns and generate a new column of values. Here we’ll take 2 columns and return True/False based on a condition.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">with_new_column</span><span class="p">(</span><span class="s1">&#39;LargeCon&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="k">lambda</span> <span class="n">r_v</span><span class="p">:</span> <span class="n">r_v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Con&#39;</span> <span class="ow">and</span> <span class="n">r_v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">10.0</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Region&#39;</span><span class="p">,</span> <span class="s1">&#39;Ratio&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">================================================</span>
+<span class="go">    Locus    Region            Ratio    LargeCon</span>
+<span class="go">------------------------------------------------</span>
+<span class="go">NP_003077       Con           2.5386       False</span>
+<span class="go">NP_004893       Con      121351.4264        True</span>
+<span class="go">NP_005079       Con     9516594.9789        True</span>
+<span class="go">NP_005500    NonCon           0.0000       False</span>
+<span class="go">NP_055852    NonCon    10933217.7090       False</span>
+<span class="go">------------------------------------------------</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="appending-tables">
+<h2>Appending tables<a class="headerlink" href="#appending-tables" title="Permalink to this headline">¶</a></h2>
+<p>Can be done without specifying a new column. Here we simply use the same table data.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table1</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table2</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">table1</span><span class="o">.</span><span class="n">appended</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">table2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">====================================</span>
+<span class="go">    Locus    Region            Ratio</span>
+<span class="go">------------------------------------</span>
+<span class="go">NP_003077       Con           2.5386</span>
+<span class="go">NP_004893       Con      121351.4264</span>
+<span class="go">NP_005079       Con     9516594.9789</span>
+<span class="go">NP_005500    NonCon           0.0000</span>
+<span class="go">NP_055852    NonCon    10933217.7090</span>
+<span class="go">NP_003077       Con           2.5386</span>
+<span class="go">NP_004893       Con      121351.4264</span>
+<span class="go">NP_005079       Con     9516594.9789</span>
+<span class="go">NP_005500    NonCon           0.0000</span>
+<span class="go">NP_055852    NonCon    10933217.7090</span>
+<span class="go">------------------------------------</span>
+</pre></div>
+</div>
+<p>or with a new column</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table1</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Data1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table2</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Data2&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">table1</span><span class="o">.</span><span class="n">appended</span><span class="p">(</span><span class="s1">&#39;Data#&#39;</span><span class="p">,</span> <span class="n">table2</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">=============================================</span>
+<span class="go">Data#        Locus    Region            Ratio</span>
+<span class="go">---------------------------------------------</span>
+<span class="go">Data1    NP_003077       Con           2.5386</span>
+<span class="go">Data1    NP_004893       Con      121351.4264</span>
+<span class="go">Data1    NP_005079       Con     9516594.9789</span>
+<span class="go">Data1    NP_005500    NonCon           0.0000</span>
+<span class="go">Data1    NP_055852    NonCon    10933217.7090</span>
+<span class="go">Data2    NP_003077       Con           2.5386</span>
+<span class="go">Data2    NP_004893       Con      121351.4264</span>
+<span class="go">Data2    NP_005079       Con     9516594.9789</span>
+<span class="go">Data2    NP_005500    NonCon           0.0000</span>
+<span class="go">Data2    NP_055852    NonCon    10933217.7090</span>
+<span class="go">---------------------------------------------</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We assigned an empty string to <code class="docutils literal notranslate"><span class="pre">title</span></code>, otherwise the resulting table has the same <code class="docutils literal notranslate"><span class="pre">title</span></code> attribute as that of <code class="docutils literal notranslate"><span class="pre">table1</span></code>.</p>
+</div>
+</div>
+<div class="section" id="summing-a-single-column">
+<h2>Summing a single column<a class="headerlink" href="#summing-a-single-column" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">summed</span><span class="p">(</span><span class="s1">&#39;Ratio&#39;</span><span class="p">)</span>
+<span class="go">20571166.652...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="summing-multiple-columns-or-rows-strictly-numerical-data">
+<h2>Summing multiple columns or rows - strictly numerical data<a class="headerlink" href="#summing-multiple-columns-or-rows-strictly-numerical-data" title="Permalink to this headline">¶</a></h2>
+<p>We define a strictly numerical table,</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">all_numeric</span> <span class="o">=</span> <span class="n">make_table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>                                <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">12</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">all_numeric</span><span class="p">)</span>
+<span class="go">=============</span>
+<span class="go">A     B     C</span>
+<span class="go">-------------</span>
+<span class="go">0     1     2</span>
+<span class="go">3     4     5</span>
+<span class="go">6     7     8</span>
+<span class="go">9    10    11</span>
+<span class="go">-------------</span>
+</pre></div>
+</div>
+<p>and sum all columns (default condition)</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">all_numeric</span><span class="o">.</span><span class="n">summed</span><span class="p">()</span>
+<span class="go">[18, 22, 26]</span>
+</pre></div>
+</div>
+<p>and all rows</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">all_numeric</span><span class="o">.</span><span class="n">summed</span><span class="p">(</span><span class="n">col_sum</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[3, 12, 21, 30]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="summing-multiple-columns-or-rows-with-mixed-non-numeric-numeric-data">
+<h2>Summing multiple columns or rows with mixed non-numeric/numeric data<a class="headerlink" href="#summing-multiple-columns-or-rows-with-mixed-non-numeric-numeric-data" title="Permalink to this headline">¶</a></h2>
+<p>We define a table with mixed data, like a distance matrix.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mixed</span> <span class="o">=</span> <span class="n">make_table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<span class="gp">... </span>                                                <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">mixed</span><span class="p">)</span>
+<span class="go">===========</span>
+<span class="go">A    B    C</span>
+<span class="go">-----------</span>
+<span class="go">*    1    2</span>
+<span class="go">3    *    5</span>
+<span class="go">6    7    *</span>
+<span class="go">-----------</span>
+</pre></div>
+</div>
+<p>and sum all columns (default condition), ignoring non-numerical data</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mixed</span><span class="o">.</span><span class="n">summed</span><span class="p">(</span><span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[9, 8, 7]</span>
+</pre></div>
+</div>
+<p>and all rows</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mixed</span><span class="o">.</span><span class="n">summed</span><span class="p">(</span><span class="n">col_sum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[3, 8, 13]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering-table-rows">
+<h2>Filtering table rows<a class="headerlink" href="#filtering-table-rows" title="Permalink to this headline">¶</a></h2>
+<p>We can do this by providing a reference to an external function</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sub_table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">filtered</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Ratio&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sub_table</span><span class="p">)</span>
+<span class="go">=============================</span>
+<span class="go">    Locus    Region     Ratio</span>
+<span class="go">-----------------------------</span>
+<span class="go">NP_003077       Con    2.5386</span>
+<span class="go">NP_005500    NonCon    0.0000</span>
+<span class="go">-----------------------------</span>
+</pre></div>
+</div>
+<p>or using valid python syntax within a string, which is executed</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sub_table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">filtered</span><span class="p">(</span><span class="s2">&quot;Ratio &lt; 10.0&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sub_table</span><span class="p">)</span>
+<span class="go">=============================</span>
+<span class="go">    Locus    Region     Ratio</span>
+<span class="go">-----------------------------</span>
+<span class="go">NP_003077       Con    2.5386</span>
+<span class="go">NP_005500    NonCon    0.0000</span>
+<span class="go">-----------------------------</span>
+</pre></div>
+</div>
+<p>You can also filter for values in multiple columns</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sub_table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">filtered</span><span class="p">(</span><span class="s2">&quot;Ratio &lt; 10.0 and Region == &#39;NonCon&#39;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sub_table</span><span class="p">)</span>
+<span class="go">=============================</span>
+<span class="go">    Locus    Region     Ratio</span>
+<span class="go">-----------------------------</span>
+<span class="go">NP_005500    NonCon    0.0000</span>
+<span class="go">-----------------------------</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering-table-columns">
+<h2>Filtering table columns<a class="headerlink" href="#filtering-table-columns" title="Permalink to this headline">¶</a></h2>
+<p>We select only columns that have a sum &gt; 20 from the <code class="docutils literal notranslate"><span class="pre">all_numeric</span></code> table constructed above.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">big_numeric</span> <span class="o">=</span> <span class="n">all_numeric</span><span class="o">.</span><span class="n">filtered_by_column</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">big_numeric</span><span class="p">)</span>
+<span class="go">========</span>
+<span class="go"> B     C</span>
+<span class="go">--------</span>
+<span class="go"> 1     2</span>
+<span class="go"> 4     5</span>
+<span class="go"> 7     8</span>
+<span class="go">10    11</span>
+<span class="go">--------</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sorting">
+<h2>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="standard-sorting">
+<h3>Standard sorting<a class="headerlink" href="#standard-sorting" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">sorted</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Ratio&#39;</span><span class="p">))</span>
+<span class="go">====================================</span>
+<span class="go">    Locus    Region            Ratio</span>
+<span class="go">------------------------------------</span>
+<span class="go">NP_005500    NonCon           0.0000</span>
+<span class="go">NP_003077       Con           2.5386</span>
+<span class="go">NP_004893       Con      121351.4264</span>
+<span class="go">NP_005079       Con     9516594.9789</span>
+<span class="go">NP_055852    NonCon    10933217.7090</span>
+<span class="go">------------------------------------</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reverse-sorting">
+<h3>Reverse sorting<a class="headerlink" href="#reverse-sorting" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">sorted</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Ratio&#39;</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="s1">&#39;Ratio&#39;</span><span class="p">))</span>
+<span class="go">====================================</span>
+<span class="go">    Locus    Region            Ratio</span>
+<span class="go">------------------------------------</span>
+<span class="go">NP_055852    NonCon    10933217.7090</span>
+<span class="go">NP_005079       Con     9516594.9789</span>
+<span class="go">NP_004893       Con      121351.4264</span>
+<span class="go">NP_003077       Con           2.5386</span>
+<span class="go">NP_005500    NonCon           0.0000</span>
+<span class="go">------------------------------------</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sorting-involving-multiple-columns-one-reversed">
+<h3>Sorting involving multiple columns, one reversed<a class="headerlink" href="#sorting-involving-multiple-columns-one-reversed" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">sorted</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Region&#39;</span><span class="p">,</span> <span class="s1">&#39;Ratio&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="s1">&#39;Ratio&#39;</span><span class="p">))</span>
+<span class="go">====================================</span>
+<span class="go">    Locus    Region            Ratio</span>
+<span class="go">------------------------------------</span>
+<span class="go">NP_005079       Con     9516594.9789</span>
+<span class="go">NP_004893       Con      121351.4264</span>
+<span class="go">NP_003077       Con           2.5386</span>
+<span class="go">NP_055852    NonCon    10933217.7090</span>
+<span class="go">NP_005500    NonCon           0.0000</span>
+<span class="go">------------------------------------</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="getting-raw-data">
+<h2>Getting raw data<a class="headerlink" href="#getting-raw-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="for-a-single-column">
+<h3>For a single column<a class="headerlink" href="#for-a-single-column" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raw</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">tolist</span><span class="p">(</span><span class="s1">&#39;Region&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+<span class="go">[&#39;Con&#39;, &#39;Con&#39;, &#39;Con&#39;, &#39;NonCon&#39;, &#39;NonCon&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-multiple-columns">
+<h3>For multiple columns<a class="headerlink" href="#for-multiple-columns" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raw</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">tolist</span><span class="p">([</span><span class="s1">&#39;Locus&#39;</span><span class="p">,</span> <span class="s1">&#39;Region&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+<span class="go">[[&#39;NP_003077&#39;, &#39;Con&#39;], [&#39;NP_004893&#39;, &#39;Con&#39;], ...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="iterating-over-table-rows">
+<h2>Iterating over table rows<a class="headerlink" href="#iterating-over-table-rows" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Locus&#39;</span><span class="p">])</span>
+<span class="gp">...</span>
+<span class="go">NP_003077</span>
+<span class="go">NP_004893</span>
+<span class="go">NP_005079</span>
+<span class="go">NP_005500</span>
+<span class="go">NP_055852</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="table-slicing">
+<h2>Table slicing<a class="headerlink" href="#table-slicing" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-column-names">
+<h3>Using column names<a class="headerlink" href="#using-column-names" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="s1">&#39;Region&#39;</span><span class="p">])</span>
+<span class="go">=========</span>
+<span class="go">    Locus</span>
+<span class="go">---------</span>
+<span class="go">NP_003077</span>
+<span class="go">NP_004893</span>
+<span class="go">---------</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-column-indices">
+<h3>Using column indices<a class="headerlink" href="#using-column-indices" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">[:</span><span class="mi">2</span><span class="p">,:</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">=========</span>
+<span class="go">    Locus</span>
+<span class="go">---------</span>
+<span class="go">NP_003077</span>
+<span class="go">NP_004893</span>
+<span class="go">---------</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="sql-like-capabilities">
+<h2>SQL-like capabilities<a class="headerlink" href="#sql-like-capabilities" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="distinct-values">
+<h3>Distinct values<a class="headerlink" href="#distinct-values" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">table</span><span class="o">.</span><span class="n">distinct_values</span><span class="p">(</span><span class="s1">&#39;Region&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;NonCon&#39;</span><span class="p">,</span> <span class="s1">&#39;Con&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="counting">
+<h3>Counting<a class="headerlink" href="#counting" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">table</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;Region == &#39;NonCon&#39; and Ratio &gt; 1&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="joining-tables">
+<h3>Joining tables<a class="headerlink" href="#joining-tables" title="Permalink to this headline">¶</a></h3>
+<p>SQL-like join operations requires tables have different <code class="docutils literal notranslate"><span class="pre">title</span></code> attributes which are not <code class="docutils literal notranslate"><span class="pre">None</span></code>. We do a standard inner join here for a restricted subset. We must specify the columns that will be used for the join. Here we just use <code class="docutils literal notranslate"><span class="pre">Locus</span></code> but multiple columns can be used, and their names can be different between the tables. Note that the second table’s title becomes a part of the column names.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rows</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;NP_004893&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;NP_005079&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;NP_005500&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;NP_055852&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">region_type</span> <span class="o">=</span> <span class="n">make_table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Locus&#39;</span><span class="p">,</span> <span class="s1">&#39;LargeCon&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">rows</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">title</span><span class="o">=</span><span class="s1">&#39;RegionClass&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stats_table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Stats&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new</span> <span class="o">=</span> <span class="n">stats_table</span><span class="o">.</span><span class="n">joined</span><span class="p">(</span><span class="n">region_type</span><span class="p">,</span> <span class="n">columns_self</span><span class="o">=</span><span class="s1">&#39;Locus&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+<span class="go">============================================================</span>
+<span class="go">    Locus    Region            Ratio    RegionClass_LargeCon</span>
+<span class="go">------------------------------------------------------------</span>
+<span class="go">NP_004893       Con      121351.4264                    True</span>
+<span class="go">NP_005079       Con     9516594.9789                    True</span>
+<span class="go">NP_005500    NonCon           0.0000                   False</span>
+<span class="go">NP_055852    NonCon    10933217.7090                   False</span>
+<span class="go">------------------------------------------------------------</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="exporting">
+<h2>Exporting<a class="headerlink" href="#exporting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="writing-delimited-formats">
+<h3>Writing delimited formats<a class="headerlink" href="#writing-delimited-formats" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;stats_tab.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing-latex-format">
+<h3>Writing latex format<a class="headerlink" href="#writing-latex-format" title="Permalink to this headline">¶</a></h3>
+<p>It is also possible to specify column alignment, table caption and other arguments.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;stats.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;latex&#39;</span><span class="p">))</span>
+<span class="go">\begin{table}[htp!]</span>
+<span class="go">\centering</span>
+<span class="go">\begin{tabular}{ r r r }</span>
+<span class="go">\hline</span>
+<span class="go">\bf{Locus} &amp; \bf{Region} &amp; \bf{Ratio} \\</span>
+<span class="go">\hline</span>
+<span class="go">\hline</span>
+<span class="go">NP_003077 &amp;    Con &amp;        2.5386 \\</span>
+<span class="go">NP_004893 &amp;    Con &amp;   121351.4264 \\</span>
+<span class="go">NP_005079 &amp;    Con &amp;  9516594.9789 \\</span>
+<span class="go">NP_005500 &amp; NonCon &amp;        0.0000 \\</span>
+<span class="go">NP_055852 &amp; NonCon &amp; 10933217.7090 \\</span>
+<span class="go">\hline</span>
+<span class="go">\end{tabular}</span>
+<span class="go">\end{table}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing-bedgraph-format">
+<h3>Writing bedGraph format<a class="headerlink" href="#writing-bedgraph-format" title="Permalink to this headline">¶</a></h3>
+<p>This format allows display of annotation tracks on genome browsers.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rows</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mf">1.123</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mf">1.123</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mf">1.123</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mf">1.123</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mf">1.123</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mf">1.123</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mf">1.123</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mf">1.123</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">158</span><span class="p">,</span> <span class="mi">159</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">159</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bgraph</span> <span class="o">=</span> <span class="n">make_table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;chrom&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="n">rows</span><span class="o">=</span><span class="n">rows</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bgraph</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;bedgraph&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;test track&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;test of bedgraph&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span> 
+<span class="go">track type=bedGraph name=&quot;test track&quot; description=&quot;test of bedgraph&quot; color=255,0,0</span>
+<span class="go">1   100     108     1.12</span>
+<span class="go">1   108     118     1.00</span>
+<span class="go">1   118     161     2.00</span>
+
+<span class="go">The bedgraph formatter defaults to rounding values to 2 decimal places. You can adjust that precision using the ``digits`` argument.</span>
+</pre></div>
+</div>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bgraph</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;bedgraph&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;test track&#39;</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="n">description</span><span class="o">=</span><span class="s1">&#39;test of bedgraph&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">digits</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span> 
+<span class="go">track type=bedGraph name=&quot;test track&quot; description=&quot;test of bedgraph&quot; color=255,0,0</span>
+<span class="go">1   100     118     1.00</span>
+<span class="go">1   118     161     2.00</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cookbook/tables.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

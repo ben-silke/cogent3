@@ -1,0 +1,272 @@
+:orphan:
+
+
+
+.. _sphx_glr_draw:
+
+#############
+Image Gallery
+#############
+
+We use `Plotly <https://plot.ly/python/>`_ as our backend for visualisation. It provides excellent graph interactivity in Jupyter notebooks.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_draw_aln:
+
+**********************
+Alignments & Sequences
+**********************
+
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A method on the alignment provides an interface to the simpler (and yet robust and fast) method...">
+
+.. only:: html
+
+ .. figure:: /draw/aln/images/thumb/sphx_glr_plot_aln-coevolution_thumb.png
+
+     :ref:`sphx_glr_draw_aln_plot_aln-coevolution.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/aln/plot_aln-coevolution
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A technique (`Gibbs and McIntyre &lt;https://www.ncbi.nlm.nih.gov/pubmed/5456129&gt;`_) for comparing...">
+
+.. only:: html
+
+ .. figure:: /draw/aln/images/thumb/sphx_glr_plot_aln-dotplot-1_thumb.png
+
+     :ref:`sphx_glr_draw_aln_plot_aln-dotplot-1.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/aln/plot_aln-dotplot-1
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="If sequences in a dotplot have been annotated, the dotplot() method returns an AnnotatedDrawabl...">
+
+.. only:: html
+
+ .. figure:: /draw/aln/images/thumb/sphx_glr_plot_aln-dotplot-2_thumb.png
+
+     :ref:`sphx_glr_draw_aln_plot_aln-dotplot-2.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/aln/plot_aln-dotplot-2
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We have several different ways of counting sequence gaps, and of visualising the results. By de...">
+
+.. only:: html
+
+ .. figure:: /draw/aln/images/thumb/sphx_glr_plot_aln-gaps-per-seq_thumb.png
+
+     :ref:`sphx_glr_draw_aln_plot_aln-gaps-per-seq.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/aln/plot_aln-gaps-per-seq
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Information here is in the formal sense -- maximum entropy minus the entropy at a position. Thi...">
+
+.. only:: html
+
+ .. figure:: /draw/aln/images/thumb/sphx_glr_plot_aln-info-plot_thumb.png
+
+     :ref:`sphx_glr_draw_aln_plot_aln-info-plot.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/aln/plot_aln-info-plot
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Sequence logo&#x27;s display sequence information. They&#x27;re extensively applied to transcription fact...">
+
+.. only:: html
+
+ .. figure:: /draw/aln/images/thumb/sphx_glr_plot_aln-seqlogo_thumb.png
+
+     :ref:`sphx_glr_draw_aln_plot_aln-seqlogo.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/aln/plot_aln-seqlogo
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_draw_tree:
+
+******************
+Phylogenetic Trees
+******************
+
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This is a left-right style. You&#x27;ll note that there&#x27;s overlap of edges at the bottom -- a known ...">
+
+.. only:: html
+
+ .. figure:: /draw/tree/images/thumb/sphx_glr_plot_tree-angular_thumb.png
+
+     :ref:`sphx_glr_draw_tree_plot_tree-angular.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/tree/plot_tree-angular
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a Phylogenetic Tree with a Circular Dendrogram Style">
+
+.. only:: html
+
+ .. figure:: /draw/tree/images/thumb/sphx_glr_plot_tree-circular_thumb.png
+
+     :ref:`sphx_glr_draw_tree_plot_tree-circular.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/tree/plot_tree-circular
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a Phylogenetic Tree with a Radial Dendrogram Style">
+
+.. only:: html
+
+ .. figure:: /draw/tree/images/thumb/sphx_glr_plot_tree-radial_thumb.png
+
+     :ref:`sphx_glr_draw_tree_plot_tree-radial.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/tree/plot_tree-radial
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We use a tree saved in json format from a likelihood function analysis of a non-stationary mode...">
+
+.. only:: html
+
+ .. figure:: /draw/tree/images/thumb/sphx_glr_plot_tree-square_thumb.png
+
+     :ref:`sphx_glr_draw_tree_plot_tree-square.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/tree/plot_tree-square
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We use a tree saved in json format from a 100 replicate bootstrap resamplings. The show_support...">
+
+.. only:: html
+
+ .. figure:: /draw/tree/images/thumb/sphx_glr_plot_tree-support_thumb.png
+
+     :ref:`sphx_glr_draw_tree_plot_tree-support.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /draw/tree/plot_tree-support
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

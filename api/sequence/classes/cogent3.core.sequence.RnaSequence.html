@@ -1,0 +1,1195 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>RnaSequence &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="ProteinSequence" href="cogent3.core.sequence.ProteinSequence.html" />
+    <link rel="prev" title="DnaSequence" href="cogent3.core.sequence.DnaSequence.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../library.html">The Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../cookbook/index.html">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../library.html">The Library</a><ul>
+  <li><a href="../../index.html">API</a><ul>
+  <li><a href="../sequence.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sequence</span></code></a><ul>
+      <li>Previous: <a href="cogent3.core.sequence.DnaSequence.html" title="previous chapter">DnaSequence</a></li>
+      <li>Next: <a href="cogent3.core.sequence.ProteinSequence.html" title="next chapter">ProteinSequence</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="rnasequence">
+<h1>RnaSequence<a class="headerlink" href="#rnasequence" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="cogent3.core.sequence.RnaSequence">
+<em class="property">class </em><code class="sig-prename descclassname">cogent3.core.sequence.</code><code class="sig-name descname">RnaSequence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seq</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">info</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">check</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">preserve_case</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">gaps_allowed</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">wildcards_allowed</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds the standard RNA sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>PROTEIN</strong></dt><dd></dd>
+<dt><strong>line_wrap</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.annotate_from_gff" title="cogent3.core.sequence.RnaSequence.annotate_from_gff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">annotate_from_gff</span></code></a>(self, f[, pre_parsed])</p></td>
+<td><p>annotates a Sequence from a gff file where each entry has the same SeqID</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.annotate_matches_to" title="cogent3.core.sequence.RnaSequence.annotate_matches_to"><code class="xref py py-obj docutils literal notranslate"><span class="pre">annotate_matches_to</span></code></a>(self, pattern, …[, …])</p></td>
+<td><p>Adds an annotation at sequence positions matching pattern.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.can_match" title="cogent3.core.sequence.RnaSequence.can_match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_match</span></code></a>(self, other)</p></td>
+<td><p>Returns True if every pos in self could match same pos in other.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.can_mismatch" title="cogent3.core.sequence.RnaSequence.can_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_mismatch</span></code></a>(self, other)</p></td>
+<td><p>Returns True if any position in self could mismatch with other.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.can_mispair" title="cogent3.core.sequence.RnaSequence.can_mispair"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_mispair</span></code></a>(self, other)</p></td>
+<td><p>Returns True if any position in self could mispair with other.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.can_pair" title="cogent3.core.sequence.RnaSequence.can_pair"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_pair</span></code></a>(self, other)</p></td>
+<td><p>Returns True if self and other could pair.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.codon_alphabet" title="cogent3.core.sequence.RnaSequence.codon_alphabet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">codon_alphabet</span></code></a>(ignore, \*args, \*\*kwargs)</p></td>
+<td><p>If CodonAlphabet is set as a property, it gets self as extra 1st arg.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.complement" title="cogent3.core.sequence.RnaSequence.complement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">complement</span></code></a>(self)</p></td>
+<td><p>Returns complement of self, using data from MolType.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.copy" title="cogent3.core.sequence.RnaSequence.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>(self)</p></td>
+<td><p>returns a copy of self</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.count" title="cogent3.core.sequence.RnaSequence.count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code></a>(self, item)</p></td>
+<td><p>count() delegates to self._seq.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.count_degenerate" title="cogent3.core.sequence.RnaSequence.count_degenerate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count_degenerate</span></code></a>(self)</p></td>
+<td><p>Counts the degenerate bases in the specified sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.count_gaps" title="cogent3.core.sequence.RnaSequence.count_gaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count_gaps</span></code></a>(self)</p></td>
+<td><p>Counts the gaps in the specified sequence.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.counts" title="cogent3.core.sequence.RnaSequence.counts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">counts</span></code></a>(self[, motif_length, …])</p></td>
+<td><p>returns dict of counts of motifs</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.degap" title="cogent3.core.sequence.RnaSequence.degap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">degap</span></code></a>(self)</p></td>
+<td><p>Deletes all gap characters from sequence.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.diff" title="cogent3.core.sequence.RnaSequence.diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diff</span></code></a>(self, other)</p></td>
+<td><p>Returns number of differences between self and other.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.disambiguate" title="cogent3.core.sequence.RnaSequence.disambiguate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disambiguate</span></code></a>(self[, method])</p></td>
+<td><p>Returns a non-degenerate sequence from a degenerate one.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.distance" title="cogent3.core.sequence.RnaSequence.distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance</span></code></a>(self, other[, function])</p></td>
+<td><p>Returns distance between self and other using function(i,j).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.first_degenerate" title="cogent3.core.sequence.RnaSequence.first_degenerate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">first_degenerate</span></code></a>(self)</p></td>
+<td><p>Returns the index of first degenerate symbol in sequence, or None.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.first_gap" title="cogent3.core.sequence.RnaSequence.first_gap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">first_gap</span></code></a>(self)</p></td>
+<td><p>Returns the index of the first gap in the sequence, or None.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.first_invalid" title="cogent3.core.sequence.RnaSequence.first_invalid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">first_invalid</span></code></a>(self)</p></td>
+<td><p>Returns the index of first invalid symbol in sequence, or None.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.first_non_strict" title="cogent3.core.sequence.RnaSequence.first_non_strict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">first_non_strict</span></code></a>(self)</p></td>
+<td><p>Returns the index of first non-strict symbol in sequence, or None.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.frac_diff" title="cogent3.core.sequence.RnaSequence.frac_diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_diff</span></code></a>(self, other)</p></td>
+<td><p>Returns fraction of positions where self and other differ.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.frac_diff_gaps" title="cogent3.core.sequence.RnaSequence.frac_diff_gaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_diff_gaps</span></code></a>(self, other)</p></td>
+<td><p>Returns frac.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.frac_diff_non_gaps" title="cogent3.core.sequence.RnaSequence.frac_diff_non_gaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_diff_non_gaps</span></code></a>(self, other)</p></td>
+<td><p>Returns fraction of non-gap positions where self differs from other.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.frac_same" title="cogent3.core.sequence.RnaSequence.frac_same"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_same</span></code></a>(self, other)</p></td>
+<td><p>Returns fraction of positions where self and other are the same.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.frac_same_gaps" title="cogent3.core.sequence.RnaSequence.frac_same_gaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_same_gaps</span></code></a>(self, other)</p></td>
+<td><p>Returns fraction of positions where self and other share gap states.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.frac_same_non_gaps" title="cogent3.core.sequence.RnaSequence.frac_same_non_gaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_same_non_gaps</span></code></a>(self, other)</p></td>
+<td><p>Returns fraction of non-gap positions where self matches other.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.frac_similar" title="cogent3.core.sequence.RnaSequence.frac_similar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frac_similar</span></code></a>(self, other, similar_pairs)</p></td>
+<td><p>Returns fraction of positions where self[i] is similar to other[i].</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.gap_indices" title="cogent3.core.sequence.RnaSequence.gap_indices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gap_indices</span></code></a>(self)</p></td>
+<td><p>Returns list of indices of all gaps in the sequence, or [].</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.gap_maps" title="cogent3.core.sequence.RnaSequence.gap_maps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gap_maps</span></code></a>(self)</p></td>
+<td><p>Returns dicts mapping between gapped and ungapped positions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.gap_vector" title="cogent3.core.sequence.RnaSequence.gap_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gap_vector</span></code></a>(self)</p></td>
+<td><p>Returns vector of True or False according to which pos are gaps.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.get_annotations_matching" title="cogent3.core.sequence.RnaSequence.get_annotations_matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_annotations_matching</span></code></a>(self, annotation_type)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.get_by_annotation" title="cogent3.core.sequence.RnaSequence.get_by_annotation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_by_annotation</span></code></a>(self, annotation_type[, …])</p></td>
+<td><p>yields the sequence segments corresponding to the specified annotation_type and name one at a time.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.get_drawable" title="cogent3.core.sequence.RnaSequence.get_drawable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_drawable</span></code></a>(self[, width, vertical])</p></td>
+<td><p>returns Drawable instance</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.get_drawables" title="cogent3.core.sequence.RnaSequence.get_drawables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_drawables</span></code></a>(self)</p></td>
+<td><p>returns a dict of drawables, keyed by type</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.get_in_motif_size" title="cogent3.core.sequence.RnaSequence.get_in_motif_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_in_motif_size</span></code></a>(self[, motif_length, …])</p></td>
+<td><p>returns sequence as list of non-overlapping motifs</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.get_name" title="cogent3.core.sequence.RnaSequence.get_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_name</span></code></a>(self)</p></td>
+<td><p>Return the sequence name – should just use name instead.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.get_translation" title="cogent3.core.sequence.RnaSequence.get_translation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_translation</span></code></a>(self[, gc, incomplete_ok])</p></td>
+<td><p>translate to amino acid sequence</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.gettype" title="cogent3.core.sequence.RnaSequence.gettype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gettype</span></code></a>(self)</p></td>
+<td><p>Return the sequence type.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.has_terminal_stop" title="cogent3.core.sequence.RnaSequence.has_terminal_stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_terminal_stop</span></code></a>(self[, gc, allow_partial])</p></td>
+<td><p>Return True if the sequence has a terminal stop codon.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.is_annotated" title="cogent3.core.sequence.RnaSequence.is_annotated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_annotated</span></code></a>(self)</p></td>
+<td><p>returns True if sequence has any annotations</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.is_degenerate" title="cogent3.core.sequence.RnaSequence.is_degenerate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_degenerate</span></code></a>(self)</p></td>
+<td><p>Returns True if sequence contains degenerate characters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.is_gap" title="cogent3.core.sequence.RnaSequence.is_gap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_gap</span></code></a>(self[, char])</p></td>
+<td><p>Returns True if char is a gap.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.is_gapped" title="cogent3.core.sequence.RnaSequence.is_gapped"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_gapped</span></code></a>(self)</p></td>
+<td><p>Returns True if sequence contains gaps.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.is_strict" title="cogent3.core.sequence.RnaSequence.is_strict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_strict</span></code></a>(self)</p></td>
+<td><p>Returns True if sequence contains only monomers.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.is_valid" title="cogent3.core.sequence.RnaSequence.is_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid</span></code></a>(self)</p></td>
+<td><p>Returns True if sequence contains no items absent from alphabet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.matrix_distance" title="cogent3.core.sequence.RnaSequence.matrix_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matrix_distance</span></code></a>(self, other, matrix)</p></td>
+<td><p>Returns distance between self and other using a score matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.must_match" title="cogent3.core.sequence.RnaSequence.must_match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">must_match</span></code></a>(self, other)</p></td>
+<td><p>Returns True if all positions in self must match positions in other.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.must_pair" title="cogent3.core.sequence.RnaSequence.must_pair"><code class="xref py py-obj docutils literal notranslate"><span class="pre">must_pair</span></code></a>(self, other)</p></td>
+<td><p>Returns True if all positions in self must pair with other.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.mw" title="cogent3.core.sequence.RnaSequence.mw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mw</span></code></a>(self[, method, delta])</p></td>
+<td><p>Returns the molecular weight of (one strand of) the sequence.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.possibilities" title="cogent3.core.sequence.RnaSequence.possibilities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">possibilities</span></code></a>(self)</p></td>
+<td><p>Counts number of possible sequences matching the sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.rc" title="cogent3.core.sequence.RnaSequence.rc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rc</span></code></a>(self)</p></td>
+<td><p>Converts a nucleic acid sequence to its reverse complement.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.replace" title="cogent3.core.sequence.RnaSequence.replace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replace</span></code></a>(self, oldchar, newchar)</p></td>
+<td><p>return new instance with oldchar replaced by newchar</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.resolveambiguities" title="cogent3.core.sequence.RnaSequence.resolveambiguities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolveambiguities</span></code></a>(self)</p></td>
+<td><p>Returns a list of tuples of strings.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.reverse_complement" title="cogent3.core.sequence.RnaSequence.reverse_complement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse_complement</span></code></a>(self)</p></td>
+<td><p>Converts a nucleic acid sequence to its reverse complement.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.shuffle" title="cogent3.core.sequence.RnaSequence.shuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shuffle</span></code></a>(self)</p></td>
+<td><p>returns a randomized copy of the Sequence object</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.sliding_windows" title="cogent3.core.sequence.RnaSequence.sliding_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sliding_windows</span></code></a>(self, window, step[, start, end])</p></td>
+<td><p>Generator function that yield new sequence objects of a given length at a given interval.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.strand_symmetry" title="cogent3.core.sequence.RnaSequence.strand_symmetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strand_symmetry</span></code></a>(self[, motif_length])</p></td>
+<td><p>returns G-test for strand symmetry</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.strip_bad" title="cogent3.core.sequence.RnaSequence.strip_bad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strip_bad</span></code></a>(self)</p></td>
+<td><p>Removes any symbols not in the alphabet.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.strip_bad_and_gaps" title="cogent3.core.sequence.RnaSequence.strip_bad_and_gaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strip_bad_and_gaps</span></code></a>(self)</p></td>
+<td><p>Removes any symbols not in the alphabet, and any gaps.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.strip_degenerate" title="cogent3.core.sequence.RnaSequence.strip_degenerate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strip_degenerate</span></code></a>(self)</p></td>
+<td><p>Removes degenerate bases by stripping them out of the sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.to_dna" title="cogent3.core.sequence.RnaSequence.to_dna"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dna</span></code></a>(self)</p></td>
+<td><p>Returns copy of self as DNA.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.to_fasta" title="cogent3.core.sequence.RnaSequence.to_fasta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_fasta</span></code></a>(self[, make_seqlabel, block_size])</p></td>
+<td><p>Return string of self in FASTA format, no trailing newline</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.to_json" title="cogent3.core.sequence.RnaSequence.to_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_json</span></code></a>(self)</p></td>
+<td><p>returns a json formatted string</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.to_moltype" title="cogent3.core.sequence.RnaSequence.to_moltype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_moltype</span></code></a>(self, moltype)</p></td>
+<td><p>returns copy of self with moltype seq</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.to_rich_dict" title="cogent3.core.sequence.RnaSequence.to_rich_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_rich_dict</span></code></a>(self)</p></td>
+<td><p>returns {‘name’: name, ‘seq’: sequence, ‘moltype’: moltype.label}</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.to_rna" title="cogent3.core.sequence.RnaSequence.to_rna"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_rna</span></code></a>(self)</p></td>
+<td><p>Returns copy of self as RNA.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.translate" title="cogent3.core.sequence.RnaSequence.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a>(self, \*args, \*\*kwargs)</p></td>
+<td><p>translate() delegates to self._seq.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.trim_stop_codon" title="cogent3.core.sequence.RnaSequence.trim_stop_codon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trim_stop_codon</span></code></a>(self[, gc, allow_partial])</p></td>
+<td><p>Removes a terminal stop codon from the sequence</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.with_masked_annotations" title="cogent3.core.sequence.RnaSequence.with_masked_annotations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">with_masked_annotations</span></code></a>(self, annot_types[, …])</p></td>
+<td><p>returns a sequence with annot_types regions replaced by mask_char if shadow is False, otherwise all other regions are masked.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.sequence.RnaSequence.with_termini_unknown" title="cogent3.core.sequence.RnaSequence.with_termini_unknown"><code class="xref py py-obj docutils literal notranslate"><span class="pre">with_termini_unknown</span></code></a>(self)</p></td>
+<td><p>Returns copy of sequence with terminal gaps remapped as missing.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 75%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>add_annotation</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>add_feature</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>attach_annotations</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>clear_annotations</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>copy_annotations</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>detach_annotations</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>gapped_by_map</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>gapped_by_map_motif_iter</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>gapped_by_map_segment_iter</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_color_scheme</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_colour_scheme</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_orf_positions</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_region_covering_all</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>parse_out_gaps</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt id="cogent3.core.sequence.RnaSequence.PROTEIN">
+<code class="sig-name descname">PROTEIN</code><em class="property"> = None</em><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.PROTEIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.add_annotation">
+<code class="sig-name descname">add_annotation</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">klass</em>, <em class="sig-param">\*args</em>, <em class="sig-param">\*\*kw</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.add_annotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.add_feature">
+<code class="sig-name descname">add_feature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">type</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">spans</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.add_feature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.annotate_from_gff">
+<code class="sig-name descname">annotate_from_gff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">pre_parsed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.annotate_from_gff" title="Permalink to this definition">¶</a></dt>
+<dd><p>annotates a Sequence from a gff file where each entry has the same SeqID</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.annotate_matches_to">
+<code class="sig-name descname">annotate_matches_to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">pattern</span></em>, <em class="sig-param"><span class="n">annot_type</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">allow_multiple</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.annotate_matches_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an annotation at sequence positions matching pattern.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>pattern</strong><span class="classifier">string</span></dt><dd><p>The search string for which annotations are made. IUPAC ambiguities
+are converted to regex on sequences with the appropriate MolType.</p>
+</dd>
+<dt><strong>annot_type</strong><span class="classifier">string</span></dt><dd><p>The type of the annotation (e.g. “domain”).</p>
+</dd>
+<dt><strong>name</strong><span class="classifier">string</span></dt><dd><p>The name of the annotation.</p>
+</dd>
+<dt><strong>allow_multiple</strong><span class="classifier">boolean</span></dt><dd><p>If True, allows multiple occurrences of the input pattern. Otherwise
+only the first match is used.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Returns a list of Annotation instances.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cogent3.core.sequence.RnaSequence.annotations">
+<code class="sig-name descname">annotations</code><em class="property"> = ()</em><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.attach_annotations">
+<code class="sig-name descname">attach_annotations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">annots</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.attach_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.can_match">
+<code class="sig-name descname">can_match</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.can_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if every pos in self could match same pos in other.</p>
+<p>Truncates at length of shorter sequence.
+gaps are only allowed to match other gaps.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.can_mismatch">
+<code class="sig-name descname">can_mismatch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.can_mismatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if any position in self could mismatch with other.</p>
+<p>Truncates at length of shorter sequence.
+gaps are always counted as matches.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.can_mispair">
+<code class="sig-name descname">can_mispair</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.can_mispair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if any position in self could mispair with other.</p>
+<p>Pairing occurs in reverse order, i.e. last position of other with
+first position of self, etc.</p>
+<p>Truncates at length of shorter sequence.
+gaps are always counted as possible mispairs, as are weak pairs like GU.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.can_pair">
+<code class="sig-name descname">can_pair</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.can_pair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if self and other could pair.</p>
+<p>Pairing occurs in reverse order, i.e. last position of other with
+first position of self, etc.</p>
+<p>Truncates at length of shorter sequence.
+gaps are only allowed to pair with other gaps, and are counted as ‘weak’
+(same category as GU and degenerate pairs).</p>
+<p>NOTE: second must be able to be reverse</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.clear_annotations">
+<code class="sig-name descname">clear_annotations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.clear_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.codon_alphabet">
+<code class="sig-name descname">codon_alphabet</code><span class="sig-paren">(</span><em class="sig-param">ignore</em>, <em class="sig-param">\*args</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.codon_alphabet" title="Permalink to this definition">¶</a></dt>
+<dd><p>If CodonAlphabet is set as a property, it gets self as extra 1st arg.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.complement">
+<code class="sig-name descname">complement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.complement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns complement of self, using data from MolType.</p>
+<p>Always tries to return same type as item: if item looks like a dict,
+will return list of keys.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a copy of self</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.copy_annotations">
+<code class="sig-name descname">copy_annotations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.copy_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.count">
+<code class="sig-name descname">count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>count() delegates to self._seq.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.count_degenerate">
+<code class="sig-name descname">count_degenerate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.count_degenerate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the degenerate bases in the specified sequence.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.count_gaps">
+<code class="sig-name descname">count_gaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.count_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the gaps in the specified sequence.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.counts">
+<code class="sig-name descname">counts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exclude_unobserved</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns dict of counts of motifs</p>
+<p>only non-overlapping motifs are counted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>motif_length</strong></dt><dd><p>number of elements per character.</p>
+</dd>
+<dt><strong>include_ambiguity</strong></dt><dd><p>if True, motifs containing ambiguous characters
+from the seq moltype are included. No expansion of those is attempted.</p>
+</dd>
+<dt><strong>allow_gaps</strong></dt><dd><p>if True, motifs containing a gap character are included.</p>
+</dd>
+<dt><strong>exclude_unobserved</strong></dt><dd><p>if True, unobserved motif combinations are excluded.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.degap">
+<code class="sig-name descname">degap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.degap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes all gap characters from sequence.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.detach_annotations">
+<code class="sig-name descname">detach_annotations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">annots</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.detach_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.diff">
+<code class="sig-name descname">diff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of differences between self and other.</p>
+<p>NOTE: truncates at the length of the shorter sequence. Case-sensitive.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.disambiguate">
+<code class="sig-name descname">disambiguate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'strip'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.disambiguate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a non-degenerate sequence from a degenerate one.</p>
+<p>method can be ‘strip’ (deletes any characters not in monomers or gaps)
+or ‘random’(assigns the possibilities at random, using equal
+frequencies).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.distance">
+<code class="sig-name descname">distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="n">function</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns distance between self and other using function(i,j).</p>
+<p>other must be a sequence.</p>
+<p>function should be a function that takes two items and returns a
+number. To turn a 2D matrix into a function, use
+cogent3.util.miscs.DistanceFromMatrix(matrix).</p>
+<p>NOTE: Truncates at the length of the shorter sequence.</p>
+<p>Note that the function acts on two _elements_ of the sequences, not
+the two sequences themselves (i.e. the behavior will be the same for
+every position in the sequences, such as identity scoring or a function
+derived from a distance matrix as suggested above). One limitation of
+this approach is that the distance function cannot use properties of
+the sequences themselves: for example, it cannot use the lengths of the
+sequences to normalize the scores as percent similarities or percent
+differences.</p>
+<p>If you want functions that act on the two sequences themselves, there
+is no particular advantage in making these functions methods of the
+first sequences by passing them in as parameters like the function
+in this method. It makes more sense to use them as standalone functions.
+The factory function cogent3.util.transform.for_seq is useful for
+converting per-element functions into per-sequence functions, since it
+takes as parameters a per-element scoring function, a score aggregation
+function, and a normalization function (which itself takes the two
+sequences as parameters), returning a single function that combines
+these functions and that acts on two complete sequences.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.first_degenerate">
+<code class="sig-name descname">first_degenerate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.first_degenerate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of first degenerate symbol in sequence, or None.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.first_gap">
+<code class="sig-name descname">first_gap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.first_gap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of the first gap in the sequence, or None.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.first_invalid">
+<code class="sig-name descname">first_invalid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.first_invalid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of first invalid symbol in sequence, or None.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.first_non_strict">
+<code class="sig-name descname">first_non_strict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.first_non_strict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of first non-strict symbol in sequence, or None.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.frac_diff">
+<code class="sig-name descname">frac_diff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.frac_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns fraction of positions where self and other differ.</p>
+<p>Truncates at length of shorter sequence.
+Note that frac_same and frac_diff are both 0 if one sequence is empty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.frac_diff_gaps">
+<code class="sig-name descname">frac_diff_gaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.frac_diff_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns frac. of positions where self and other’s gap states differ.</p>
+<p>In other words, if self and other are both all gaps, or both all
+non-gaps, or both have gaps in the same places, frac_diff_gaps will
+return 0.0. If self is all gaps and other has no gaps, frac_diff_gaps
+will return 1.0.</p>
+<p>Returns 0 if one sequence is empty.</p>
+<p>Uses self’s gap characters for both sequences.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.frac_diff_non_gaps">
+<code class="sig-name descname">frac_diff_non_gaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.frac_diff_non_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns fraction of non-gap positions where self differs from other.</p>
+<p>Doesn’t count any position where self or other has a gap.
+Truncates at the length of the shorter sequence.</p>
+<p>Returns 0 if one sequence is empty. Note that this means that
+frac_diff_non_gaps is _not_ the same as 1 - frac_same_non_gaps, since both
+return 0 if one sequence is empty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.frac_same">
+<code class="sig-name descname">frac_same</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.frac_same" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns fraction of positions where self and other are the same.</p>
+<p>Truncates at length of shorter sequence.
+Note that frac_same and frac_diff are both 0 if one sequence is empty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.frac_same_gaps">
+<code class="sig-name descname">frac_same_gaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.frac_same_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns fraction of positions where self and other share gap states.</p>
+<p>In other words, if self and other are both all gaps, or both all
+non-gaps, or both have gaps in the same places, frac_same_gaps will
+return 1.0. If self is all gaps and other has no gaps, frac_same_gaps
+will return 0.0. Returns 0 if one sequence is empty.</p>
+<p>Uses self’s gap characters for both sequences.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.frac_same_non_gaps">
+<code class="sig-name descname">frac_same_non_gaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.frac_same_non_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns fraction of non-gap positions where self matches other.</p>
+<p>Doesn’t count any position where self or other has a gap.
+Truncates at the length of the shorter sequence.</p>
+<p>Returns 0 if one sequence is empty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.frac_similar">
+<code class="sig-name descname">frac_similar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="n">similar_pairs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.frac_similar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns fraction of positions where self[i] is similar to other[i].</p>
+<p>similar_pairs must be a dict such that d[(i,j)] exists if i and j are
+to be counted as similar. Use PairsFromGroups in cogent3.util.misc to
+construct such a dict from a list of lists of similar residues.</p>
+<p>Truncates at the length of the shorter sequence.</p>
+<p>Note: current implementation re-creates the distance function each
+time, so may be expensive compared to creating the distance function
+using for_seq separately.</p>
+<p>Returns 0 if one sequence is empty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.gap_indices">
+<code class="sig-name descname">gap_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.gap_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of indices of all gaps in the sequence, or [].</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.gap_maps">
+<code class="sig-name descname">gap_maps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.gap_maps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns dicts mapping between gapped and ungapped positions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.gap_vector">
+<code class="sig-name descname">gap_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.gap_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns vector of True or False according to which pos are gaps.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.gapped_by_map">
+<code class="sig-name descname">gapped_by_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">map</span></em>, <em class="sig-param"><span class="n">recode_gaps</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.gapped_by_map" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.gapped_by_map_motif_iter">
+<code class="sig-name descname">gapped_by_map_motif_iter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">map</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.gapped_by_map_motif_iter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.gapped_by_map_segment_iter">
+<code class="sig-name descname">gapped_by_map_segment_iter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">map</span></em>, <em class="sig-param"><span class="n">allow_gaps</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">recode_gaps</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.gapped_by_map_segment_iter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_annotations_matching">
+<code class="sig-name descname">get_annotations_matching</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">annotation_type</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extend_query</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_annotations_matching" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>annotation_type</strong><span class="classifier">string</span></dt><dd><p>name of the annotation type. Wild-cards allowed.</p>
+</dd>
+<dt><strong>name</strong><span class="classifier">string</span></dt><dd><p>name of the instance. Wild-cards allowed.</p>
+</dd>
+<dt><strong>extend_query</strong><span class="classifier">boolean</span></dt><dd><p>queries sub-annotations if True</p>
+</dd>
+<dt><strong>Returns</strong></dt><dd></dd>
+<dt><strong>——-</strong></dt><dd></dd>
+<dt><strong>list of AnnotatableFeatures</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_by_annotation">
+<code class="sig-name descname">get_by_annotation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">annotation_type</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ignore_partial</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_by_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>yields the sequence segments corresponding to the specified
+annotation_type and name one at a time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ignore_partial</strong></dt><dd><p>if True, annotations that extend beyond the
+current sequence are ignored.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_color_scheme">
+<code class="sig-name descname">get_color_scheme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">colors</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_color_scheme" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_colour_scheme">
+<code class="sig-name descname">get_colour_scheme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">colours</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_colour_scheme" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_drawable">
+<code class="sig-name descname">get_drawable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">600</span></em>, <em class="sig-param"><span class="n">vertical</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_drawable" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns Drawable instance</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_drawables">
+<code class="sig-name descname">get_drawables</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_drawables" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a dict of drawables, keyed by type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_in_motif_size">
+<code class="sig-name descname">get_in_motif_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">log_warnings</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_in_motif_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns sequence as list of non-overlapping motifs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>motif_length</strong></dt><dd><p>length of the motifs</p>
+</dd>
+<dt><strong>log_warnings</strong></dt><dd><p>whether to notify of an incomplete terminal motif</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_name">
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the sequence name – should just use name instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_orf_positions">
+<code class="sig-name descname">get_orf_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">gc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">atg</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_orf_positions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_region_covering_all">
+<code class="sig-name descname">get_region_covering_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">annotations</span></em>, <em class="sig-param"><span class="n">feature_class</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extend_query</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_region_covering_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.get_translation">
+<code class="sig-name descname">get_translation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">gc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">incomplete_ok</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.get_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>translate to amino acid sequence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gc</strong></dt><dd><p>name or ID of genetic code</p>
+</dd>
+<dt><strong>incomplete_ok</strong><span class="classifier">bool</span></dt><dd><p>codons that are mixes of nucleotide and gaps converted to ‘?’.
+raises a ValueError if False</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>sequence of PROTEIN moltype</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.gettype">
+<code class="sig-name descname">gettype</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.gettype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the sequence type.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.has_terminal_stop">
+<code class="sig-name descname">has_terminal_stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">gc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">allow_partial</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.has_terminal_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the sequence has a terminal stop codon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gc</strong></dt><dd><p>genetic code object</p>
+</dd>
+<dt><strong>allow_partial</strong></dt><dd><p>if True and the sequence length is not dividisble
+by 3, ignores the 3’ terminal incomplete codon</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.is_annotated">
+<code class="sig-name descname">is_annotated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.is_annotated" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns True if sequence has any annotations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.is_degenerate">
+<code class="sig-name descname">is_degenerate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.is_degenerate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if sequence contains degenerate characters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.is_gap">
+<code class="sig-name descname">is_gap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">char</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.is_gap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if char is a gap.</p>
+<p>If char is not supplied, tests whether self is gaps only.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.is_gapped">
+<code class="sig-name descname">is_gapped</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.is_gapped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if sequence contains gaps.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.is_strict">
+<code class="sig-name descname">is_strict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.is_strict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if sequence contains only monomers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.is_valid">
+<code class="sig-name descname">is_valid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if sequence contains no items absent from alphabet.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cogent3.core.sequence.RnaSequence.line_wrap">
+<code class="sig-name descname">line_wrap</code><em class="property"> = None</em><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.line_wrap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.matrix_distance">
+<code class="sig-name descname">matrix_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="n">matrix</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.matrix_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns distance between self and other using a score matrix.</p>
+<p>WARNING: the matrix must explicitly contain scores for the case where
+a position is the same in self and other (e.g. for a distance matrix,
+an identity between U and U might have a score of 0). The reason the
+scores for the ‘diagonals’ need to be passed explicitly is that for
+some kinds of distance matrices, e.g. log-odds matrices, the ‘diagonal’
+scores differ from each other. If these elements are missing, this
+function will raise a KeyError at the first position that the two
+sequences are identical.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cogent3.core.sequence.RnaSequence.moltype">
+<code class="sig-name descname">moltype</code><em class="property"> = MolType(('U', 'C', 'A', 'G'))</em><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.moltype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.must_match">
+<code class="sig-name descname">must_match</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.must_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if all positions in self must match positions in other.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.must_pair">
+<code class="sig-name descname">must_pair</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.must_pair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if all positions in self must pair with other.</p>
+<p>Pairing occurs in reverse order, i.e. last position of other with
+first position of self, etc.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.mw">
+<code class="sig-name descname">mw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'random'</span></em>, <em class="sig-param"><span class="n">delta</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.mw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the molecular weight of (one strand of) the sequence.</p>
+<p>If the sequence is ambiguous, uses method (random or strip) to
+disambiguate the sequence.</p>
+<p>If delta is passed in, adds delta per strand (default is None, which
+uses the alphabet default. Typically, this adds 18 Da for terminal
+water. However, note that the default nucleic acid weight assumes
+5’ monophosphate and 3’ OH: pass in delta=18.0 if you want 5’ OH as
+well.</p>
+<p>Note that this method only calculates the MW of the coding strand. If
+you want the MW of the reverse strand, add self.rc().mw(). DO NOT
+just multiply the MW by 2: the results may not be accurate due to
+strand bias, e.g. in mitochondrial genomes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.parse_out_gaps">
+<code class="sig-name descname">parse_out_gaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.parse_out_gaps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.possibilities">
+<code class="sig-name descname">possibilities</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.possibilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts number of possible sequences matching the sequence.</p>
+<p>Uses self.degenerates to decide how many possibilites there are at
+each position in the sequence.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cogent3.core.sequence.RnaSequence.protein">
+<code class="sig-name descname">protein</code><em class="property"> = MolType(('A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'Y'))</em><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.protein" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.rc">
+<code class="sig-name descname">rc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.rc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a nucleic acid sequence to its reverse complement.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.replace">
+<code class="sig-name descname">replace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">oldchar</span></em>, <em class="sig-param"><span class="n">newchar</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>return new instance with oldchar replaced by newchar</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.resolveambiguities">
+<code class="sig-name descname">resolveambiguities</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.resolveambiguities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of tuples of strings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.reverse_complement">
+<code class="sig-name descname">reverse_complement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.reverse_complement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a nucleic acid sequence to its reverse complement.
+Synonymn for rc.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.shuffle">
+<code class="sig-name descname">shuffle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.shuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a randomized copy of the Sequence object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.sliding_windows">
+<code class="sig-name descname">sliding_windows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">window</span></em>, <em class="sig-param"><span class="n">step</span></em>, <em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.sliding_windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator function that yield new sequence objects
+of a given length at a given interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>window</strong></dt><dd><p>The length of the returned sequence</p>
+</dd>
+<dt><strong>step</strong></dt><dd><p>The interval between the start of the returned
+sequence objects</p>
+</dd>
+<dt><strong>start</strong></dt><dd><p>first window start position</p>
+</dd>
+<dt><strong>end</strong></dt><dd><p>last window start position</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.strand_symmetry">
+<code class="sig-name descname">strand_symmetry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.strand_symmetry" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns G-test for strand symmetry</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.strip_bad">
+<code class="sig-name descname">strip_bad</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.strip_bad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes any symbols not in the alphabet.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.strip_bad_and_gaps">
+<code class="sig-name descname">strip_bad_and_gaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.strip_bad_and_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes any symbols not in the alphabet, and any gaps.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.strip_degenerate">
+<code class="sig-name descname">strip_degenerate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.strip_degenerate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes degenerate bases by stripping them out of the sequence.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.to_dna">
+<code class="sig-name descname">to_dna</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.to_dna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns copy of self as DNA.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.to_fasta">
+<code class="sig-name descname">to_fasta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">make_seqlabel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">block_size</span><span class="o">=</span><span class="default_value">60</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.to_fasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return string of self in FASTA format, no trailing newline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>make_seqlabel</strong></dt><dd><p>callback function that takes the seq object and
+returns a label str</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.to_json">
+<code class="sig-name descname">to_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a json formatted string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.to_moltype">
+<code class="sig-name descname">to_moltype</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">moltype</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.to_moltype" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns copy of self with moltype seq</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>moltype</strong><span class="classifier">str</span></dt><dd><p>molecular type</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.to_rich_dict">
+<code class="sig-name descname">to_rich_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.to_rich_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns {‘name’: name, ‘seq’: sequence, ‘moltype’: moltype.label}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.to_rna">
+<code class="sig-name descname">to_rna</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.to_rna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns copy of self as RNA.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.translate">
+<code class="sig-name descname">translate</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">\*args</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>translate() delegates to self._seq.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.trim_stop_codon">
+<code class="sig-name descname">trim_stop_codon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">gc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">allow_partial</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.trim_stop_codon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a terminal stop codon from the sequence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gc</strong></dt><dd><p>genetic code object</p>
+</dd>
+<dt><strong>allow_partial</strong></dt><dd><p>if True and the sequence length is not divisible
+by 3, ignores the 3’ terminal incomplete codon</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.with_masked_annotations">
+<code class="sig-name descname">with_masked_annotations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">annot_types</span></em>, <em class="sig-param"><span class="n">mask_char</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">shadow</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">extend_query</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.with_masked_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a sequence with annot_types regions replaced by mask_char
+if shadow is False, otherwise all other regions are masked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>annot_types</strong></dt><dd><p>annotation type(s)</p>
+</dd>
+<dt><strong>mask_char</strong></dt><dd><p>must be a character valid for the seq MolType. The
+default value is the most ambiguous character, eg. ‘?’ for DNA</p>
+</dd>
+<dt><strong>shadow</strong></dt><dd><p>whether to mask the annotated regions, or everything but
+the annotated regions</p>
+</dd>
+<dt><strong>extend_query</strong><span class="classifier">boolean</span></dt><dd><p>queries sub-annotations if True</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.sequence.RnaSequence.with_termini_unknown">
+<code class="sig-name descname">with_termini_unknown</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.sequence.RnaSequence.with_termini_unknown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns copy of sequence with terminal gaps remapped as missing.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/api/sequence/classes/cogent3.core.sequence.RnaSequence.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

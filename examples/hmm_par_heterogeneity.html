@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Evaluate process heterogeneity using a Hidden Markov Model &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Calculate pairwise distances between sequences" href="calculate_pairwise_distances.html" />
+    <link rel="prev" title="Analysis of rate heterogeneity" href="rate_heterogeneity.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cookbook/index.html">Cookbook</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Usage Examples</a><ul>
+      <li>Previous: <a href="rate_heterogeneity.html" title="previous chapter">Analysis of rate heterogeneity</a></li>
+      <li>Next: <a href="calculate_pairwise_distances.html" title="next chapter">Calculate pairwise distances between sequences</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="evaluate-process-heterogeneity-using-a-hidden-markov-model">
+<span id="rate-heterogeneity-hmm"></span><h1>Evaluate process heterogeneity using a Hidden Markov Model<a class="headerlink" href="#evaluate-process-heterogeneity-using-a-hidden-markov-model" title="Permalink to this headline">¶</a></h1>
+<p><em>Section author: Gavin Huttley</em></p>
+<p>The existence of rate heterogeneity in the evolution of biological sequences is well known. Typically such an evolutionary property is evaluated using so-called site-heterogeneity models. These models postulate the existence of discrete classes of sites, where sites within a class evolve according to a specific rate that is distinct from the rates of the other classes. These models retain the assumption that alignment columns evolve independently. One can naturally ask the question of whether rate classes occur randomly throughout the sequence or whether they are in fact auto-correlated - meaning sites of a class tend to cluster together. Because we do not have, <em>a priori</em>, a basis for classifying the sites the models are specified such that each column can belong to any of the designated site classes and the likelihood is computed across all possible classifications. Post numerical optimisation we can calculate the posterior probability a site column belongs to a specific site class. In <code class="docutils literal notranslate"><span class="pre">cogent3</span></code>, site classes are referred to as <code class="docutils literal notranslate"><span class="pre">bins</span></code> and so we refer to bin probabilities etc …</p>
+<p>To illustrate how to evaluate these hypotheses formally we specify 3 nested hypotheses: (i) Ho: no rate heterogeneity; (ii) Ha(1): two classes of sites - fast and slow, but independent sites; (iii) Ha(2): fast and slowly evolving sites are auto-correlated (meaning a sites class is correlated with that of its’ immediate neighbours).</p>
+<p>It is also possible to apply these models to different types of changes and we illustrate this with a single parameterisation at the end.</p>
+<p>First import standard components necessary for all of the following calculations. As the likelihood ratio tests (LRT) involve nested hypotheses we will employ the chi-square approximation for assessing statistical significance.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.evolve.substitution_model</span> <span class="kn">import</span> <span class="n">TimeReversibleNucleotide</span><span class="p">,</span> <span class="n">predicate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span><span class="p">,</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.stats</span> <span class="kn">import</span> <span class="n">chisqprob</span>
+</pre></div>
+</div>
+<p>Load the alignment and tree.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s2">&quot;data/long_testseqs.fasta&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s2">&quot;data/test.tree&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="model-ho-no-rate-heterogeneity">
+<h2>Model Ho: no rate heterogeneity<a class="headerlink" href="#model-ho-no-rate-heterogeneity" title="Permalink to this headline">¶</a></h2>
+<p>We define a HKY model of nucleotide substitution, which has a transition parameter. This is defined using the <code class="docutils literal notranslate"><span class="pre">MotifChange</span></code> class, by specifying a transition as <strong>not</strong> a transversion (<code class="docutils literal notranslate"><span class="pre">~MotifChange('R','Y')</span></code>).</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MotifChange</span> <span class="o">=</span> <span class="n">predicate</span><span class="o">.</span><span class="n">MotifChange</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treat_gap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">recode_gaps</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">model_gaps</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kappa</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">MotifChange</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">aliased</span><span class="p">(</span><span class="s1">&#39;kappa&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">TimeReversibleNucleotide</span><span class="p">(</span><span class="n">predicates</span><span class="o">=</span><span class="p">[</span><span class="n">kappa</span><span class="p">],</span> <span class="o">**</span><span class="n">treat_gap</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We specify a null model with no bins, and optimise it.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lf_one</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">make_likelihood_function</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_one</span><span class="o">.</span><span class="n">set_alignment</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_one</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lnL_one</span> <span class="o">=</span> <span class="n">lf_one</span><span class="o">.</span><span class="n">get_log_likelihood</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_one</span> <span class="o">=</span> <span class="n">lf_one</span><span class="o">.</span><span class="n">get_num_free_params</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lf_one</span><span class="p">)</span>
+<span class="go">Likelihood function statistics</span>
+<span class="go">log-likelihood = -8750.5889</span>
+<span class="go">number of free parameters = 8</span>
+<span class="go">=====</span>
+<span class="go">kappa</span>
+<span class="go">-----</span>
+<span class="go"> 4.10</span>
+<span class="go">-----</span>
+<span class="go">===========================</span>
+<span class="go">     edge   parent   length</span>
+<span class="go">---------------------------</span>
+<span class="go">    Human   edge.0     0.03</span>
+<span class="go">HowlerMon   edge.0     0.04</span>
+<span class="go">   edge.0   edge.1     0.04</span>
+<span class="go">    Mouse   edge.1     0.28</span>
+<span class="go">   edge.1     root     0.02...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="model-ha-1-two-classes-of-gamma-distributed-but-independent-sites">
+<h2>Model Ha(1): two classes of gamma distributed but independent sites<a class="headerlink" href="#model-ha-1-two-classes-of-gamma-distributed-but-independent-sites" title="Permalink to this headline">¶</a></h2>
+<p>Our next hypothesis is that there are two rate classes, or bins, with rates gamma distributed. We will restrict the bin probabilities to be equal.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bin_submod</span> <span class="o">=</span> <span class="n">TimeReversibleNucleotide</span><span class="p">(</span><span class="n">predicates</span><span class="o">=</span><span class="p">[</span><span class="n">kappa</span><span class="p">],</span> <span class="n">ordered_param</span><span class="o">=</span><span class="s1">&#39;rate&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">treat_gap</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_bins</span> <span class="o">=</span> <span class="n">bin_submod</span><span class="o">.</span><span class="n">make_likelihood_function</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>                            <span class="n">sites_independent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_bins</span><span class="o">.</span><span class="n">set_param_rule</span><span class="p">(</span><span class="s1">&#39;bprobs&#39;</span><span class="p">,</span> <span class="n">is_constant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_bins</span><span class="o">.</span><span class="n">set_alignment</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_bins</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lnL_bins</span> <span class="o">=</span> <span class="n">lf_bins</span><span class="o">.</span><span class="n">get_log_likelihood</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_bins</span> <span class="o">=</span> <span class="n">lf_bins</span><span class="o">.</span><span class="n">get_num_free_params</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">df_bins</span> <span class="o">==</span> <span class="mi">9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lf_bins</span><span class="p">)</span>
+<span class="go">Likelihood function statistics</span>
+<span class="go">log-likelihood = -8739.0900</span>
+<span class="go">number of free parameters = 9</span>
+<span class="go">==================</span>
+<span class="go">kappa   rate_shape</span>
+<span class="go">------------------</span>
+<span class="go"> 4.38         1.26</span>
+<span class="go">------------------</span>
+<span class="go">====================</span>
+<span class="go"> bin   bprobs   rate</span>
+<span class="go">--------------------</span>
+<span class="go">bin0     0.50   0.41</span>
+<span class="go">bin1     0.50   1.59</span>
+<span class="go">--------------------</span>
+<span class="go">===========================</span>
+<span class="go">     edge   parent   length</span>
+<span class="go">---------------------------</span>
+<span class="go">    Human   edge.0     0.03</span>
+<span class="go">HowlerMon   edge.0     0.04</span>
+<span class="go">   edge.0   edge.1     0.04</span>
+<span class="go">    Mouse   edge.1     0.31...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="model-ha-2-fast-and-slowly-evolving-sites-are-auto-correlated">
+<h2>Model Ha(2): fast and slowly evolving sites are auto-correlated<a class="headerlink" href="#model-ha-2-fast-and-slowly-evolving-sites-are-auto-correlated" title="Permalink to this headline">¶</a></h2>
+<p>We then specify a model with switches for changing between site-classes, the HMM part. The setup is almost identical to that for above with the sole difference being setting the <code class="docutils literal notranslate"><span class="pre">sites_independent=False</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lf_patches</span> <span class="o">=</span> <span class="n">bin_submod</span><span class="o">.</span><span class="n">make_likelihood_function</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">sites_independent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_patches</span><span class="o">.</span><span class="n">set_param_rule</span><span class="p">(</span><span class="s1">&#39;bprobs&#39;</span><span class="p">,</span> <span class="n">is_constant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_patches</span><span class="o">.</span><span class="n">set_alignment</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_patches</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lnL_patches</span> <span class="o">=</span> <span class="n">lf_patches</span><span class="o">.</span><span class="n">get_log_likelihood</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_patches</span> <span class="o">=</span> <span class="n">lf_patches</span><span class="o">.</span><span class="n">get_num_free_params</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lf_patches</span><span class="p">)</span>
+<span class="go">Likelihood function statistics</span>
+<span class="go">log-likelihood = -8728.1367</span>
+<span class="go">number of free parameters = 10</span>
+<span class="go">===============================</span>
+<span class="go">bin_switch   kappa   rate_shape</span>
+<span class="go">-------------------------------</span>
+<span class="go">      0.56    4.42         1.16</span>
+<span class="go">-------------------------------</span>
+<span class="go">====================</span>
+<span class="go"> bin   bprobs   rate</span>
+<span class="go">--------------------</span>
+<span class="go">bin0     0.50   0.39</span>
+<span class="go">bin1     0.50   1.61</span>
+<span class="go">--------------------</span>
+<span class="go">===========================</span>
+<span class="go">     edge   parent   length</span>
+<span class="go">---------------------------</span>
+<span class="go">    Human   edge.0     0.03</span>
+<span class="go">HowlerMon   edge.0     0.04</span>
+<span class="go">   edge.0   edge.1     0.04</span>
+<span class="go">    Mouse   edge.1     0.31</span>
+<span class="go">   edge.1     root     0.02</span>
+<span class="go">NineBande     root     0.10</span>
+<span class="go"> DogFaced     root     0.12</span>
+<span class="go">---------------------------...</span>
+</pre></div>
+</div>
+<p>We use the following short function to compute the LR test statistic.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">LR</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">alt</span><span class="p">,</span> <span class="n">null</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">alt</span> <span class="o">-</span> <span class="n">null</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We conduct the test between the sequentially nested models.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lr</span> <span class="o">=</span> <span class="n">LR</span><span class="p">(</span><span class="n">lnL_bins</span><span class="p">,</span> <span class="n">lnL_one</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lr</span><span class="p">)</span>
+<span class="go">22...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">chisqprob</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">df_patches</span><span class="o">-</span><span class="n">df_bins</span><span class="p">))</span>
+<span class="go">0.0000</span>
+</pre></div>
+</div>
+<p>The stationary bin probabilities are labelled as <code class="docutils literal notranslate"><span class="pre">bprobs</span></code> and can be obtained as follows.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bprobs</span> <span class="o">=</span> <span class="n">lf_patches</span><span class="o">.</span><span class="n">get_param_value</span><span class="p">(</span><span class="s1">&#39;bprobs&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2"> : </span><span class="si">%.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">bprobs</span><span class="p">))</span>
+<span class="go">0.5 : 0.5</span>
+</pre></div>
+</div>
+<p>Of greater interest here (given the model was set up so the bin probabilities were equal, i.e. <code class="docutils literal notranslate"><span class="pre">is_constant=True</span></code>) are the posterior probabilities as those allow classification of sites. The result is a <code class="docutils literal notranslate"><span class="pre">DictArray</span></code> class instance, which behaves like a dictionary.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span> <span class="o">=</span> <span class="n">lf_patches</span><span class="o">.</span><span class="n">get_bin_probs</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If we want to know the posterior probability the 21st position belongs to <code class="docutils literal notranslate"><span class="pre">bin0</span></code>, we can determine it as:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pp</span><span class="p">[</span><span class="s1">&#39;bin0&#39;</span><span class="p">][</span><span class="mi">20</span><span class="p">])</span>
+<span class="go">0.8...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-model-with-patches-of-kappa">
+<h2>A model with patches of <code class="docutils literal notranslate"><span class="pre">kappa</span></code><a class="headerlink" href="#a-model-with-patches-of-kappa" title="Permalink to this headline">¶</a></h2>
+<p>In this example we model sequence evolution where there are 2 classes of sites distinguished by their <code class="docutils literal notranslate"><span class="pre">kappa</span></code> parameters. We need to know what value of <code class="docutils literal notranslate"><span class="pre">kappa</span></code> to specify the delineation of the bin boundaries. We can determine this from the null model (<code class="docutils literal notranslate"><span class="pre">lf_one</span></code>). For this use case, we also need to use a <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code>, so we’ll import that.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">single_kappa</span> <span class="o">=</span> <span class="n">lf_one</span><span class="o">.</span><span class="n">get_param_value</span><span class="p">(</span><span class="s1">&#39;kappa&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We then construct the substitution model in a different way to that when evaluating generic rate heterogeneity (above).</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">kappa_bin_submod</span> <span class="o">=</span> <span class="n">TimeReversibleNucleotide</span><span class="p">(</span><span class="n">predicates</span><span class="o">=</span><span class="p">[</span><span class="n">kappa</span><span class="p">],</span> <span class="o">**</span><span class="n">treat_gap</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_kappa</span> <span class="o">=</span> <span class="n">kappa_bin_submod</span><span class="o">.</span><span class="n">make_likelihood_function</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;slow&#39;</span><span class="p">,</span> <span class="s1">&#39;fast&#39;</span><span class="p">],</span> <span class="n">sites_independent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">space</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To improve the likelihood fitting it is desirable to set starting values in the model that result in it’s initial likelihood being that of the null model (or as close as possible). To do this, we’re going to define an arbitrarily small value (<code class="docutils literal notranslate"><span class="pre">epsilon</span></code>) which we use to provide the starting value to the two bins as slightly smaller/greater than <code class="docutils literal notranslate"><span class="pre">single_kappa</span></code> for the slow/fast bins respectively. At the same time we set the upper/lower bin boundaries.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_kappa</span><span class="o">.</span><span class="n">set_param_rule</span><span class="p">(</span><span class="n">kappa</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="n">single_kappa</span><span class="o">-</span><span class="n">epsilon</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">upper</span><span class="o">=</span><span class="n">single_kappa</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="s1">&#39;slow&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_kappa</span><span class="o">.</span><span class="n">set_param_rule</span><span class="p">(</span><span class="n">kappa</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="n">single_kappa</span><span class="o">+</span><span class="n">epsilon</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">lower</span><span class="o">=</span><span class="n">single_kappa</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="s1">&#39;fast&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We then illustrate how to adjust the bin probabilities, here doing it so that one of them is nearly 1, the other nearly 0. This ensures the likelihood will be near identical to that of <code class="docutils literal notranslate"><span class="pre">lf_one</span></code> and as a result the optimisation step will actually improve fit over the simpler model.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lf_kappa</span><span class="o">.</span><span class="n">set_param_rule</span><span class="p">(</span><span class="s1">&#39;bprobs&#39;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">init</span><span class="o">=</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="o">-</span><span class="n">epsilon</span><span class="p">,</span> <span class="mf">0.0</span><span class="o">+</span><span class="n">epsilon</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_kappa</span><span class="o">.</span><span class="n">set_alignment</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf_kappa</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lf_kappa</span><span class="p">)</span>
+<span class="go">Likelihood function statistics</span>
+<span class="go">log-likelihood = -8749.3117</span>
+<span class="go">number of free parameters = 11</span>
+<span class="go">==========</span>
+<span class="go">bin_switch</span>
+<span class="go">----------</span>
+<span class="go">       0.6</span>
+<span class="go">----------</span>
+<span class="go">=====================</span>
+<span class="go"> bin   bprobs   kappa</span>
+<span class="go">---------------------</span>
+<span class="go">slow      0.8     3.0</span>
+<span class="go">fast      0.2    23.2</span>
+<span class="go">---------------------</span>
+<span class="go">===========================</span>
+<span class="go">     edge   parent   length</span>
+<span class="go">---------------------------</span>
+<span class="go">    Human   edge.0      0.0</span>
+<span class="go">HowlerMon   edge.0      0.0</span>
+<span class="go">   edge.0   edge.1      0.0</span>
+<span class="go">    Mouse   edge.1      0.3</span>
+<span class="go">   edge.1     root      0.0</span>
+<span class="go">NineBande     root      0.1</span>
+<span class="go"> DogFaced     root      0.1</span>
+<span class="go">---------------------------</span>
+<span class="go">=====================</span>
+<span class="go">  A     C     G     T</span>
+<span class="go">---------------------</span>
+<span class="go">0.4   0.2   0.2   0.2</span>
+<span class="go">---------------------</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lf_kappa</span><span class="o">.</span><span class="n">get_log_likelihood</span><span class="p">())</span>
+<span class="go">-8749.3...</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/examples/hmm_par_heterogeneity.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

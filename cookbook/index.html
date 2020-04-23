@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cookbook &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Manipulating biological data" href="manipulating_biological_data.html" />
+    <link rel="prev" title="The Library" href="../library.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+      <li>Previous: <a href="../library.html" title="previous chapter">The Library</a></li>
+      <li>Next: <a href="manipulating_biological_data.html" title="next chapter">Manipulating biological data</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cookbook">
+<h1>Cookbook<a class="headerlink" href="#cookbook" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="manipulating_biological_data.html">Manipulating biological data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manipulating_biological_data.html#sequences-and-alignments">Sequences and Alignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manipulating_biological_data.html#genetic-code">Genetic code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manipulating_biological_data.html#trees">Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manipulating_biological_data.html#tables">Tables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="building_alignments.html">Building alignments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="building_alignments.html#using-the-cogent3-aligners">Using the cogent3 aligners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_alignments.html#converting-gaps-from-aa-seq-alignment-to-nuc-seq-alignment">Converting gaps from aa-seq alignment to nuc seq alignment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="calc_genetic_distance.html">Genetic distance calculation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="calc_genetic_distance.html#Fast-pairwise-distance-estimation">Fast pairwise distance estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calc_genetic_distance.html#Computing-genetic-distances-using-the-Alignment-object">Computing genetic distances using the <code class="docutils literal notranslate"><span class="pre">Alignment</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calc_genetic_distance.html#Using-the-distance-calculator-directly">Using the distance calculator directly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calc_genetic_distance.html#Likelihood-based-pairwise-distance-estimation">Likelihood based pairwise distance estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="building_phylogenies.html">Building phylogenies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="building_phylogenies.html#building-a-phylogenetic-tree-from-pairwise-distances">Building A Phylogenetic Tree From Pairwise Distances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_phylogenies.html#directly-via-alignment-quick-tree">Directly via <code class="docutils literal notranslate"><span class="pre">alignment.quick_tree()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_phylogenies.html#by-least-squares">By Least-squares</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_phylogenies.html#by-ml">By ML</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="evo_modelling.html">Evolutionary Analysis Using Likelihood</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="evo_modelling.html#Specifying-substitution-models">Specifying substitution models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evo_modelling.html#Making-a-likelihood-function">Making a likelihood function</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="useful_utilities.html">Useful Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="useful_utilities.html#uniondict-a-dict-with-set-like-operations-and-keys-as-attributes"><code class="docutils literal notranslate"><span class="pre">UnionDict</span></code> – a dict with set like operations and keys as attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="useful_utilities.html#using-cogent3-s-optimisers-for-your-own-functions">Using Cogent3’s optimisers for your own functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="useful_utilities.html#miscellaneous-functions">Miscellaneous functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cookbook/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

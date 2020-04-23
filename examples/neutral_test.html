@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>A test of the neutral theory &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Allowing substitution model parameters to differ between branches" href="scope_model_params_on_trees.html" />
+    <link rel="prev" title="Performing a relative rate test" href="relative_rate.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cookbook/index.html">Cookbook</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Usage Examples</a><ul>
+      <li>Previous: <a href="relative_rate.html" title="previous chapter">Performing a relative rate test</a></li>
+      <li>Next: <a href="scope_model_params_on_trees.html" title="next chapter">Allowing substitution model parameters to differ between branches</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="a-test-of-the-neutral-theory">
+<h1>A test of the neutral theory<a class="headerlink" href="#a-test-of-the-neutral-theory" title="Permalink to this headline">¶</a></h1>
+<p><em>Section author: Gavin Huttley</em></p>
+<p>This file contains an example for performing a likelihood ratio test of neutrality. The test compares a model where the codon model parameter omega is constrained to be the same for all edges against one where each edge has its’ own omega. From <code class="docutils literal notranslate"><span class="pre">cogent3</span></code> import all the components we need.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span><span class="p">,</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.evolve.models</span> <span class="kn">import</span> <span class="n">MG94GTR</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths</span> <span class="kn">import</span> <span class="n">stats</span>
+</pre></div>
+</div>
+<p>Get your alignment and tree.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">al</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s2">&quot;data/long_testseqs.fasta&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s2">&quot;data/test.tree&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We use a Goldman Yang 1994 model.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sm</span> <span class="o">=</span> <span class="n">MG94GTR</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Make the controller object</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">make_likelihood_function</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Get the likelihood function object this object performs the actual likelihood calculation.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span><span class="o">.</span><span class="n">set_alignment</span><span class="p">(</span><span class="n">al</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By default, parameters other than branch lengths are treated as global in scope, so we don’t need to do anything special here. We can influence how rigorous the optimisation will be, and switch between the global and local optimisers provided in the toolkit using arguments to the optimise method. The <code class="docutils literal notranslate"><span class="pre">global_tolerance=1.0</span></code> argument specifies conditions for an early break from simulated annealing which will be automatically followed by the Powell local optimiser. .. note:: the ‘results’ are of course nonsense.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">global_tolerance</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>View the resulting maximum-likelihood parameter values</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lf</span><span class="p">)</span>
+<span class="go">Likelihood function statistics</span>
+<span class="go">log-likelihood = -8636.1801</span>
+<span class="go">number of free parameters = 13</span>
+<span class="go">===================================</span>
+<span class="go"> A/C   A/G   A/T   C/G   C/T  omega</span>
+<span class="go">-----------------------------------</span>
+<span class="go">1.02  3.36  0.73  0.95  3.71   0.90</span>
+<span class="go">-----------------------------------</span>
+<span class="go">=========================</span>
+<span class="go">     edge  parent  length</span>
+<span class="go">-------------------------</span>
+<span class="go">    Human  edge.0    0.09</span>
+<span class="go">HowlerMon  edge.0    0.12</span>
+<span class="go">   edge.0  edge.1    0.12</span>
+<span class="go">    Mouse  edge.1    0.84</span>
+<span class="go">   edge.1    root    0.06</span>
+<span class="go">NineBande    root    0.28</span>
+<span class="go"> DogFaced    root    0.34</span>
+<span class="go">-------------------------</span>
+<span class="go">======================</span>
+<span class="go">   A     C     G     T</span>
+<span class="go">----------------------</span>
+<span class="go">0.37  0.19  0.21  0.23</span>
+<span class="go">----------------------</span>
+</pre></div>
+</div>
+<p>We’ll get the lnL and number of free parameters for later use.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">null_lnL</span> <span class="o">=</span> <span class="n">lf</span><span class="o">.</span><span class="n">get_log_likelihood</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">null_nfp</span> <span class="o">=</span> <span class="n">lf</span><span class="o">.</span><span class="n">get_num_free_params</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Specify each edge has it’s own omega by just modifying the existing <code class="docutils literal notranslate"><span class="pre">lf</span></code>. This means the new function will start with the above values.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span><span class="o">.</span><span class="n">set_param_rule</span><span class="p">(</span><span class="s2">&quot;omega&quot;</span><span class="p">,</span> <span class="n">is_independent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Optimise the likelihood function, this time just using the local optimiser.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>View the resulting maximum-likelihood parameter values.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lf</span><span class="p">)</span>
+<span class="go">Likelihood function statistics</span>
+<span class="go">log-likelihood = -8632.1355</span>
+<span class="go">number of free parameters = 19</span>
+<span class="go">============================</span>
+<span class="go"> A/C   A/G   A/T   C/G   C/T</span>
+<span class="go">----------------------------</span>
+<span class="go">1.03  3.38  0.73  0.95  3.72</span>
+<span class="go">----------------------------</span>
+<span class="go">================================</span>
+<span class="go">     edge  parent  length  omega</span>
+<span class="go">--------------------------------</span>
+<span class="go">    Human  edge.0    0.09   0.59</span>
+<span class="go">HowlerMon  edge.0    0.12   0.96</span>
+<span class="go">   edge.0  edge.1    0.11   1.13</span>
+<span class="go">    Mouse  edge.1    0.83   0.92</span>
+<span class="go">   edge.1    root    0.06   0.39</span>
+<span class="go">NineBande    root    0.28   1.28</span>
+<span class="go"> DogFaced    root    0.34   0.84</span>
+<span class="go">--------------------------------</span>
+<span class="go">======================</span>
+<span class="go">   A     C     G     T</span>
+<span class="go">----------------------</span>
+<span class="go">0.37  0.19  0.21  0.23</span>
+<span class="go">----------------------</span>
+</pre></div>
+</div>
+<p>Get out an annotated tree, it looks just like a tree, but has the maximum-likelihood parameter estimates attached to each tree edge. This object can be used for plotting, or to provide starting estimates to a related model.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">at</span> <span class="o">=</span> <span class="n">lf</span><span class="o">.</span><span class="n">get_annotated_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The lnL’s from the two models are now used to calculate the likelihood ratio statistic (<code class="docutils literal notranslate"><span class="pre">LR</span></code>) it’s degrees-of-freedom (<code class="docutils literal notranslate"><span class="pre">df</span></code>) and the probability (<code class="docutils literal notranslate"><span class="pre">P</span></code>) of observing the LR.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">LR</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">lf</span><span class="o">.</span><span class="n">get_log_likelihood</span><span class="p">()</span> <span class="o">-</span> <span class="n">null_lnL</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">lf</span><span class="o">.</span><span class="n">get_num_free_params</span><span class="p">()</span> <span class="o">-</span> <span class="n">null_nfp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">P</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">chisqprob</span><span class="p">(</span><span class="n">LR</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Print this and look up a chi-sq with number of edges - 1 degrees of freedom.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Likelihood ratio statistic = &quot;</span><span class="p">,</span> <span class="n">LR</span><span class="p">)</span>
+<span class="go">Likelihood ratio statistic =  8...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;degrees-of-freedom = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+<span class="go">degrees-of-freedom =  6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;probability = &quot;</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+<span class="go">probability =  0.2...</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/examples/neutral_test.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

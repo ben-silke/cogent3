@@ -1,0 +1,772 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Applying a time-reversible codon model &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Testing a hypothesis – non-stationary or time-reversible" href="evo-hypothesis.html" />
+    <link rel="prev" title="Applying GNC, a non-stationary codon model" href="evo-nstat-codon-model.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#the-progressive-align-app">The <code class="docutils literal notranslate"><span class="pre">progressive_align</span></code> App</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#the-model-app">The <code class="docutils literal notranslate"><span class="pre">model</span></code> App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#the-hypothesis-app">The <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code> App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#the-natsel-apps">The <code class="docutils literal notranslate"><span class="pre">natsel</span></code> Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#the-user-function-apps">The <code class="docutils literal notranslate"><span class="pre">user_function</span></code> Apps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../library.html">The Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a><ul>
+      <li>Previous: <a href="evo-nstat-codon-model.html" title="previous chapter">Applying GNC, a non-stationary codon model</a></li>
+      <li>Next: <a href="evo-hypothesis.html" title="next chapter">Testing a hypothesis – non-stationary or time-reversible</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    min-width: 5.5ex;
+    padding-top: 0.3rem;
+    padding-right: 0.3rem;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 0.3rem;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Applying-a-time-reversible-codon-model">
+<h1>Applying a time-reversible codon model<a class="headerlink" href="#Applying-a-time-reversible-codon-model" title="Permalink to this headline">¶</a></h1>
+<p>We display the full set of codon models available.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">available_models</span>
+
+<span class="n">available_models</span><span class="p">(</span><span class="s2">&quot;codon&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<style>
+tr:last-child {border-bottom: 1px solid #000;} tr > th {text-align: center !important;} tr > td {text-align: left !important;}
+</style>
+<caption style="color: rgb(250, 250, 250); background: rgba(30, 140, 200, 1); align=top;"><span style="font-weight: bold;">Specify a model using 'Abbreviation' (case sensitive).</span><span></span></caption>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>Model Type</th>
+<th>Abbreviation</th>
+<th>Description</th>
+</thead>
+<tbody>
+<tr>
+<td>codon</td>
+<td>CNFGTR</td>
+<td>Conditional nucleotide frequency codon substitution model, GTR variant (with params analagous to the nucleotide GTR model). Yap, Lindsay, Easteal and Huttley, 2010, Mol Biol Evol 27: 726-734</td>
+</tr>
+<tr>
+<td>codon</td>
+<td>CNFHKY</td>
+<td>Conditional nucleotide frequency codon substitution model, HKY variant (with kappa, the ratio of transitions to transversions) Yap, Lindsay, Easteal and Huttley, 2010, Mol Biol Evol 27: 726-734</td>
+</tr>
+<tr>
+<td>codon</td>
+<td>MG94HKY</td>
+<td>Muse and Gaut 1994 codon substitution model, HKY variant (with kappa, the ratio of transitions to transversions) Muse and Gaut, 1994, Mol Biol Evol, 11, 715-24</td>
+</tr>
+<tr>
+<td>codon</td>
+<td>MG94GTR</td>
+<td>Muse and Gaut 1994 codon substitution model, GTR variant (with params analagous to the nucleotide GTR model) Muse and Gaut, 1994, Mol Biol Evol, 11, 715-24</td>
+</tr>
+<tr>
+<td>codon</td>
+<td>GY94</td>
+<td>Goldman and Yang 1994 codon substitution model. N Goldman and Z Yang, 1994, Mol Biol Evol, 11(5):725-36.</td>
+</tr>
+<tr>
+<td>codon</td>
+<td>Y98</td>
+<td>Yang's 1998 substitution model, a derivative of the GY94. Z Yang, 1998, Mol Biol Evol, 15(5):568-73</td>
+</tr>
+<tr>
+<td>codon</td>
+<td>H04G</td>
+<td>Huttley 2004 CpG substitution model. Includes a term for substitutions to or from CpG's. GA Huttley, 2004, Mol Biol Evol, 21(9):1760-8</td>
+</tr>
+<tr>
+<td>codon</td>
+<td>H04GK</td>
+<td>Huttley 2004 CpG substitution model. Includes a term for transition substitutions to or from CpG's. GA Huttley, 2004, Mol Biol Evol, 21(9):1760-8</td>
+</tr>
+<tr>
+<td>codon</td>
+<td>H04GGK</td>
+<td>Huttley 2004 CpG substitution model. Includes a general term for substitutions to or from CpG's and an adjustment for CpG transitions. GA Huttley, 2004, Mol Biol Evol, 21(9):1760-8</td>
+</tr>
+<tr>
+<td>codon</td>
+<td>GNC</td>
+<td>General Nucleotide Codon, a non-reversible codon model. Kaehler, Yap, Huttley, 2017, Gen Biol Evol 9(1): 134–49</td>
+</tr>
+</tbody>
+</table>
+<p>
+10 rows x 3 columns</p></div>
+</div>
+<div class="section" id="Using-the-conditional-nucleotide-form-codon-model">
+<h2>Using the conditional nucleotide form codon model<a class="headerlink" href="#Using-the-conditional-nucleotide-form-codon-model" title="Permalink to this headline">¶</a></h2>
+<p>The CNFGTR model (<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/19815689">Yap et al</a>) is the most robust of the time-reversible codon models available (<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/28175284">Kaehler et al</a>). By default, this model does not optimise the codon frequencies but uses the average estimated from the alignment. We configure the model to optimise the root motif probabilities.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">cogent3.app</span> <span class="kn">import</span> <span class="n">io</span><span class="p">,</span> <span class="n">evo</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">load_aligned</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;fasta&quot;</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="n">aln</span> <span class="o">=</span> <span class="n">loader</span><span class="p">(</span><span class="s2">&quot;../data/primate_brca1.fasta&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">evo</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="s2">&quot;CNFGTR&quot;</span><span class="p">,</span>
+                  <span class="n">tree</span><span class="o">=</span><span class="s2">&quot;../data/primate_brca1.tree&quot;</span><span class="p">,</span>
+                  <span class="n">sm_args</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">optimise_motif_probs</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<style>
+tr:last-child {border-bottom: 1px solid #000;} tr > th {text-align: center !important;} tr > td {text-align: left !important;}
+</style>
+<caption style="color: rgb(250, 250, 250); background: rgba(30, 140, 200, 1); align=top;"><span style="font-weight: bold;">CNFGTR</span><span></span></caption>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>key</th>
+<th>lnL</th>
+<th>nfp</th>
+<th>DLC</th>
+<th>unique_Q</th>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td style="font-family: monospace !important;">-6739.3067</td>
+<td style="font-family: monospace !important;">77</td>
+<td>True</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">result</span><span class="o">.</span><span class="n">lf</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<h4>CNFGTR</h4>
+<p>log-likelihood = -6739.3067</p>
+<p>number of free parameters = 77</p>
+<table>
+<style>
+tr:last-child {border-bottom: 1px solid #000;} tr > th {text-align: center !important;} tr > td {text-align: left !important;}
+</style>
+<caption style="color: rgb(250, 250, 250); background: rgba(30, 140, 200, 1); align=top;"><span style="font-weight: bold;">Global params</span><span></span></caption>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>A/C</th>
+<th>A/G</th>
+<th>A/T</th>
+<th>C/G</th>
+<th>C/T</th>
+<th>omega</th>
+</thead>
+<tbody>
+<tr>
+<td style="font-family: monospace !important;">1.0656</td>
+<td style="font-family: monospace !important;">3.9391</td>
+<td style="font-family: monospace !important;">0.7851</td>
+<td style="font-family: monospace !important;">1.9475</td>
+<td style="font-family: monospace !important;">4.2265</td>
+<td style="font-family: monospace !important;">0.7569</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<style>
+tr:last-child {border-bottom: 1px solid #000;} tr > th {text-align: center !important;} tr > td {text-align: left !important;}
+</style>
+<caption style="color: rgb(250, 250, 250); background: rgba(30, 140, 200, 1); align=top;"><span style="font-weight: bold;">Edge params</span><span></span></caption>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>edge</th>
+<th>parent</th>
+<th>length</th>
+</thead>
+<tbody>
+<tr>
+<td>Galago</td>
+<td>root</td>
+<td style="font-family: monospace !important;">0.5330</td>
+</tr>
+<tr>
+<td>HowlerMon</td>
+<td>root</td>
+<td style="font-family: monospace !important;">0.1365</td>
+</tr>
+<tr>
+<td>Rhesus</td>
+<td>edge.3</td>
+<td style="font-family: monospace !important;">0.0659</td>
+</tr>
+<tr>
+<td>Orangutan</td>
+<td>edge.2</td>
+<td style="font-family: monospace !important;">0.0233</td>
+</tr>
+<tr>
+<td>Gorilla</td>
+<td>edge.1</td>
+<td style="font-family: monospace !important;">0.0075</td>
+</tr>
+<tr>
+<td>Human</td>
+<td>edge.0</td>
+<td style="font-family: monospace !important;">0.0182</td>
+</tr>
+<tr>
+<td>Chimpanzee</td>
+<td>edge.0</td>
+<td style="font-family: monospace !important;">0.0085</td>
+</tr>
+<tr>
+<td>edge.0</td>
+<td>edge.1</td>
+<td style="font-family: monospace !important;">0.0000</td>
+</tr>
+<tr>
+<td>edge.1</td>
+<td>edge.2</td>
+<td style="font-family: monospace !important;">0.0101</td>
+</tr>
+<tr>
+<td>edge.2</td>
+<td>edge.3</td>
+<td style="font-family: monospace !important;">0.0352</td>
+</tr>
+<tr>
+<td>edge.3</td>
+<td>root</td>
+<td style="font-family: monospace !important;">0.0228</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<style>
+tr:last-child {border-bottom: 1px solid #000;} tr > th {text-align: center !important;} tr > td {text-align: left !important;}
+</style>
+<caption style="color: rgb(250, 250, 250); background: rgba(30, 140, 200, 1); align=top;"><span style="font-weight: bold;">Motif params</span><span></span></caption>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>AAA</th>
+<th>AAC</th>
+<th>AAG</th>
+<th>AAT</th>
+<th>ACA</th>
+<th>ACC</th>
+<th>ACG</th>
+<th>ACT</th>
+<th>AGA</th>
+<th>AGC</th>
+</thead>
+<tbody>
+<tr>
+<td style="font-family: monospace !important;">0.0540</td>
+<td style="font-family: monospace !important;">0.0242</td>
+<td style="font-family: monospace !important;">0.0307</td>
+<td style="font-family: monospace !important;">0.0543</td>
+<td style="font-family: monospace !important;">0.0237</td>
+<td style="font-family: monospace !important;">0.0063</td>
+<td style="font-family: monospace !important;">0.0021</td>
+<td style="font-family: monospace !important;">0.0297</td>
+<td style="font-family: monospace !important;">0.0238</td>
+<td style="font-family: monospace !important;">0.0280</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>AGG</th>
+<th>AGT</th>
+<th>ATA</th>
+<th>ATC</th>
+<th>ATG</th>
+<th>ATT</th>
+<th>CAA</th>
+<th>CAC</th>
+<th>CAG</th>
+<th>CAT</th>
+</thead>
+<tbody>
+<tr>
+<td style="font-family: monospace !important;">0.0122</td>
+<td style="font-family: monospace !important;">0.0405</td>
+<td style="font-family: monospace !important;">0.0226</td>
+<td style="font-family: monospace !important;">0.0071</td>
+<td style="font-family: monospace !important;">0.0141</td>
+<td style="font-family: monospace !important;">0.0203</td>
+<td style="font-family: monospace !important;">0.0228</td>
+<td style="font-family: monospace !important;">0.0063</td>
+<td style="font-family: monospace !important;">0.0220</td>
+<td style="font-family: monospace !important;">0.0237</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>CCA</th>
+<th>CCC</th>
+<th>CCG</th>
+<th>CCT</th>
+<th>CGA</th>
+<th>CGC</th>
+<th>CGG</th>
+<th>CGT</th>
+<th>CTA</th>
+<th>CTC</th>
+</thead>
+<tbody>
+<tr>
+<td style="font-family: monospace !important;">0.0165</td>
+<td style="font-family: monospace !important;">0.0043</td>
+<td style="font-family: monospace !important;">0.0021</td>
+<td style="font-family: monospace !important;">0.0239</td>
+<td style="font-family: monospace !important;">0.0022</td>
+<td style="font-family: monospace !important;">0.0012</td>
+<td style="font-family: monospace !important;">0.0035</td>
+<td style="font-family: monospace !important;">0.0058</td>
+<td style="font-family: monospace !important;">0.0123</td>
+<td style="font-family: monospace !important;">0.0065</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>CTG</th>
+<th>CTT</th>
+<th>GAA</th>
+<th>GAC</th>
+<th>GAG</th>
+<th>GAT</th>
+<th>GCA</th>
+<th>GCC</th>
+<th>GCG</th>
+<th>GCT</th>
+</thead>
+<tbody>
+<tr>
+<td style="font-family: monospace !important;">0.0098</td>
+<td style="font-family: monospace !important;">0.0105</td>
+<td style="font-family: monospace !important;">0.0703</td>
+<td style="font-family: monospace !important;">0.0112</td>
+<td style="font-family: monospace !important;">0.0263</td>
+<td style="font-family: monospace !important;">0.0310</td>
+<td style="font-family: monospace !important;">0.0154</td>
+<td style="font-family: monospace !important;">0.0083</td>
+<td style="font-family: monospace !important;">0.0036</td>
+<td style="font-family: monospace !important;">0.0145</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>GGA</th>
+<th>GGC</th>
+<th>GGG</th>
+<th>GGT</th>
+<th>GTA</th>
+<th>GTC</th>
+<th>GTG</th>
+<th>GTT</th>
+<th>TAC</th>
+<th>TAT</th>
+</thead>
+<tbody>
+<tr>
+<td style="font-family: monospace !important;">0.0151</td>
+<td style="font-family: monospace !important;">0.0072</td>
+<td style="font-family: monospace !important;">0.0051</td>
+<td style="font-family: monospace !important;">0.0139</td>
+<td style="font-family: monospace !important;">0.0170</td>
+<td style="font-family: monospace !important;">0.0077</td>
+<td style="font-family: monospace !important;">0.0094</td>
+<td style="font-family: monospace !important;">0.0210</td>
+<td style="font-family: monospace !important;">0.0036</td>
+<td style="font-family: monospace !important;">0.0171</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>TCA</th>
+<th>TCC</th>
+<th>TCG</th>
+<th>TCT</th>
+<th>TGC</th>
+<th>TGG</th>
+<th>TGT</th>
+<th>TTA</th>
+<th>TTC</th>
+<th>TTG</th>
+</thead>
+<tbody>
+<tr>
+<td style="font-family: monospace !important;">0.0220</td>
+<td style="font-family: monospace !important;">0.0083</td>
+<td style="font-family: monospace !important;">0.0039</td>
+<td style="font-family: monospace !important;">0.0214</td>
+<td style="font-family: monospace !important;">0.0038</td>
+<td style="font-family: monospace !important;">0.0033</td>
+<td style="font-family: monospace !important;">0.0201</td>
+<td style="font-family: monospace !important;">0.0222</td>
+<td style="font-family: monospace !important;">0.0051</td>
+<td style="font-family: monospace !important;">0.0107</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead style="background: rgba(161, 195, 209, 0.75); font-weight: bold; text-align: center;">
+<th>TTT</th>
+</thead>
+<tbody>
+<tr>
+<td style="font-family: monospace !important;">0.0146</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/app/evo-tr-codon-model.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

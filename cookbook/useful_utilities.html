@@ -1,0 +1,411 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Useful Utilities &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Usage Examples" href="../examples/index.html" />
+    <link rel="prev" title="Evolutionary Analysis Using Likelihood" href="evo_modelling.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Cookbook</a><ul>
+      <li>Previous: <a href="evo_modelling.html" title="previous chapter">Evolutionary Analysis Using Likelihood</a></li>
+      <li>Next: <a href="../examples/index.html" title="next chapter">Usage Examples</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="useful-utilities">
+<h1>Useful Utilities<a class="headerlink" href="#useful-utilities" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="uniondict-a-dict-with-set-like-operations-and-keys-as-attributes">
+<span id="union-dict"></span><h2><code class="docutils literal notranslate"><span class="pre">UnionDict</span></code> – a dict with set like operations and keys as attributes<a class="headerlink" href="#uniondict-a-dict-with-set-like-operations-and-keys-as-attributes" title="Permalink to this headline">¶</a></h2>
+<p>This object combines the key-element storage of a <code class="docutils literal notranslate"><span class="pre">dict</span></code> with the union operation of a <code class="docutils literal notranslate"><span class="pre">set()</span></code> object. It is used in the <code class="docutils literal notranslate"><span class="pre">cogent3.draw</span></code> module, primarily for the <code class="docutils literal notranslate"><span class="pre">figure</span></code> and <code class="docutils literal notranslate"><span class="pre">layout</span></code> attributes.</p>
+<div class="section" id="accessing-elements-of-a-uniondict">
+<h3>Accessing elements of a <code class="docutils literal notranslate"><span class="pre">UnionDict</span></code><a class="headerlink" href="#accessing-elements-of-a-uniondict" title="Permalink to this headline">¶</a></h3>
+<p>Keys in a <code class="docutils literal notranslate"><span class="pre">UnionDict</span></code> can be accessed like attributes</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.union_dict</span> <span class="kn">import</span> <span class="n">UnionDict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">UnionDict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">a</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">d</span>
+<span class="go">[25]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-a-uniondict">
+<h3>Updating a <code class="docutils literal notranslate"><span class="pre">UnionDict</span></code><a class="headerlink" href="#updating-a-uniondict" title="Permalink to this headline">¶</a></h3>
+<p>If you use the <code class="docutils literal notranslate"><span class="pre">|</span></code> bitwise operator to compare two dicts and the left one is a <code class="docutils literal notranslate"><span class="pre">UnionDict</span></code>, a union operation is performed.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.union_dict</span> <span class="kn">import</span> <span class="n">UnionDict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">UnionDict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">b</span> <span class="o">|=</span> <span class="p">{</span><span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">b</span>
+<span class="go">{&#39;c&#39;: 24, &#39;d&#39;: 25}</span>
+</pre></div>
+</div>
+<p>This can also be done using the <code class="docutils literal notranslate"><span class="pre">union</span></code> method.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">union</span><span class="p">({</span><span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">b</span>
+<span class="go">{&#39;c&#39;: 24, &#39;d&#39;: [25]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-a-non-existent-uniondict-key">
+<h3>Accessing a non-existent <code class="docutils literal notranslate"><span class="pre">UnionDict</span></code> key<a class="headerlink" href="#accessing-a-non-existent-uniondict-key" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.union_dict</span> <span class="kn">import</span> <span class="n">UnionDict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">UnionDict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">KeyError</span>: <span class="n">&#39;k&#39;</span>
+</pre></div>
+</div>
+<p>But if accessing as an attribute, you get an attribute error.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">k</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">AttributeError</span>: <span class="n">&#39;k&#39; not a key or attribute</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="using-cogent3-s-optimisers-for-your-own-functions">
+<h2>Using Cogent3’s optimisers for your own functions<a class="headerlink" href="#using-cogent3-s-optimisers-for-your-own-functions" title="Permalink to this headline">¶</a></h2>
+<p>You have a function that you want to maximise/minimise. The parameters in your function may be bounded (must lie in a specific interval) or not. The <code class="docutils literal notranslate"><span class="pre">cogent3</span></code> optimisers can be applied to these cases. The <code class="docutils literal notranslate"><span class="pre">Powell</span></code> (a local optimiser) and <code class="docutils literal notranslate"><span class="pre">SimulatedAnnealing</span></code> (a global optimiser) classes in particular have had their interfaces standardised for such use cases. We demonstrate for a very simple function below.</p>
+<p>We write a simple factory function that uses a provided value for omega to compute the squared deviation from an estimate, then use it to create our optimisable function.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">DiffOmega</span><span class="p">(</span><span class="n">omega</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">omega_from_S</span><span class="p">(</span><span class="n">S</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">omega_est</span> <span class="o">=</span> <span class="n">S</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">S</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">omega</span><span class="o">-</span><span class="n">omega_est</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">omega_from_S</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">omega</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">DiffOmega</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We then import the minimise function and use it to minimise the function, obtaining the fit statistic and the associated estimate of S. Note that we provide lower and upper bounds (which are optional) and an initial guess for our parameter of interest (<code class="docutils literal notranslate"><span class="pre">S</span></code>).</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.optimisers</span> <span class="kn">import</span> <span class="n">minimise</span><span class="p">,</span> <span class="n">maximise</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">=</span> <span class="n">minimise</span><span class="p">(</span><span class="n">f</span><span class="p">,</span>  <span class="c1"># the function</span>
+<span class="gp">... </span>    <span class="n">xinit</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="c1"># the initial value</span>
+<span class="gp">... </span>    <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="c1"># [lower,upper] bounds for the parameter</span>
+<span class="gp">... </span>    <span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># just local optimisation, not Simulated Annealing</span>
+<span class="gp">... </span>    <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">f</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;S=</span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">S</span><span class="p">)</span>
+<span class="go">S=-3.6150</span>
+</pre></div>
+</div>
+<p>The minimise and maximise functions can also handle multidimensional optimisations, just make xinit (and the bounds) lists rather than scalar values.</p>
+</div>
+<div class="section" id="miscellaneous-functions">
+<h2>Miscellaneous functions<a class="headerlink" href="#miscellaneous-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="index-0">
+<span id="identity-testing"></span><h3>Identity testing<a class="headerlink" href="#index-0" title="Permalink to this headline">¶</a></h3>
+<p>Basic <code class="docutils literal notranslate"><span class="pre">identity</span></code> function to avoid having to test explicitly for None</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">identity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_var</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">identity</span><span class="p">(</span><span class="n">my_var</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">bar</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="force-a-variable-to-be-iterable">
+<h3>Force a variable to be iterable<a class="headerlink" href="#force-a-variable-to-be-iterable" title="Permalink to this headline">¶</a></h3>
+<p>This support method will force a variable to be an iterable, allowing you to guarantee that the variable will be safe for use in, say, a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">iterable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_var</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">my_var</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;will not work&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">TypeError</span>: <span class="n">&#39;int&#39; object is not iterable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">(</span><span class="n">my_var</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">10</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="curry-a-function">
+<h3>Curry a function<a class="headerlink" href="#curry-a-function" title="Permalink to this headline">¶</a></h3>
+<p>curry(f,x)(y) = f(x,y) or = lambda y: f(x,y). This was modified from the Python Cookbook. Docstrings are also carried over.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">curry</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="sd">&quot;&quot;&quot;Some function&quot;&quot;&quot;</span>
+<span class="gp">... </span>  <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span> <span class="o">=</span> <span class="n">curry</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+<span class="go"> curry(foo,5)</span>
+<span class="go">== curried from foo ==</span>
+<span class="go"> Some function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">15</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="test-to-see-if-an-object-is-iterable">
+<h3>Test to see if an object is iterable<a class="headerlink" href="#test-to-see-if-an-object-is-iterable" title="Permalink to this headline">¶</a></h3>
+<p>Perform a simple test to see if an object supports iteration</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">is_iterable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">can_iter</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cannot_iter</span> <span class="o">=</span> <span class="mf">1.234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_iterable</span><span class="p">(</span><span class="n">can_iter</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_iterable</span><span class="p">(</span><span class="n">cannot_iter</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="test-to-see-if-an-object-is-a-single-char">
+<h3>Test to see if an object is a single char<a class="headerlink" href="#test-to-see-if-an-object-is-a-single-char" title="Permalink to this headline">¶</a></h3>
+<p>Perform a simple test to see if an object is a single character</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">is_char</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">foo</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_char</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_char</span><span class="p">(</span><span class="s1">&#39;ab&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_char</span><span class="p">(</span><span class="n">foo</span><span class="p">())</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="flatten-a-deeply-nested-iterable">
+<h3>Flatten a deeply nested iterable<a class="headerlink" href="#flatten-a-deeply-nested-iterable" title="Permalink to this headline">¶</a></h3>
+<p>To flatten a deeply nested iterable, use <code class="docutils literal notranslate"><span class="pre">recursive_flatten</span></code>. This method supports multiple levels of nesting, and multiple iterable types</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">recursive_flatten</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="p">[[[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;abcde&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">recursive_flatten</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="go">[1, 2, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, 5, 6, 7, 8, 9, 10]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="test-to-determine-if-list-of-tuple">
+<h3>Test to determine if <code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">tuple</span></code><a class="headerlink" href="#test-to-determine-if-list-of-tuple" title="Permalink to this headline">¶</a></h3>
+<p>Perform a simple check to see if an object is not a list or a tuple</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">not_list_tuple</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_list_tuple</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_list_tuple</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_list_tuple</span><span class="p">(</span><span class="s1">&#39;ab&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-a-case-insensitive-iterable">
+<h3>Create a case-insensitive iterable<a class="headerlink" href="#create-a-case-insensitive-iterable" title="Permalink to this headline">¶</a></h3>
+<p>Create a case-insensitive object, for instance, if you want the key ‘a’ and ‘A’ to point to the same item in a dict</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">add_lowercase</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="s1">&#39;foo&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="mi">42</span><span class="p">:</span><span class="s1">&#39;life&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_lowercase</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>  
+<span class="go">{&#39;A&#39;: 5, &#39;a&#39;: 5, &#39;C&#39;: 7, &#39;B&#39;: 6, 42: &#39;life&#39;, &#39;c&#39;: 7, &#39;b&#39;: 6, &#39;foo&#39;: 8}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="construct-a-distance-matrix-lookup-function">
+<h3>Construct a distance matrix lookup function<a class="headerlink" href="#construct-a-distance-matrix-lookup-function" title="Permalink to this headline">¶</a></h3>
+<p>Automatically construct a distance matrix lookup function. This is useful for maintaining flexibility about whether a function is being computed or if a lookup is being used</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">DistanceFromMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">DistanceFromMatrix</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="check-class-types">
+<h3>Check class types<a class="headerlink" href="#check-class-types" title="Permalink to this headline">¶</a></h3>
+<p>Check an object against base classes or derived classes to see if it is acceptable</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">ClassChecker</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">not_okay</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">no</span> <span class="o">=</span> <span class="n">not_okay</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">okay</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">okay</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">my_dict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">md</span> <span class="o">=</span> <span class="n">my_dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cc</span> <span class="o">=</span> <span class="n">ClassChecker</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">okay</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="ow">in</span> <span class="n">cc</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">no</span> <span class="ow">in</span> <span class="n">cc</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">5</span> <span class="ow">in</span> <span class="n">cc</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">}</span> <span class="ow">in</span> <span class="n">cc</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;asasas&#39;</span> <span class="ow">in</span> <span class="n">cc</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">md</span> <span class="ow">in</span> <span class="n">cc</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delegate-to-a-separate-object">
+<h3>Delegate to a separate object<a class="headerlink" href="#delegate-to-a-separate-object" title="Permalink to this headline">¶</a></h3>
+<p>Delegate object method calls, properties and variables to the appropriate object. Useful to combine multiple objects together while assuring that the calls will go to the correct object.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">Delegator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">ListAndString</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">Delegator</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">Delegator</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+<span class="gp">... </span>      <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span> <span class="o">=</span> <span class="n">ListAndString</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;ab_cd&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+<span class="go">&#39;AB_CD&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+<span class="go">[&#39;ab&#39;, &#39;cd&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="wrap-a-function-to-hide-from-a-class">
+<h3>Wrap a function to hide from a class<a class="headerlink" href="#wrap-a-function-to-hide-from-a-class" title="Permalink to this headline">¶</a></h3>
+<p>Wrap a function to hide it from a class so that it isn’t a method.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">FunctionWrapper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">FunctionWrapper</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span>
+<span class="go">&lt;cogent3.util.misc.FunctionWrapper object at ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="go">&#39;123&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="construct-a-constrained-container">
+<h3>Construct a constrained container<a class="headerlink" href="#construct-a-constrained-container" title="Permalink to this headline">¶</a></h3>
+<p>Wrap a container with a constraint. This is useful for enforcing that the data contained is valid within a defined context. Cogent3 provides a base <code class="docutils literal notranslate"><span class="pre">ConstrainedContainer</span></code> which can be used to construct user-defined constrained objects. Cogent3 also provides <code class="docutils literal notranslate"><span class="pre">ConstrainedString</span></code>, <code class="docutils literal notranslate"><span class="pre">ConstrainedList</span></code>, and <code class="docutils literal notranslate"><span class="pre">ConstrainedDict</span></code>. These provided types fully cover the builtin types while staying integrated with the <code class="docutils literal notranslate"><span class="pre">ConstrainedContainer</span></code>.</p>
+<p>Here is a light example of the <code class="docutils literal notranslate"><span class="pre">ConstrainedDict</span></code></p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.util.misc</span> <span class="kn">import</span> <span class="n">ConstrainedDict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">ConstrainedDict</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">},</span> <span class="n">constraint</span><span class="o">=</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span>  
+<span class="go">{&#39;a&#39;: 1, &#39;c&#39;: 3, &#39;b&#39;: 2}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">cogent3.util.misc.ConstraintError</span>: <span class="n">Item &#39;d&#39; not in constraint &#39;abc&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cookbook/useful_utilities.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

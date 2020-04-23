@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Estimating periodic signals &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The simplest script" href="simple.html" />
+    <link rel="prev" title="Manipulation of Tree Node Objects" href="manipulating_tree_nodes.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cookbook/index.html">Cookbook</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Usage Examples</a><ul>
+      <li>Previous: <a href="manipulating_tree_nodes.html" title="previous chapter">Manipulation of Tree Node Objects</a></li>
+      <li>Next: <a href="simple.html" title="next chapter">The simplest script</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="estimating-periodic-signals">
+<h1>Estimating periodic signals<a class="headerlink" href="#estimating-periodic-signals" title="Permalink to this headline">¶</a></h1>
+<p><em>Section author: Gavin Huttley, Julien Epps, Hua Ying</em></p>
+<p>We consider two different scenarios:</p>
+<ul class="simple">
+<li><p>estimating the periods in a signal</p></li>
+<li><p>estimating the power for a given period</p></li>
+<li><p>measuring statistical significance for the latter case</p></li>
+</ul>
+<div class="section" id="estimating-the-periods-in-a-signal">
+<h2>Estimating the periods in a signal<a class="headerlink" href="#estimating-the-periods-in-a-signal" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="for-numerical-continuous-data">
+<h3>For numerical (continuous) data<a class="headerlink" href="#for-numerical-continuous-data" title="Permalink to this headline">¶</a></h3>
+<p>We first make some sample data. A periodic signal and some noise.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nse</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="mf">0.05</span><span class="p">))</span><span class="o">*</span><span class="mf">0.1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nse</span> <span class="o">=</span> <span class="n">nse</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sig</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">nse</span>
+</pre></div>
+</div>
+<div class="section" id="discrete-fourier-transform">
+<h4>Discrete Fourier transform<a class="headerlink" href="#discrete-fourier-transform" title="Permalink to this headline">¶</a></h4>
+<p>We now use the discrete Fourier transform to estimate periodicity in this signal. Given we set the period to equal 10, we expect the maximum power for that index.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.period</span> <span class="kn">import</span> <span class="n">dft</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pwr</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="n">dft</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+<span class="go">[  2.           2.04081633   2.08333333   2.12765957   2.17391304</span>
+<span class="go">   2.22222222   2.27272727   2.3255814    2.38095238   2.43902439</span>
+<span class="go">   2.5          2.56410256   2.63157895   2.7027027    2.77777778</span>
+<span class="go">   2.85714286   2.94117647   3.03030303   3.125        3.22580645...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pwr</span><span class="p">)</span>
+<span class="go">[ 1.06015801+0.00000000e+00j  0.74686707-1.93971914e-02j</span>
+<span class="go">  0.36784793-2.66370366e-02j  0.04384413+2.86970840e-02j</span>
+<span class="go">  1.54473269-2.43777386e-02j  0.28522968-2.33602932e-01j...</span>
+</pre></div>
+</div>
+<p>The power (<code class="docutils literal notranslate"><span class="pre">pwr</span></code>) is returned as an array of complex numbers, so we convert into real numbers using <code class="docutils literal notranslate"><span class="pre">abs</span></code>. We then zip the power and corresponding periods and sort to identify the period with maximum signal.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pwr</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">pwr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">max_pwr</span><span class="p">,</span> <span class="n">max_period</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">pwr</span><span class="p">,</span><span class="n">period</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">max_pwr</span><span class="p">,</span> <span class="n">max_period</span><span class="p">)</span>  
+<span class="go">50.7685934719 10.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="auto-correlation">
+<h4>Auto-correlation<a class="headerlink" href="#auto-correlation" title="Permalink to this headline">¶</a></h4>
+<p>We now use auto-correlation.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.period</span> <span class="kn">import</span> <span class="n">auto_corr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pwr</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="n">auto_corr</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+<span class="go">[ 2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pwr</span><span class="p">)</span>
+<span class="go">[ 1.63366075e+01 -1.47309007e+01 -3.99310414e+01 -4.94779387e+01...</span>
+</pre></div>
+</div>
+<p>We then zip the power and corresponding periods and sort to identify the period with maximum signal.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">max_pwr</span><span class="p">,</span> <span class="n">max_period</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">pwr</span><span class="p">,</span><span class="n">period</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">max_pwr</span><span class="p">,</span> <span class="n">max_period</span><span class="p">)</span>  
+<span class="go">46.7917300733 10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="for-symbolic-data">
+<h3>For symbolic data<a class="headerlink" href="#for-symbolic-data" title="Permalink to this headline">¶</a></h3>
+<p>We create a sequence as just a string</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;ATCGTTGGGACCGGTTCAAGTTTTGGAACTCGCAAGGGGTGAATGGTCTTCGTCTAACGCTGG&#39;</span>\
+<span class="gp">... </span>    <span class="s1">&#39;GGAACCCTGAATCGTTGTAACGCTGGGGTCTTTAACCGTTCTAATTTAACGCTGGGGGGTTCT&#39;</span>\
+<span class="gp">... </span>    <span class="s1">&#39;AATTTTTAACCGCGGAATTGCGTC&#39;</span>
+</pre></div>
+</div>
+<p>We then specify the motifs whose occurrences will be converted into 1, with all other motifs converted into 0. As we might want to do this in batches for many sequences we use a factory function.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.stats.period</span> <span class="kn">import</span> <span class="n">SeqToSymbols</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq_to_symbols</span> <span class="o">=</span> <span class="n">SeqToSymbols</span><span class="p">([</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="s1">&#39;TT&#39;</span><span class="p">,</span> <span class="s1">&#39;AT&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">symbols</span> <span class="o">=</span> <span class="n">seq_to_symbols</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">symbols</span>
+<span class="go">array([1, 0, 0, 0, 1, 0, 0, 0, 0, 0...</span>
+</pre></div>
+</div>
+<p>We then estimate the integer discrete Fourier transform for the full data. To do this, we need to pass in the symbols from full conversion of the sequence. The returned values are the powers and periods.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.period</span> <span class="kn">import</span> <span class="n">ipdft</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">powers</span><span class="p">,</span> <span class="n">periods</span> <span class="o">=</span> <span class="n">ipdft</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">powers</span> 
+<span class="go">array([  3.22082108e-14,   4.00000000e+00,   9.48683298e+00,</span>
+<span class="go">         6.74585634e+00,   3.46410162e+00,   3.20674669e+00,...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">periods</span>
+<span class="go">array([  2,   3,   4...</span>
+</pre></div>
+</div>
+<p>We can also compute the auto-correlation statistic, and the hybrid (which combines IPDFT and auto-correlation).</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.period</span> <span class="kn">import</span> <span class="n">auto_corr</span><span class="p">,</span> <span class="n">hybrid</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">powers</span><span class="p">,</span> <span class="n">periods</span> <span class="o">=</span> <span class="n">auto_corr</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">powers</span>
+<span class="go">array([11.,  9., 11.,  9.,  6...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">periods</span>
+<span class="go">array([  2,   3,   4...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">powers</span><span class="p">,</span> <span class="n">periods</span> <span class="o">=</span> <span class="n">hybrid</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">powers</span> 
+<span class="go">array([  3.54290319e-13,   3.60000000e+01,   1.04355163e+02,</span>
+<span class="go">         6.07127071e+01,   2.07846097e+01,   2.88607202e+01,...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">periods</span>
+<span class="go">array([  2,   3,   4...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="estimating-power-for-specified-period">
+<h2>Estimating power for specified period<a class="headerlink" href="#estimating-power-for-specified-period" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>For numerical (continuous) data<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>We just use <code class="docutils literal notranslate"><span class="pre">sig</span></code> created above. The Goertzel algorithm gives the same result as the <code class="docutils literal notranslate"><span class="pre">dft</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.period</span> <span class="kn">import</span> <span class="n">goertzel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pwr</span> <span class="o">=</span> <span class="n">goertzel</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pwr</span><span class="p">)</span>
+<span class="go">50.7685...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>For symbolic data<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>We use the symbols from the above example. For the <code class="docutils literal notranslate"><span class="pre">ipdft</span></code>, <code class="docutils literal notranslate"><span class="pre">auto_corr</span></code> and <code class="docutils literal notranslate"><span class="pre">hybrid</span></code> functions we just need to identify the array index containing the period of interest and slice the corresponding value from the returned powers. The reported periods start at <code class="docutils literal notranslate"><span class="pre">llim</span></code>, which defaults to 2, but indexes start at 0, the index for a period-5 is simply 5-<code class="docutils literal notranslate"><span class="pre">llim</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">powers</span><span class="p">,</span> <span class="n">periods</span> <span class="o">=</span> <span class="n">auto_corr</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">llim</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">period5</span> <span class="o">=</span> <span class="mi">5</span><span class="o">-</span><span class="n">llim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">periods</span><span class="p">[</span><span class="n">period5</span><span class="p">]</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">powers</span><span class="p">[</span><span class="n">period5</span><span class="p">]</span>
+<span class="go">9.0</span>
+</pre></div>
+</div>
+<p>For Fourier techniques, we can compute the power for a specific period more efficiently using Goertzel algorithm.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.period</span> <span class="kn">import</span> <span class="n">goertzel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">period</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power</span> <span class="o">=</span> <span class="n">goertzel</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">period</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ipdft_powers</span><span class="p">,</span> <span class="n">periods</span> <span class="o">=</span> <span class="n">ipdft</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ipdft_power</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ipdft_powers</span><span class="p">[</span><span class="n">period</span><span class="o">-</span><span class="n">llim</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">round</span><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">==</span> <span class="nb">round</span><span class="p">(</span><span class="n">ipdft_power</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power</span>
+<span class="go">9.4868...</span>
+</pre></div>
+</div>
+<p>It’s also possible to specify a period to the stand-alone functions. As per the <code class="docutils literal notranslate"><span class="pre">goertzel</span></code> function, just the power is returned.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">power</span> <span class="o">=</span> <span class="n">hybrid</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="n">period</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power</span>
+<span class="go">104.355...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="measuring-statistical-significance-of-periodic-signals">
+<h2>Measuring statistical significance of periodic signals<a class="headerlink" href="#measuring-statistical-significance-of-periodic-signals" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>For numerical (continuous data)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>We use the signal provided above. Because significance testing is being done using a resampling approach, we define a calculator which precomputes some values to improve compute performance. For a continuous signal, we’ll use the Goertzel algorithm.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.period</span> <span class="kn">import</span> <span class="n">Goertzel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">goertzel_calc</span> <span class="o">=</span> <span class="n">Goertzel</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">),</span> <span class="n">period</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Having defined this, we then just pass this calculator to the <code class="docutils literal notranslate"><span class="pre">blockwise_bootstrap</span></code> function. The other critical settings are the <code class="docutils literal notranslate"><span class="pre">block_size</span></code> which specifies the size of segments of contiguous sequence positions to use for sampling and <code class="docutils literal notranslate"><span class="pre">num_reps</span></code> which is the number of permuted replicate sequences to generate.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.stats.period</span> <span class="kn">import</span> <span class="n">blockwise_bootstrap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">obs_stat</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">blockwise_bootstrap</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">calc</span><span class="o">=</span><span class="n">goertzel_calc</span><span class="p">,</span> <span class="n">block_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="gp">... </span>                             <span class="n">num_reps</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">obs_stat</span><span class="p">)</span>
+<span class="go">50.7685...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>For symbolic data<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="permutation-testing">
+<h4>Permutation testing<a class="headerlink" href="#permutation-testing" title="Permalink to this headline">¶</a></h4>
+<p>The very notion of permutation testing for periods, applied to a genome, requires the compute performance be as quick as possible. This means providing as much information up front as possible. We have made the implementation flexible by not assuming how the user will convert sequences to symbols. It’s also the case that numerous windows of exactly the same size are being assessed. Accordingly, we use a class to construct a fixed signal length evaluator. We do this for the hybrid metric first.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.period</span> <span class="kn">import</span> <span class="n">Hybrid</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">150</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hybrid_calculator</span> <span class="o">=</span> <span class="n">Hybrid</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">period</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We defined the period length of interest in defining this calculator because we’re interested in dinucleotide motifs.</p>
+</div>
+<p>We then construct a seq-to-symbol convertor.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.stats.period</span> <span class="kn">import</span> <span class="n">SeqToSymbols</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq_to_symbols</span> <span class="o">=</span> <span class="n">SeqToSymbols</span><span class="p">([</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="s1">&#39;TT&#39;</span><span class="p">,</span> <span class="s1">&#39;AT&#39;</span><span class="p">],</span> <span class="n">length</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The rest is as per the analysis using <code class="docutils literal notranslate"><span class="pre">Goertzel</span></code> above.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.stats.period</span> <span class="kn">import</span> <span class="n">blockwise_bootstrap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stat</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">blockwise_bootstrap</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">calc</span><span class="o">=</span><span class="n">hybrid_calculator</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">block_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_reps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">seq_to_symbols</span><span class="o">=</span><span class="n">seq_to_symbols</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
+<span class="go">104.35...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">&lt;</span> <span class="mf">0.1</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/examples/period_estimation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

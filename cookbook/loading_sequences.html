@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Loading nucleotide, protein sequences &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Alphabets" href="alphabet.html" />
+    <link rel="prev" title="Molecular types" href="moltypes.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Cookbook</a><ul>
+  <li><a href="manipulating_biological_data.html">Manipulating biological data</a><ul>
+      <li>Previous: <a href="moltypes.html" title="previous chapter">Molecular types</a></li>
+      <li>Next: <a href="alphabet.html" title="next chapter">Alphabets</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="loading-nucleotide-protein-sequences">
+<span id="load-seqs"></span><h1>Loading nucleotide, protein sequences<a class="headerlink" href="#loading-nucleotide-protein-sequences" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="loading-sequences-from-a-file">
+<h2>Loading sequences from a file<a class="headerlink" href="#loading-sequences-from-a-file" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="as-an-alignment">
+<h3>As an alignment<a class="headerlink" href="#as-an-alignment" title="Permalink to this headline">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">load_unaligned_seqs()</span></code> creates a sequence collection, <code class="docutils literal notranslate"><span class="pre">load_aligned_seqs()</span></code> an alignment.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/long_testseqs.fasta&#39;</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="go">&lt;class &#39;cogent3.core.alignment.ArrayAlignment&#39;&gt;</span>
+</pre></div>
+</div>
+<p>This example and some of the following use the <a class="reference download internal" download="" href="../_downloads/54afd0cb8bf3e7fcbf87cae4e1d49cfe/long_testseqs.fasta"><code class="xref download docutils literal notranslate"><span class="pre">long_testseqs.fasta</span></code></a> file.</p>
+</div>
+<div class="section" id="as-a-sequence-collection-unaligned">
+<h3>As a sequence collection (unaligned)<a class="headerlink" href="#as-a-sequence-collection-unaligned" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">load_unaligned_seqs()</span></code> function returns a sequence collection.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_unaligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="n">load_unaligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/long_testseqs.fasta&#39;</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">seqs</span><span class="p">))</span>
+<span class="go">&lt;class &#39;cogent3.core.alignment.SequenceCollection&#39;&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An alignment can be sliced, but a <code class="docutils literal notranslate"><span class="pre">SequenceCollection</span></code> can not.</p>
+</div>
+</div>
+<div class="section" id="specifying-the-file-format">
+<h3>Specifying the file format<a class="headerlink" href="#specifying-the-file-format" title="Permalink to this headline">¶</a></h3>
+<p><cite>The loading functions use the filename suffix to infer the file format. This can be overridden using the ``format`</cite> argument.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/long_testseqs.fasta&#39;</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                 <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;fasta&#39;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span>
+<span class="go">5 x 2532 dna alignment: Human[TGTGGCACAAA...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="make-aligned-seqs-from-a-series-of-strings">
+<h2><code class="docutils literal notranslate"><span class="pre">make_aligned_seqs</span></code> from a series of strings<a class="headerlink" href="#make-aligned-seqs-from-a-series-of-strings" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&gt;seq1&#39;</span><span class="p">,</span><span class="s1">&#39;AATCG-A&#39;</span><span class="p">,</span><span class="s1">&#39;&gt;seq2&#39;</span><span class="p">,</span><span class="s1">&#39;AATCGGA&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs_loaded</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">seqs_loaded</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">AATCG-A</span>
+<span class="go">&gt;seq2</span>
+<span class="go">AATCGGA</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="make-aligned-seqs-from-a-dict-of-strings">
+<h2><code class="docutils literal notranslate"><span class="pre">make_aligned_seqs</span></code> from a dict of strings<a class="headerlink" href="#make-aligned-seqs-from-a-dict-of-strings" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;seq1&#39;</span><span class="p">:</span> <span class="s1">&#39;AATCG-A&#39;</span><span class="p">,</span><span class="s1">&#39;seq2&#39;</span><span class="p">:</span> <span class="s1">&#39;AATCGGA&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs_loaded</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="specifying-the-sequence-molecular-type">
+<h2>Specifying the sequence molecular type<a class="headerlink" href="#specifying-the-sequence-molecular-type" title="Permalink to this headline">¶</a></h2>
+<p>Simple case of loading a <code class="docutils literal notranslate"><span class="pre">list</span></code> of aligned amino acid sequences in FASTA format, with and without molecule type specification. When the <code class="docutils literal notranslate"><span class="pre">MolType</span></code> is not specified it defaults to BYTES.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">protein_seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&gt;seq1&#39;</span><span class="p">,</span><span class="s1">&#39;DEKQL-RG&#39;</span><span class="p">,</span><span class="s1">&#39;&gt;seq2&#39;</span><span class="p">,</span><span class="s1">&#39;DDK--SRG&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">proteins_loaded</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">protein_seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">proteins_loaded</span><span class="o">.</span><span class="n">moltype</span>
+<span class="go">MolType((&#39;\x00&#39;, &#39;\x01&#39;, &#39;\x02&#39;, &#39;\x03&#39;...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">proteins_loaded</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">DEKQL-RG</span>
+<span class="go">&gt;seq2</span>
+<span class="go">DDK--SRG</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">proteins_loaded</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">protein_seqs</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;protein&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">proteins_loaded</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">DEKQL-RG</span>
+<span class="go">&gt;seq2</span>
+<span class="go">DDK--SRG</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="stripping-label-characters-on-loading">
+<h2>Stripping label characters on loading<a class="headerlink" href="#stripping-label-characters-on-loading" title="Permalink to this headline">¶</a></h2>
+<p>Load a list of aligned nucleotide sequences, while specifying the DNA molecule type and stripping the comments from the label. In this example, stripping is accomplished by passing a function that removes everything after the first whitespace to the <code class="docutils literal notranslate"><span class="pre">label_to_name</span></code> parameter.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DNA_seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&gt;sample1 Mus musculus&#39;</span><span class="p">,</span><span class="s1">&#39;AACCTGC--C&#39;</span><span class="p">,</span><span class="s1">&#39;&gt;sample2 Gallus gallus&#39;</span><span class="p">,</span><span class="s1">&#39;AAC-TGCAAC&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loaded_seqs</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">DNA_seqs</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">,</span> <span class="n">label_to_name</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">loaded_seqs</span><span class="p">)</span>
+<span class="go">&gt;sample1</span>
+<span class="go">AACCTGC--C</span>
+<span class="go">&gt;sample2</span>
+<span class="go">AAC-TGCAAC</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-sequences-using-format-parsers">
+<h2>Loading sequences using format parsers<a class="headerlink" href="#loading-sequences-using-format-parsers" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">load_aligned_seqs()</span></code> and <code class="docutils literal notranslate"><span class="pre">load_unaligned_seqs()</span></code> are just convenience interfaces to format parsers. It can sometimes be more effective to use the parsers directly, say when you don’t want to load everything into memory.</p>
+<div class="section" id="loading-fasta-sequences-from-an-open-file-or-list-of-lines">
+<h3>Loading FASTA sequences from an open file or list of lines<a class="headerlink" href="#loading-fasta-sequences-from-an-open-file-or-list-of-lines" title="Permalink to this headline">¶</a></h3>
+<p>To load FASTA formatted sequences directly, you can use the <code class="docutils literal notranslate"><span class="pre">MinimalFastaParser</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This returns the sequences as strings.</p>
+</div>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.parse.fasta</span> <span class="kn">import</span> <span class="n">MinimalFastaParser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/long_testseqs.fasta&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">name</span><span class="p">,</span> <span class="n">seq</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">MinimalFastaParser</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="go">[(&#39;Human&#39;, &#39;TGTGGCACAAATAC...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="handling-overloaded-fasta-sequence-labels">
+<h3>Handling overloaded FASTA sequence labels<a class="headerlink" href="#handling-overloaded-fasta-sequence-labels" title="Permalink to this headline">¶</a></h3>
+<p>The FASTA label field is frequently overloaded, with different information fields present in the field and separated by some delimiter. This can be flexibly addressed using the <code class="docutils literal notranslate"><span class="pre">LabelParser</span></code>. By creating a custom label parser, we can decided which part we use as the sequence name. We show how convert a field into something specific.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.parse.fasta</span> <span class="kn">import</span> <span class="n">LabelParser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">latin_to_common</span><span class="p">(</span><span class="n">latin</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;Homo sapiens&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s1">&#39;Pan troglodtyes&#39;</span><span class="p">:</span> <span class="s1">&#39;chimp&#39;</span><span class="p">}[</span><span class="n">latin</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">label_parser</span> <span class="o">=</span> <span class="n">LabelParser</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(species)s</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="n">latin_to_common</span><span class="p">]],</span> <span class="n">split_with</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="s2">&quot;&gt;abcd:Homo sapiens:misc&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;abcd:Pan troglodtyes:misc&quot;</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">label</span> <span class="o">=</span> <span class="n">label_parser</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+<span class="go">human &lt;class &#39;cogent3.parse.fasta.RichLabel&#39;&gt;</span>
+<span class="go">chimp &lt;class &#39;cogent3.parse.fasta.RichLabel&#39;&gt;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">RichLabel</span></code> objects have an <code class="docutils literal notranslate"><span class="pre">Info</span></code> object as an attribute, allowing specific reference to all the specified label fields.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.parse.fasta</span> <span class="kn">import</span> <span class="n">MinimalFastaParser</span><span class="p">,</span> <span class="n">LabelParser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fasta_data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&gt;gi|10047090|ref|NP_055147.1| small muscle protein, X-linked [Homo sapiens]&#39;</span><span class="p">,</span>
+<span class="gp">... </span> <span class="s1">&#39;MNMSKQPVSNVRAIQANINIPMGAFRPGAGQPPRRKECTPEVEEGVPPTSDEEKKPIPGAKKLPGPAVNL&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="s1">&#39;SEIQNIKSELKYVPKAEQ&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="s1">&#39;&gt;gi|10047092|ref|NP_037391.1| neuronal protein [Homo sapiens]&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="s1">&#39;MANRGPSYGLSREVQEKIEQKYDADLENKLVDWIILQCAEDIEHPPPGRAHFQKWLMDGTVLCKLINSLY&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="s1">&#39;PPGQEPIPKISESKMAFKQMEQISQFLKAAETYGVRTTDIFQTVDLWEGKDMAAVQRTLMALGSVAVTKD&#39;</span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">label_to_name</span> <span class="o">=</span> <span class="n">LabelParser</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(ref)s</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                             <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;gi&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+<span class="gp">... </span>                              <span class="n">split_with</span><span class="o">=</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">MinimalFastaParser</span><span class="p">(</span><span class="n">fasta_data</span><span class="p">,</span> <span class="n">label_to_name</span><span class="o">=</span><span class="n">label_to_name</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">gi</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+<span class="go">NP_055147.1</span>
+<span class="go">10047090</span>
+<span class="go"> small muscle protein, X-linked [Homo sapiens]</span>
+<span class="go">NP_037391.1</span>
+<span class="go">10047092</span>
+<span class="go"> neuronal protein [Homo sapiens]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cookbook/loading_sequences.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

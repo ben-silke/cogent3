@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Annotations &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Available genetic codes" href="what_codes.html" />
+    <link rel="prev" title="Collections and Alignments" href="alignments.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Cookbook</a><ul>
+  <li><a href="manipulating_biological_data.html">Manipulating biological data</a><ul>
+      <li>Previous: <a href="alignments.html" title="previous chapter">Collections and Alignments</a></li>
+      <li>Next: <a href="what_codes.html" title="next chapter">Available genetic codes</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="annotations">
+<h1>Annotations<a class="headerlink" href="#annotations" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="annotations-with-coordinates">
+<h1>Annotations with coordinates<a class="headerlink" href="#annotations-with-coordinates" title="Permalink to this headline">¶</a></h1>
+<p>For more extensive documentation about annotations see <a class="reference internal" href="../examples/seq_features.html#seq-annotations"><span class="std std-ref">Advanced sequence handling</span></a>.</p>
+<div class="section" id="automated-introduction-from-reading-genbank-files">
+<h2>Automated introduction from reading genbank files<a class="headerlink" href="#automated-introduction-from-reading-genbank-files" title="Permalink to this headline">¶</a></h2>
+<p>We load a sample genbank file with plenty of features and grab the CDS features.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.parse.genbank</span> <span class="kn">import</span> <span class="n">RichGenbankParser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span> <span class="o">=</span> <span class="n">RichGenbankParser</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/ST_genome_part.gb&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">accession</span><span class="p">,</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">parser</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">accession</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">AE006468</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cds</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">get_annotations_matching</span><span class="p">(</span><span class="s1">&#39;CDS&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cds</span><span class="p">)</span>
+<span class="go">[CDS &quot;thrL&quot; at [189:255]/10020, CDS &quot;thrA&quot; at ...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="customising-annotation-construction-from-reading-a-genbank-file">
+<h2>Customising annotation construction from reading a genbank file<a class="headerlink" href="#customising-annotation-construction-from-reading-a-genbank-file" title="Permalink to this headline">¶</a></h2>
+<p>You can write your own code to construct annotation objects. One reason you might do this is some genbank files do not have a <code class="docutils literal notranslate"><span class="pre">/gene</span></code> tag on gene related features, instead only possessing a <code class="docutils literal notranslate"><span class="pre">/locus_tag</span></code>. For illustrating the approach we only create annotations for <code class="docutils literal notranslate"><span class="pre">CDS</span></code> features. We write a custom callback function that uses the <code class="docutils literal notranslate"><span class="pre">locus_tag</span></code> as the <code class="docutils literal notranslate"><span class="pre">Feature</span></code> name.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.core.annotation</span> <span class="kn">import</span> <span class="n">Feature</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">add_annotation</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">spans</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">type_</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">type_</span> <span class="o">!=</span> <span class="s1">&#39;CDS&#39;</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">return</span>
+<span class="gp">... </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;locus_tag&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">name</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">seq</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span><span class="n">Feature</span><span class="p">,</span> <span class="n">type_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">spans</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span> <span class="o">=</span> <span class="n">RichGenbankParser</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/ST_genome_part.gb&#39;</span><span class="p">),</span>
+<span class="gp">... </span>         <span class="n">add_annotation</span><span class="o">=</span><span class="n">add_annotation</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">accession</span><span class="p">,</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">parser</span><span class="p">:</span> <span class="c1"># just reading one accession,sequence</span>
+<span class="gp">... </span>    <span class="k">break</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">genes</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">get_annotations_matching</span><span class="p">(</span><span class="s1">&#39;CDS&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">genes</span><span class="p">)</span>
+<span class="go">[CDS &quot;STM0001&quot; at [189:255]/10020, CDS &quot;STM0002&quot; at [336:2799]/10020...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-directly-on-a-sequence">
+<h2>Creating directly on a sequence<a class="headerlink" href="#creating-directly-on-a-sequence" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.core.annotation</span> <span class="kn">import</span> <span class="n">Feature</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;AAGAAGAAGACCCCCAAAAAAAAAA&quot;</span>\
+<span class="gp">... </span>                     <span class="s2">&quot;TTTTTTTTTTAAAAAGGGAACCCT&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;seq1&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">])</span> <span class="c1"># this will be exon 1</span>
+<span class="go">CCCCC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="mi">30</span><span class="p">:</span><span class="mi">40</span><span class="p">])</span> <span class="c1"># this will be exon 2</span>
+<span class="go">TTTTTAAAAA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="mi">45</span><span class="p">:</span><span class="mi">48</span><span class="p">])</span> <span class="c1"># this will be exon 3</span>
+<span class="go">CCC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;CGAAACGTTT&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;seq2&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s3</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;CGAAACGTTT&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;seq3&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="via">
+<h2>Via<a class="headerlink" href="#via" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="add-annotation">
+<h3><code class="docutils literal notranslate"><span class="pre">add_annotation</span></code><a class="headerlink" href="#add-annotation" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.core.annotation</span> <span class="kn">import</span> <span class="n">Feature</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;AAGAAGAAGACCCCCAAAAAAAAAA&quot;</span>\
+<span class="gp">... </span>                     <span class="s2">&quot;TTTTTTTTTTAAAAAGGGAACCCT&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;seq1&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon1</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span><span class="n">Feature</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon2</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span><span class="n">Feature</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-feature">
+<h3><code class="docutils literal notranslate"><span class="pre">add_feature</span></code><a class="headerlink" href="#add-feature" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;AAGAAGAAGACCCCCAAAAAAAAAA&quot;</span>\
+<span class="gp">... </span>                     <span class="s2">&quot;TTTTTTTTTTAAAAAGGGAACCCT&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;seq1&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon3</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">48</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p><em>There are other annotation types.</em></p>
+</div>
+</div>
+<div class="section" id="adding-as-a-series-or-item-wise">
+<h2>Adding as a series or item-wise<a class="headerlink" href="#adding-as-a-series-or-item-wise" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;CGAAACGTTT&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;seq2&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cpgs_series</span> <span class="o">=</span> <span class="n">s2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;cpgsite&#39;</span><span class="p">,</span> <span class="s1">&#39;cpg&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s3</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;CGAAACGTTT&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;seq3&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cpg1</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;cpgsite&#39;</span><span class="p">,</span> <span class="s1">&#39;cpg&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cpg2</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;cpgsite&#39;</span><span class="p">,</span> <span class="s1">&#39;cpg&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="taking-the-union-of-annotations">
+<h2>Taking the union of annotations<a class="headerlink" href="#taking-the-union-of-annotations" title="Permalink to this headline">¶</a></h2>
+<p>Construct a pseudo-feature (<code class="docutils literal notranslate"><span class="pre">cds</span></code>) that’s a union of other features (<code class="docutils literal notranslate"><span class="pre">exon1</span></code>, <code class="docutils literal notranslate"><span class="pre">exon2</span></code>, <code class="docutils literal notranslate"><span class="pre">exon3</span></code>).</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;AAGAAGAAGACCCCCAAAAAAAAAA&quot;</span>\
+<span class="gp">... </span>                     <span class="s2">&quot;TTTTTTTTTTAAAAAGGGAACCCT&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;seq1&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon1</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon2</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon3</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">48</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cds</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">get_region_covering_all</span><span class="p">([</span><span class="n">exon1</span><span class="p">,</span> <span class="n">exon2</span><span class="p">,</span> <span class="n">exon3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-annotation-coordinates">
+<h2>Getting annotation coordinates<a class="headerlink" href="#getting-annotation-coordinates" title="Permalink to this headline">¶</a></h2>
+<p>These are useful for doing custom things, e.g. you could construct intron features using the below.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cds</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()</span>
+<span class="go">[(10, 15), (30, 40), (45, 48)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="annotations-have-shadows">
+<h2>Annotations have shadows<a class="headerlink" href="#annotations-have-shadows" title="Permalink to this headline">¶</a></h2>
+<p>A shadow is a span representing everything but the annotation.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">not_cds</span> <span class="o">=</span> <span class="n">cds</span><span class="o">.</span><span class="n">get_shadow</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_cds</span>
+<span class="go">region &quot;not exon&quot; at [0:10, 15:30, 40:45, 48:49]/49</span>
+</pre></div>
+</div>
+<p>Compare to the coordinates of the original.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cds</span>
+<span class="go">region &quot;exon&quot; at [10:15, 30:40, 45:48]/49</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-to-a-sequence-member-of-an-alignment">
+<h2>Adding to a sequence member of an alignment<a class="headerlink" href="#adding-to-a-sequence-member-of-an-alignment" title="Permalink to this headline">¶</a></h2>
+<p>The following annotation is directly applied onto the sequence and so is in ungapped sequence coordinates.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln1</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;-AAACCCCCA&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                      <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;TTTT--TTTT&#39;</span><span class="p">]],</span> <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq_exon</span> <span class="o">=</span> <span class="n">aln1</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-to-an-alignment">
+<h2>Adding to an alignment<a class="headerlink" href="#adding-to-an-alignment" title="Permalink to this headline">¶</a></h2>
+<p>We add an annotation directly onto an alignment. In this example we add a <code class="docutils literal notranslate"><span class="pre">Variable</span></code> that can be displayed as a red line on a drawing. The resulting annotation (<code class="docutils literal notranslate"><span class="pre">red_data</span></code> here) is in <strong>alignment coordinates</strong>!</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.core.annotation</span> <span class="kn">import</span> <span class="n">Variable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">red_data</span> <span class="o">=</span> <span class="n">aln1</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span><span class="n">Variable</span><span class="p">,</span> <span class="s1">&#39;redline&#39;</span><span class="p">,</span> <span class="s1">&#39;align&#39;</span><span class="p">,</span>
+<span class="gp">... </span>             <span class="p">[((</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">),</span><span class="mi">1</span><span class="p">),((</span><span class="mi">15</span><span class="p">,</span><span class="mi">30</span><span class="p">),</span><span class="mi">2</span><span class="p">),((</span><span class="mi">30</span><span class="p">,</span><span class="mi">45</span><span class="p">),</span><span class="mi">3</span><span class="p">)])</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="slicing-sequences-and-alignments-by-annotations">
+<h2>Slicing sequences and alignments by annotations<a class="headerlink" href="#slicing-sequences-and-alignments-by-annotations" title="Permalink to this headline">¶</a></h2>
+<p>By a feature or coordinates returns same sequence span</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;AAGAAGAAGACCCCCAAAAAAAAAA&quot;</span>\
+<span class="gp">... </span>                     <span class="s2">&quot;TTTTTTTTTTAAAAAGGGAACCCT&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;seq1&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon1</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon2</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="p">[</span><span class="n">exon1</span><span class="p">]</span>
+<span class="go">DnaSequence(CCCCC)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
+<span class="go">DnaSequence(CCCCC)</span>
+</pre></div>
+</div>
+<p>Using the annotation object <code class="docutils literal notranslate"><span class="pre">get_slice</span></code> method returns the same thing.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="p">[</span><span class="n">exon2</span><span class="p">]</span>
+<span class="go">DnaSequence(TTTTTAAAAA)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon2</span><span class="o">.</span><span class="n">get_slice</span><span class="p">()</span>
+<span class="go">DnaSequence(TTTTTAAAAA)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="slicing-by-pseudo-feature-or-feature-series">
+<h2>Slicing by pseudo-feature or feature series<a class="headerlink" href="#slicing-by-pseudo-feature-or-feature-series" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;AAGAAGAAGACCCCCAAAAAAAAAA&quot;</span>\
+<span class="gp">... </span>                     <span class="s2">&quot;TTTTTTTTTTAAAAAGGGAACCCT&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;seq1&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon1</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon2</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon3</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">48</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cds</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">get_region_covering_all</span><span class="p">([</span><span class="n">exon1</span><span class="p">,</span> <span class="n">exon2</span><span class="p">,</span> <span class="n">exon3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">cds</span><span class="p">])</span>
+<span class="go">CCCCCTTTTTAAAAACCC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">exon1</span><span class="p">,</span> <span class="n">exon2</span><span class="p">,</span> <span class="n">exon3</span><span class="p">])</span>
+<span class="go">CCCCCTTTTTAAAAACCC</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Slices are applied in order!</p>
+</div>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+<span class="go">AAGAAGAAGACCCCCAAAAAAAAAATTTTTTTTTTAAAAAGGGAACCCT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">exon1</span><span class="p">,</span> <span class="n">exon2</span><span class="p">,</span> <span class="n">exon3</span><span class="p">])</span>
+<span class="go">CCCCCTTTTTAAAAACCC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">exon2</span><span class="p">])</span>
+<span class="go">TTTTTAAAAA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">exon3</span><span class="p">])</span>
+<span class="go">CCC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">exon1</span><span class="p">,</span> <span class="n">exon3</span><span class="p">,</span> <span class="n">exon2</span><span class="p">])</span>
+<span class="go">CCCCCCCCTTTTTAAAAA</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="slice-series-must-not-be-overlapping">
+<h2>Slice series must not be overlapping<a class="headerlink" href="#slice-series-must-not-be-overlapping" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">ValueError</span>: <span class="n">Uninvertable. Overlap: 9 &lt; 10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="p">[</span><span class="n">exon1</span><span class="p">,</span> <span class="n">exon1</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">ValueError</span>: <span class="n">Uninvertable. Overlap: 10 &lt; 15</span>
+</pre></div>
+</div>
+<p>But <code class="docutils literal notranslate"><span class="pre">get_region_covering_all</span></code> resolves this, ensuring no overlaps.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">get_region_covering_all</span><span class="p">([</span><span class="n">exon3</span><span class="p">,</span> <span class="n">exon3</span><span class="p">])</span><span class="o">.</span><span class="n">get_slice</span><span class="p">())</span>
+<span class="go">CCC</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="you-can-slice-an-annotation-itself">
+<h2>You can slice an annotation itself<a class="headerlink" href="#you-can-slice-an-annotation-itself" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">exon2</span><span class="p">])</span>
+<span class="go">TTTTTAAAAA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ex2_start</span> <span class="o">=</span> <span class="n">exon2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">ex2_start</span><span class="p">])</span>
+<span class="go">TTT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ex2_end</span> <span class="o">=</span> <span class="n">exon2</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">ex2_end</span><span class="p">])</span>
+<span class="go">AAA</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sequence-vs-alignment-slicing">
+<h2>Sequence vs Alignment slicing<a class="headerlink" href="#sequence-vs-alignment-slicing" title="Permalink to this headline">¶</a></h2>
+<p>You can’t slice an alignment using an annotation from a sequence.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln1</span><span class="p">[</span><span class="n">seq_exon</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">ValueError</span>: <span class="n">Can&#39;t map exon &quot;A&quot; at [3:8]/9 onto 2 x 10 text alignment: x[-AAACCCCCA], y[TTTT--TTTT] via []</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="copying-annotations">
+<h2>Copying annotations<a class="headerlink" href="#copying-annotations" title="Permalink to this headline">¶</a></h2>
+<p>You can copy annotations onto sequences with the same name, even if the length differs</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;-AAAAAAAAA&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;TTTT--TTTT&#39;</span><span class="p">]],</span>
+<span class="gp">... </span>                <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s1">&#39;CCCCCCCCCCCCCCCCCCCC&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">match_exon</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy_annotations</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">copied</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">aln2</span><span class="o">.</span><span class="n">get_annotations_from_seq</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">copied</span>
+<span class="go">[exon &quot;A&quot; at [4:9]/10]</span>
+</pre></div>
+</div>
+<p>but if the feature lies outside the sequence being copied to, you get a lost span</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;-AAAA&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;TTTTT&#39;</span><span class="p">]],</span> <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s1">&#39;CCCCCCCCCCCCCCCCCCCC&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">match_exon</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy_annotations</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">copied</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">aln2</span><span class="o">.</span><span class="n">get_annotations_from_seq</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">copied</span>
+<span class="go">[exon &quot;A&quot; at [5:5, -4-]/5]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">copied</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_slice</span><span class="p">()</span>
+<span class="go">2 x 4 text alignment: x[----], y[----]</span>
+</pre></div>
+</div>
+<p>You can copy to a sequence with a different name, in a different alignment if the feature lies within the length</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># new test</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;-AAAAAAAAA&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;TTTT--TTTT&#39;</span><span class="p">]],</span>
+<span class="gp">... </span>                 <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s1">&#39;CCCCCCCCCCCCCCCCCCCC&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">match_exon</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy_annotations</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">copied</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">aln2</span><span class="o">.</span><span class="n">get_annotations_from_seq</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">copied</span>
+<span class="go">[exon &quot;A&quot; at [7:10]/10]</span>
+</pre></div>
+</div>
+<p>If the sequence is shorter, again you get a lost span.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;-AAAAAAAAA&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;TTTT--TTTT&#39;</span><span class="p">]],</span>
+<span class="gp">... </span>                <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">diff_len_seq</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s1">&#39;CCCCCCCCCCCCCCCCCCCCCCCCCCCC&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nonmatch</span> <span class="o">=</span> <span class="n">diff_len_seq</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;repeat&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">12</span><span class="p">,</span><span class="mi">14</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy_annotations</span><span class="p">(</span><span class="n">diff_len_seq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">copied</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">aln2</span><span class="o">.</span><span class="n">get_annotations_from_seq</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;repeat&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">copied</span>
+<span class="go">[repeat &quot;A&quot; at [10:10, -6-]/10]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="querying">
+<h2>Querying<a class="headerlink" href="#querying" title="Permalink to this headline">¶</a></h2>
+<p>You need to get a corresponding annotation projected into alignment coordinates via a query.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln_exon</span> <span class="o">=</span> <span class="n">aln1</span><span class="o">.</span><span class="n">get_annotations_from_any_seq</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln1</span><span class="p">[</span><span class="n">aln_exon</span><span class="p">])</span>
+<span class="go">&gt;x</span>
+<span class="go">CCCCC</span>
+<span class="go">&gt;y</span>
+<span class="go">--TTT</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="querying-produces-objects-only-valid-for-their-source">
+<h2>Querying produces objects only valid for their source<a class="headerlink" href="#querying-produces-objects-only-valid-for-their-source" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cpgsite2</span> <span class="o">=</span> <span class="n">s2</span><span class="o">.</span><span class="n">get_annotations_matching</span><span class="p">(</span><span class="s1">&#39;cpgsite&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s2</span><span class="p">[</span><span class="n">cpgsite2</span><span class="p">])</span>
+<span class="go">CGCG</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cpgsite3</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">get_annotations_matching</span><span class="p">(</span><span class="s1">&#39;cpgsite&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span><span class="p">[</span><span class="n">cpgsite3</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">ValueError</span>: <span class="n">Can&#39;t map cpgsite &quot;cpg&quot; at [0:2]/10 onto DnaSequence(CGAAACGTTT) via []</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="querying-for-absent-annotation">
+<h2>Querying for absent annotation<a class="headerlink" href="#querying-for-absent-annotation" title="Permalink to this headline">¶</a></h2>
+<p>You get back an empty list, and slicing with this returns an empty sequence.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># this test is new</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dont_exist</span> <span class="o">=</span> <span class="n">s2</span><span class="o">.</span><span class="n">get_annotations_matching</span><span class="p">(</span><span class="s1">&#39;dont_exist&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dont_exist</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span><span class="p">[</span><span class="n">dont_exist</span><span class="p">]</span>
+<span class="go">DnaSequence()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="querying-features-that-span-gaps-in-alignments">
+<h2>Querying features that span gaps in alignments<a class="headerlink" href="#querying-features-that-span-gaps-in-alignments" title="Permalink to this headline">¶</a></h2>
+<p>If you query for a feature from a sequence, it’s alignment coordinates may be discontinuous.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln3</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;C-CCCAAAAA&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;-T----TTTT&#39;</span><span class="p">]],</span>
+<span class="gp">... </span>                <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon</span> <span class="o">=</span> <span class="n">aln3</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;ex1&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">exon</span><span class="o">.</span><span class="n">get_slice</span><span class="p">())</span>
+<span class="go">CCCC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln_exons</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">aln3</span><span class="o">.</span><span class="n">get_annotations_from_seq</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln_exons</span><span class="p">)</span>
+<span class="go">[exon &quot;ex1&quot; at [0:1, 2:5]/10]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln3</span><span class="p">[</span><span class="n">aln_exons</span><span class="p">])</span>
+<span class="go">&gt;x</span>
+<span class="go">CCCC</span>
+<span class="go">&gt;y</span>
+<span class="go">----</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">T</span></code> opposite the gap is missing since this approach only returns positions directly corresponding to the feature.</p>
+</div>
+</div>
+<div class="section" id="as-one-span-unifies-features-with-discontinuous-alignment-coordinates">
+<h2><code class="docutils literal notranslate"><span class="pre">as_one_span</span></code> unifies features with discontinuous alignment coordinates<a class="headerlink" href="#as-one-span-unifies-features-with-discontinuous-alignment-coordinates" title="Permalink to this headline">¶</a></h2>
+<p>To get positions spanned by a feature, including gaps, use <code class="docutils literal notranslate"><span class="pre">as_one_span</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">unified</span> <span class="o">=</span> <span class="n">aln_exons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">as_one_span</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln3</span><span class="p">[</span><span class="n">unified</span><span class="p">])</span>
+<span class="go">&gt;x</span>
+<span class="go">C-CCC</span>
+<span class="go">&gt;y</span>
+<span class="go">-T---</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="behaviour-of-annotations-on-nucleic-acid-sequences">
+<h2>Behaviour of annotations on nucleic acid sequences<a class="headerlink" href="#behaviour-of-annotations-on-nucleic-acid-sequences" title="Permalink to this headline">¶</a></h2>
+<p>Reverse complementing a sequence <strong>does not</strong> reverse annotations, that is they retain the reference to the frame for which they were defined.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plus</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s2">&quot;CCCCCAAAAAAAAAATTTTTTTTTTAAAGG&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plus_rpt</span> <span class="o">=</span> <span class="n">plus</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;blah&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">5</span><span class="p">,</span><span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">28</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">plus</span><span class="p">[</span><span class="n">plus_rpt</span><span class="p">])</span>
+<span class="go">AAAAAAAAAAAAA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">minus</span> <span class="o">=</span> <span class="n">plus</span><span class="o">.</span><span class="n">rc</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">minus</span><span class="p">)</span>
+<span class="go">CCTTTAAAAAAAAAATTTTTTTTTTGGGGG</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">minus_rpt</span> <span class="o">=</span> <span class="n">minus</span><span class="o">.</span><span class="n">get_annotations_matching</span><span class="p">(</span><span class="s1">&#39;blah&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">minus</span><span class="p">[</span><span class="n">minus_rpt</span><span class="p">])</span>
+<span class="go">AAAAAAAAAAAAA</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="masking-annotated-regions">
+<h2>Masking annotated regions<a class="headerlink" href="#masking-annotated-regions" title="Permalink to this headline">¶</a></h2>
+<p>We mask the CDS regions.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.parse.genbank</span> <span class="kn">import</span> <span class="n">RichGenbankParser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span> <span class="o">=</span> <span class="n">RichGenbankParser</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/ST_genome_part.gb&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="p">[</span><span class="n">seq</span> <span class="k">for</span> <span class="n">accession</span><span class="p">,</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">parser</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">no_cds</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">with_masked_annotations</span><span class="p">(</span><span class="s1">&#39;CDS&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">no_cds</span><span class="p">[</span><span class="mi">150</span><span class="p">:</span><span class="mi">400</span><span class="p">])</span>
+<span class="go">CAAGACAGACAAATAAAAATGACAGAGTACACAACATCC?????????...</span>
+</pre></div>
+</div>
+<p>The above sequence could then have positions filtered so no position with the ambiguous character ‘?’ was present.</p>
+</div>
+<div class="section" id="masking-annotated-regions-on-alignments">
+<h2>Masking annotated regions on alignments<a class="headerlink" href="#masking-annotated-regions-on-alignments" title="Permalink to this headline">¶</a></h2>
+<p>We mask exon’s on an alignment.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;C-CCCAAAAAGGGAA&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                     <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;-T----TTTTG-GTT&#39;</span><span class="p">]],</span>
+<span class="gp">... </span>               <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">,</span> <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;norwegian&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="o">.</span><span class="n">with_masked_annotations</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="n">mask_char</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">))</span>
+<span class="go">&gt;x</span>
+<span class="go">?-???AAAAAGGGAA</span>
+<span class="go">&gt;y</span>
+<span class="go">-T----TTTTG-GTT</span>
+</pre></div>
+</div>
+<p>These also persist through reverse complement operations.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rc</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">rc</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rc</span><span class="p">)</span>
+<span class="go">&gt;x</span>
+<span class="go">TTCCCTTTTTGGG-G</span>
+<span class="go">&gt;y</span>
+<span class="go">AAC-CAAAA----A-</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rc</span><span class="o">.</span><span class="n">with_masked_annotations</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="n">mask_char</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">))</span>
+<span class="go">&gt;x</span>
+<span class="go">TTCCCTTTTT???-?</span>
+<span class="go">&gt;y</span>
+<span class="go">AAC-CAAAA----A-</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="you-can-take-mask-of-the-shadow">
+<h2>You can take mask of the shadow<a class="headerlink" href="#you-can-take-mask-of-the-shadow" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s1">&#39;CCCCAAAAAGGGAA&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;norwegian&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rpt</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;repeat&#39;</span><span class="p">,</span> <span class="s1">&#39;norwegian&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rc</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">rc</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">with_masked_annotations</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">CCCC??????????</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rc</span><span class="o">.</span><span class="n">with_masked_annotations</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">??????????GGGG</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">with_masked_annotations</span><span class="p">([</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;repeat&#39;</span><span class="p">],</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">CCCC?????GGG??</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rc</span><span class="o">.</span><span class="n">with_masked_annotations</span><span class="p">([</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;repeat&#39;</span><span class="p">],</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">??CCC?????GGGG</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="what-features-of-a-certain-type-are-available">
+<h2>What features of a certain type are available?<a class="headerlink" href="#what-features-of-a-certain-type-are-available" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s1">&#39;ATGACCCTGTAAAAAATGTGTTAACCC&#39;</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="n">name</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cds1</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;cds&#39;</span><span class="p">,</span><span class="s1">&#39;cds1&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">12</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cds2</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;cds&#39;</span><span class="p">,</span><span class="s1">&#39;cds2&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">15</span><span class="p">,</span><span class="mi">24</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_cds</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_annotations_matching</span><span class="p">(</span><span class="s1">&#39;cds&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_cds</span>
+<span class="go">[cds &quot;cds1&quot; at [0:12]/27, cds &quot;cds2&quot; at [15:24]/27]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-all-features-of-a-type-or-everything-but-that-type">
+<h2>Getting all features of a type, or everything but that type<a class="headerlink" href="#getting-all-features-of-a-type-or-everything-but-that-type" title="Permalink to this headline">¶</a></h2>
+<p>The annotation methods <code class="docutils literal notranslate"><span class="pre">get_region_covering_all</span></code> and <code class="docutils literal notranslate"><span class="pre">get_shadow</span></code> can be used to grab all the coding sequences or non-coding sequences in a <code class="docutils literal notranslate"><span class="pre">DnaSequence</span></code> object.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.parse.genbank</span> <span class="kn">import</span> <span class="n">RichGenbankParser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span> <span class="o">=</span> <span class="n">RichGenbankParser</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/ST_genome_part.gb&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="p">[</span><span class="n">seq</span> <span class="k">for</span> <span class="n">accession</span><span class="p">,</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">parser</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_cds</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">get_annotations_matching</span><span class="p">(</span><span class="s1">&#39;CDS&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coding_seqs</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">get_region_covering_all</span><span class="p">(</span><span class="n">all_cds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coding_seqs</span>
+<span class="go">region &quot;CDS&quot; at [189:255, 336:2799, 2800:3730, 3733...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coding_seqs</span><span class="o">.</span><span class="n">get_slice</span><span class="p">()</span>
+<span class="go">DnaSequence(ATGAACC... 9063)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">noncoding_seqs</span> <span class="o">=</span> <span class="n">coding_seqs</span><span class="o">.</span><span class="n">get_shadow</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">noncoding_seqs</span>
+<span class="go">region &quot;not CDS&quot; at [0:189, 255:336, 2799:2800, ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">noncoding_seqs</span><span class="o">.</span><span class="n">get_slice</span><span class="p">()</span>
+<span class="go">DnaSequence(AGAGATT... 957)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-sequence-features-when-you-have-an-alignment-object">
+<h2>Getting sequence features when you have an alignment object<a class="headerlink" href="#getting-sequence-features-when-you-have-an-alignment-object" title="Permalink to this headline">¶</a></h2>
+<p>Sequence features can be accessed via a containing <code class="docutils literal notranslate"><span class="pre">Alignment</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;-AAAAAAAAA&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;TTTT--TTTT&#39;</span><span class="p">]],</span>
+<span class="gp">... </span>               <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="go">&gt;x</span>
+<span class="go">-AAAAAAAAA</span>
+<span class="go">&gt;y</span>
+<span class="go">TTTT--TTTT</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exon</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln_exons</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_annotations_from_seq</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln_exons</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_annotations_from_any_seq</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln_exons</span>
+<span class="go">[exon &quot;1&quot; at [4:9]/10]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="annotation-display-on-sequences">
+<h2>Annotation display on sequences<a class="headerlink" href="#annotation-display-on-sequences" title="Permalink to this headline">¶</a></h2>
+<p>We can display annotations on sequences, writing to file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This requires <a class="reference external" href="http://matplotlib.org/">matplotlib</a> be installed.</p>
+</div>
+<p>We first make a sequence and add some annotations.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">make_seq</span><span class="p">(</span><span class="s1">&#39;aaaccggttt&#39;</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">20</span><span class="p">,</span><span class="mi">35</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;repeat_unit&#39;</span><span class="p">,</span> <span class="s1">&#39;repeat_unit&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">39</span><span class="p">,</span><span class="mi">49</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;repeat_unit&#39;</span><span class="p">,</span> <span class="s1">&#39;rep2&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">49</span><span class="p">,</span><span class="mi">60</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cookbook/annotations.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,719 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Trees &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Phylonodes Methods" href="phylonodes.html" />
+    <link rel="prev" title="Translate DNA sequences" href="genetic_code.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Cookbook</a><ul>
+  <li><a href="manipulating_biological_data.html">Manipulating biological data</a><ul>
+      <li>Previous: <a href="genetic_code.html" title="previous chapter">Translate DNA sequences</a></li>
+      <li>Next: <a href="phylonodes.html" title="next chapter">Phylonodes Methods</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="trees">
+<h1>Trees<a class="headerlink" href="#trees" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="basics">
+<h2>Basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="loading-a-tree-from-a-file-and-visualizing-it-with-ascii-art">
+<h3>Loading a tree from a file and visualizing it with <code class="docutils literal notranslate"><span class="pre">ascii_art()</span></code><a class="headerlink" href="#loading-a-tree-from-a-file-and-visualizing-it-with-ascii-art" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">                              /-Human</span>
+<span class="go">                    /edge.0--|</span>
+<span class="go">          /edge.1--|          \-HowlerMon</span>
+<span class="go">         |         |</span>
+<span class="go">         |          \-Mouse</span>
+<span class="go">-root----|</span>
+<span class="go">         |--NineBande</span>
+<span class="go">         |</span>
+<span class="go">          \-DogFaced</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing-a-tree-to-a-file">
+<h3>Writing a tree to a file<a class="headerlink" href="#writing-a-tree-to-a-file" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;data/temp.tree&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-the-individual-nodes-of-a-tree-by-name">
+<h3>Getting the individual nodes of a tree by name<a class="headerlink" href="#getting-the-individual-nodes-of-a-tree-by-name" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_node_names</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+<span class="go">[&#39;root&#39;, &#39;edge.1&#39;, &#39;edge.0&#39;, &#39;Human&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+<span class="go">[&#39;HowlerMon&#39;, &#39;Mouse&#39;, &#39;NineBande&#39;, &#39;DogFaced&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names_nodes</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_nodes_dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names_nodes</span><span class="p">[</span><span class="s1">&#39;Human&#39;</span><span class="p">]</span>
+<span class="go">Tree(&quot;Human;&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">get_node_matching_name</span><span class="p">(</span><span class="s1">&#39;Mouse&#39;</span><span class="p">)</span>
+<span class="go">Tree(&quot;Mouse;&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-the-name-of-a-node-or-a-tree">
+<h3>Getting the name of a node (or a tree)<a class="headerlink" href="#getting-the-name-of-a-node-or-a-tree" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hu</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_node_matching_name</span><span class="p">(</span><span class="s1">&#39;Human&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;root&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hu</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Human&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-object-type-of-a-tree-and-its-nodes-is-the-same">
+<h3>The object type of a tree and its nodes is the same<a class="headerlink" href="#the-object-type-of-a-tree-and-its-nodes-is-the-same" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_nodes_dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hu</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;Human&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">hu</span><span class="p">)</span>
+<span class="go">&lt;class &#39;cogent3.core.tree.PhyloNode&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+<span class="go">&lt;class &#39;cogent3.core.tree.PhyloNode&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="working-with-the-nodes-of-a-tree">
+<h3>Working with the nodes of a tree<a class="headerlink" href="#working-with-the-nodes-of-a-tree" title="Permalink to this headline">¶</a></h3>
+<p>Get all the nodes, tips and edges</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_nodes_dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  
+<span class="gp">...</span>
+<span class="go">(&#39;NineBande&#39;, Tree(&quot;NineBande;&quot;))</span>
+<span class="go">(&#39;edge.1&#39;, Tree(&quot;((Human,HowlerMon),Mouse);&quot;))</span>
+<span class="go">(&#39;root&#39;, Tree(&quot;(((Human,HowlerMon),Mouse),NineBande,DogFaced);&quot;))</span>
+<span class="go">(&#39;DogFaced&#39;, Tree(&quot;DogFaced;&quot;))</span>
+<span class="go">(&#39;Human&#39;, Tree(&quot;Human;&quot;))</span>
+<span class="go">(&#39;edge.0&#39;, Tree(&quot;(Human,HowlerMon);&quot;))</span>
+<span class="go">(&#39;Mouse&#39;, Tree(&quot;Mouse;&quot;))</span>
+<span class="go">(&#39;HowlerMon&#39;, Tree(&quot;HowlerMon;&quot;))</span>
+</pre></div>
+</div>
+<p>only the terminal nodes (tips)</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">iter_tips</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">Human:0.0311054096183;</span>
+<span class="go">HowlerMon:0.0415847131449;</span>
+<span class="go">Mouse:0.277353608988;</span>
+<span class="go">NineBande:0.0939768158209;</span>
+<span class="go">DogFaced:0.113211053859;</span>
+</pre></div>
+</div>
+<p>for internal nodes (edges) we can use Newick format to simplify the output</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">iter_nontips</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">get_newick</span><span class="p">())</span>
+<span class="gp">...</span>
+<span class="go">((Human,HowlerMon),Mouse);</span>
+<span class="go">(Human,HowlerMon);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-the-path-between-two-tips-or-edges-connecting-edges">
+<h3>Getting the path between two tips or edges (connecting edges)<a class="headerlink" href="#getting-the-path-between-two-tips-or-edges-connecting-edges" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edges</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_connecting_edges</span><span class="p">(</span><span class="s1">&#39;edge.1&#39;</span><span class="p">,</span><span class="s1">&#39;Human&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="nb">print</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">edge.1</span>
+<span class="go">edge.0</span>
+<span class="go">Human</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-the-distance-between-two-nodes">
+<h3>Getting the distance between two nodes<a class="headerlink" href="#getting-the-distance-between-two-nodes" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_nodes_dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hu</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;Human&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mu</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;Mouse&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hu</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span>
+<span class="go">0.3467553...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hu</span><span class="o">.</span><span class="n">is_tip</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-the-last-common-ancestor-lca-for-two-nodes">
+<h3>Getting the last common ancestor (LCA) for two nodes<a class="headerlink" href="#getting-the-last-common-ancestor-lca-for-two-nodes" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_nodes_dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hu</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;Human&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mu</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="s1">&#39;Mouse&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lca</span> <span class="o">=</span> <span class="n">hu</span><span class="o">.</span><span class="n">last_common_ancestor</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lca</span>
+<span class="go">Tree(&quot;((Human,HowlerMon),Mouse);&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">lca</span><span class="p">)</span>
+<span class="go">&lt;class &#39;cogent3.core.tree.PhyloNode&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-all-the-ancestors-for-a-node">
+<h3>Getting all the ancestors for a node<a class="headerlink" href="#getting-all-the-ancestors-for-a-node" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hu</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_node_matching_name</span><span class="p">(</span><span class="s1">&#39;Human&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">hu</span><span class="o">.</span><span class="n">ancestors</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">edge.0</span>
+<span class="go">edge.1</span>
+<span class="go">root</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-all-the-children-for-a-node">
+<h3>Getting all the children for a node<a class="headerlink" href="#getting-all-the-children-for-a-node" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_node_matching_name</span><span class="p">(</span><span class="s1">&#39;edge.1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">children</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">iter_tips</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">iter_nontips</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">Human</span>
+<span class="go">HowlerMon</span>
+<span class="go">Mouse</span>
+<span class="go">edge.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-all-the-distances-for-a-tree">
+<h3>Getting all the distances for a tree<a class="headerlink" href="#getting-all-the-distances-for-a-tree" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dists</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_distances</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We also show how to select a subset of distances involving just one species.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">human_dists</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span> <span class="k">for</span> <span class="n">names</span> <span class="ow">in</span> <span class="n">dists</span> <span class="k">if</span> <span class="s1">&#39;Human&#39;</span> <span class="ow">in</span> <span class="n">names</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">dist</span> <span class="ow">in</span> <span class="n">human_dists</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">dists</span><span class="p">[</span><span class="n">dist</span><span class="p">])</span>  
+<span class="gp">...</span>
+<span class="go">(&#39;Human&#39;, &#39;NineBande&#39;) 0.183106418165</span>
+<span class="go">(&#39;DogFaced&#39;, &#39;Human&#39;) 0.202340656203</span>
+<span class="go">(&#39;NineBande&#39;, &#39;Human&#39;) 0.183106418165</span>
+<span class="go">(&#39;Human&#39;, &#39;DogFaced&#39;) 0.202340656203</span>
+<span class="go">(&#39;Mouse&#39;, &#39;Human&#39;) 0.346755361094</span>
+<span class="go">(&#39;HowlerMon&#39;, &#39;Human&#39;) 0.0726901227632</span>
+<span class="go">(&#39;Human&#39;, &#39;Mouse&#39;) 0.346755361094</span>
+<span class="go">(&#39;Human&#39;, &#39;HowlerMon&#39;) 0.0726901227632</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-the-two-nodes-that-are-farthest-apart">
+<h3>Getting the two nodes that are farthest apart<a class="headerlink" href="#getting-the-two-nodes-that-are-farthest-apart" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">max_tip_tip_distance</span><span class="p">()</span>
+<span class="go">(0.4102925130849, (&#39;Mouse&#39;, &#39;DogFaced&#39;))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-the-nodes-within-a-given-distance">
+<h3>Get the nodes within a given distance<a class="headerlink" href="#get-the-nodes-within-a-given-distance" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hu</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_node_matching_name</span><span class="p">(</span><span class="s1">&#39;Human&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tips</span> <span class="o">=</span> <span class="n">hu</span><span class="o">.</span><span class="n">tips_within_distance</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tips</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">HowlerMon:0.0415847131449;</span>
+<span class="go">NineBande:0.0939768158209;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="rerooting-trees">
+<h2>Rerooting trees<a class="headerlink" href="#rerooting-trees" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="at-a-named-node">
+<h3>At a named node<a class="headerlink" href="#at-a-named-node" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">rooted_at</span><span class="p">(</span><span class="s1">&#39;edge.0&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">          /-Human</span>
+<span class="go">         |</span>
+<span class="go">-root----|--HowlerMon</span>
+<span class="go">         |</span>
+<span class="go">         |          /-Mouse</span>
+<span class="go">          \edge.0--|</span>
+<span class="go">                   |          /-NineBande</span>
+<span class="go">                    \edge.1--|</span>
+<span class="go">                              \-DogFaced</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="at-the-midpoint">
+<h3>At the midpoint<a class="headerlink" href="#at-the-midpoint" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">root_at_midpoint</span><span class="p">()</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">          /-Mouse</span>
+<span class="go">         |</span>
+<span class="go">-root----|                    /-Human</span>
+<span class="go">         |          /edge.0--|</span>
+<span class="go">         |         |          \-HowlerMon</span>
+<span class="go">          \edge.0.2|</span>
+<span class="go">                   |          /-NineBande</span>
+<span class="go">                    \edge.1--|</span>
+<span class="go">                              \-DogFaced</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">                              /-Human</span>
+<span class="go">                    /edge.0--|</span>
+<span class="go">          /edge.1--|          \-HowlerMon</span>
+<span class="go">         |         |</span>
+<span class="go">         |          \-------- /-Mouse</span>
+<span class="go">-root----|</span>
+<span class="go">         |--NineBande</span>
+<span class="go">         |</span>
+<span class="go">          \-DogFaced</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="near-a-given-tip">
+<h3>Near a given tip<a class="headerlink" href="#near-a-given-tip" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">                              /-Human</span>
+<span class="go">                    /edge.0--|</span>
+<span class="go">          /edge.1--|          \-HowlerMon</span>
+<span class="go">         |         |</span>
+<span class="go">         |          \-Mouse</span>
+<span class="go">-root----|</span>
+<span class="go">         |--NineBande</span>
+<span class="go">         |</span>
+<span class="go">          \-DogFaced</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">rooted_with_tip</span><span class="p">(</span><span class="s2">&quot;Mouse&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">                    /-Human</span>
+<span class="go">          /edge.0--|</span>
+<span class="go">         |          \-HowlerMon</span>
+<span class="go">         |</span>
+<span class="go">-root----|--Mouse</span>
+<span class="go">         |</span>
+<span class="go">         |          /-NineBande</span>
+<span class="go">          \edge.1--|</span>
+<span class="go">                    \-DogFaced</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tree-representations">
+<h2>Tree representations<a class="headerlink" href="#tree-representations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="newick-format">
+<h3>Newick format<a class="headerlink" href="#newick-format" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">get_newick</span><span class="p">()</span>
+<span class="go">&#39;(((Human,HowlerMon),Mouse),NineBande,DogFaced);&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">get_newick</span><span class="p">(</span><span class="n">with_distances</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">&#39;(((Human:0.0311054096183,HowlerMon:0.0415847131449)...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xml-format">
+<h3>XML format<a class="headerlink" href="#xml-format" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xml</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_xml</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">xml</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+<span class="gp">... </span>   <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="go">&lt;clade&gt;</span>
+<span class="go">  &lt;clade&gt;</span>
+<span class="go">     &lt;param&gt;&lt;name&gt;length&lt;/name&gt;&lt;value&gt;0.0197278502379&lt;/value&gt;&lt;/param&gt;</span>
+<span class="go">    &lt;clade&gt;</span>
+<span class="go">       &lt;param&gt;&lt;name&gt;length&lt;/name&gt;&lt;value&gt;0.0382963424874&lt;/value&gt;&lt;/param&gt;</span>
+<span class="go">      &lt;clade&gt;</span>
+<span class="go">         &lt;name&gt;Human&lt;/name&gt;...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tree-traversal">
+<h2>Tree traversal<a class="headerlink" href="#tree-traversal" title="Permalink to this headline">¶</a></h2>
+<p>Here is the example tree for reference:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">                              /-Human</span>
+<span class="go">                    /edge.0--|</span>
+<span class="go">          /edge.1--|          \-HowlerMon</span>
+<span class="go">         |         |</span>
+<span class="go">         |          \-Mouse</span>
+<span class="go">-root----|</span>
+<span class="go">         |--NineBande</span>
+<span class="go">         |</span>
+<span class="go">          \-DogFaced</span>
+</pre></div>
+</div>
+<div class="section" id="preorder">
+<h3>Preorder<a class="headerlink" href="#preorder" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">preorder</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">get_newick</span><span class="p">())</span>
+<span class="gp">...</span>
+<span class="go">(((Human,HowlerMon),Mouse),NineBande,DogFaced);</span>
+<span class="go">((Human,HowlerMon),Mouse);</span>
+<span class="go">(Human,HowlerMon);</span>
+<span class="go">Human;</span>
+<span class="go">HowlerMon;</span>
+<span class="go">Mouse;</span>
+<span class="go">NineBande;</span>
+<span class="go">DogFaced;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="postorder">
+<h3>Postorder<a class="headerlink" href="#postorder" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">postorder</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">get_newick</span><span class="p">())</span>
+<span class="gp">...</span>
+<span class="go">Human;</span>
+<span class="go">HowlerMon;</span>
+<span class="go">(Human,HowlerMon);</span>
+<span class="go">Mouse;</span>
+<span class="go">((Human,HowlerMon),Mouse);</span>
+<span class="go">NineBande;</span>
+<span class="go">DogFaced;</span>
+<span class="go">(((Human,HowlerMon),Mouse),NineBande,DogFaced);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="selecting-subtrees">
+<h2>Selecting subtrees<a class="headerlink" href="#selecting-subtrees" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="one-way-to-do-it">
+<h3>One way to do it<a class="headerlink" href="#one-way-to-do-it" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">tip</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">iter_nontips</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">tip_names</span> <span class="o">=</span> <span class="n">tip</span><span class="o">.</span><span class="n">get_tip_names</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">tip_names</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">sub_tree</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">get_sub_tree</span><span class="p">(</span><span class="n">tip_names</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">sub_tree</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="gp">...</span>
+<span class="go">[&#39;Human&#39;, &#39;HowlerMon&#39;, &#39;Mouse&#39;]</span>
+<span class="go">          /-Human</span>
+<span class="go">         |</span>
+<span class="go">-root----|--HowlerMon</span>
+<span class="go">         |</span>
+<span class="go">          \-Mouse</span>
+<span class="go">[&#39;Human&#39;, &#39;HowlerMon&#39;]</span>
+<span class="go">          /-Human</span>
+<span class="go">-root----|</span>
+<span class="go">          \-HowlerMon</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tree-manipulation-methods">
+<h2>Tree manipulation methods<a class="headerlink" href="#tree-manipulation-methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pruning-the-tree">
+<h3>Pruning the tree<a class="headerlink" href="#pruning-the-tree" title="Permalink to this headline">¶</a></h3>
+<p>Remove internal nodes with only one child. Create new connections
+and branch lengths (if tree is a PhyloNode) to reflect the change.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple_tree_string</span><span class="o">=</span><span class="s2">&quot;(B:0.2,(D:0.4)E:0.5)F;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple_tree</span><span class="o">=</span><span class="n">make_tree</span><span class="p">(</span><span class="n">simple_tree_string</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">simple_tree</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">          /-B</span>
+<span class="go">-F-------|</span>
+<span class="go">          \E------- /-D</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple_tree</span><span class="o">.</span><span class="n">prune</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">simple_tree</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">          /-B</span>
+<span class="go">-F-------|</span>
+<span class="go">          \-D</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">simple_tree</span><span class="p">)</span>
+<span class="go">(B:0.2,D:0.9)F;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-a-full-unrooted-copy-of-the-tree">
+<h3>Create a full unrooted copy of the tree<a class="headerlink" href="#create-a-full-unrooted-copy-of-the-tree" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr1</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr1</span><span class="o">.</span><span class="n">get_newick</span><span class="p">())</span>
+<span class="go">(((Human,HowlerMon),Mouse),NineBande,DogFaced);</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr2</span> <span class="o">=</span> <span class="n">tr1</span><span class="o">.</span><span class="n">unrooted_deepcopy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr2</span><span class="o">.</span><span class="n">get_newick</span><span class="p">())</span>
+<span class="go">(((Human,HowlerMon),Mouse),NineBande,DogFaced);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="transform-tree-into-a-bifurcating-tree">
+<h3>Transform tree into a bifurcating tree<a class="headerlink" href="#transform-tree-into-a-bifurcating-tree" title="Permalink to this headline">¶</a></h3>
+<p>Add internal nodes so that every node has 2 or fewer children.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree_string</span><span class="o">=</span><span class="s2">&quot;(B:0.2,H:0.2,(C:0.3,D:0.4,E:0.1)F:0.5)G;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="n">tree_string</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">          /-B</span>
+<span class="go">         |</span>
+<span class="go">         |--H</span>
+<span class="go">-G-------|</span>
+<span class="go">         |          /-C</span>
+<span class="go">         |         |</span>
+<span class="go">          \F-------|--D</span>
+<span class="go">                   |</span>
+<span class="go">                    \-E</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">bifurcating</span><span class="p">()</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">          /-B</span>
+<span class="go">-G-------|</span>
+<span class="go">         |          /-H</span>
+<span class="go">          \--------|</span>
+<span class="go">                   |          /-C</span>
+<span class="go">                    \F-------|</span>
+<span class="go">                             |          /-D</span>
+<span class="go">                              \--------|</span>
+<span class="go">                                        \-E</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="transform-tree-into-a-balanced-tree">
+<h3>Transform tree into a balanced tree<a class="headerlink" href="#transform-tree-into-a-balanced-tree" title="Permalink to this headline">¶</a></h3>
+<p>Using a balanced tree can substantially improve performance of
+likelihood calculations. Note that the resulting tree has a
+different orientation with the effect that specifying clades or
+stems for model parameterization should be done using the
+“outgroup_name” argument.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">load_tree</span><span class="p">(</span><span class="s1">&#39;data/test.tree&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">                              /-Human</span>
+<span class="go">                    /edge.0--|</span>
+<span class="go">          /edge.1--|          \-HowlerMon</span>
+<span class="go">         |         |</span>
+<span class="go">         |          \-Mouse</span>
+<span class="go">-root----|</span>
+<span class="go">         |--NineBande</span>
+<span class="go">         |</span>
+<span class="go">          \-DogFaced</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">balanced</span><span class="p">()</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">                    /-Human</span>
+<span class="go">          /edge.0--|</span>
+<span class="go">         |          \-HowlerMon</span>
+<span class="go">         |</span>
+<span class="go">-root----|--Mouse</span>
+<span class="go">         |</span>
+<span class="go">         |          /-NineBande</span>
+<span class="go">          \edge.1--|</span>
+<span class="go">                    \-DogFaced</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="test-two-trees-for-same-topology">
+<h3>Test two trees for same topology<a class="headerlink" href="#test-two-trees-for-same-topology" title="Permalink to this headline">¶</a></h3>
+<p>Branch lengths don’t matter.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr1</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="s2">&quot;(B:0.2,(C:0.2,D:0.2)F:0.2)G;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr2</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="s2">&quot;((C:0.1,D:0.1)F:0.1,B:0.1)G;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr1</span><span class="o">.</span><span class="n">same_topology</span><span class="p">(</span><span class="n">tr2</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calculate-each-node-s-maximum-distance-to-a-tip">
+<h3>Calculate each node’s maximum distance to a tip<a class="headerlink" href="#calculate-each-node-s-maximum-distance-to-a-tip" title="Permalink to this headline">¶</a></h3>
+<p>Sets each node’s “TipDistance” attribute to be
+the distance from that node to its most distant tip.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="s2">&quot;(B:0.2,(C:0.3,D:0.4)F:0.5)G;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">ascii_art</span><span class="p">())</span>
+<span class="go">          /-B</span>
+<span class="go">-G-------|</span>
+<span class="go">         |          /-C</span>
+<span class="go">          \F-------|</span>
+<span class="go">                    \-D</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">set_tip_distances</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">preorder</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">TipDistance</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">G 0.9</span>
+<span class="go">B 0</span>
+<span class="go">F 0.4</span>
+<span class="go">C 0</span>
+<span class="go">D 0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scale-branch-lengths-in-place-to-integers-for-ascii-output">
+<h3>Scale branch lengths in place to integers for ascii output<a class="headerlink" href="#scale-branch-lengths-in-place-to-integers-for-ascii-output" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="s2">&quot;(B:0.2,(C:0.3,D:0.4)F:0.5)G;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+<span class="go">(B:0.2,(C:0.3,D:0.4)F:0.5)G;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">scale_branch_lengths</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+<span class="go">(B:22,(C:33,D:44)F:56)G;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-tip-to-tip-distances">
+<h3>Get tip-to-tip distances<a class="headerlink" href="#get-tip-to-tip-distances" title="Permalink to this headline">¶</a></h3>
+<p>Get a distance matrix between all pairs of tips
+and a list of the tip nodes.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="s2">&quot;(B:3,(C:2,D:4)F:5)G;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">,</span><span class="n">tips</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">tip_to_tip_distances</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tips</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="gp">...</span>
+<span class="go">B [ 0. 10. 12.]</span>
+<span class="go">C [10.  0.  6.]</span>
+<span class="go">D [12.  6.  0.]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compare-two-trees-using-tip-to-tip-distance-matrices">
+<h3>Compare two trees using tip-to-tip distance matrices<a class="headerlink" href="#compare-two-trees-using-tip-to-tip-distance-matrices" title="Permalink to this headline">¶</a></h3>
+<p>Score ranges from 0 (minimum distance) to 1 (maximum
+distance). The default is to use Pearson’s correlation,
+in which case a score of 0 means that the Pearson’s
+correlation was perfectly good (1), and a score of 1
+means that the Pearson’s correlation was perfectly bad (-1).</p>
+<p>Note: automatically strips out the names that don’t match.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr1</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="s2">&quot;(B:2,(C:3,D:4)F:5)G;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr2</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="s2">&quot;(C:2,(B:3,D:4)F:5)G;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr1</span><span class="o">.</span><span class="n">compare_by_tip_distances</span><span class="p">(</span><span class="n">tr2</span><span class="p">)</span>
+<span class="go">0.0835...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cookbook/simple_trees.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,1772 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ArrayAlignment &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="sequence" href="../../sequence/sequence.html" />
+    <link rel="prev" title="Alignment" href="cogent3.core.alignment.Alignment.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../library.html">The Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../cookbook/index.html">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../library.html">The Library</a><ul>
+  <li><a href="../../index.html">API</a><ul>
+  <li><a href="../alignment.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">alignment</span></code></a><ul>
+      <li>Previous: <a href="cogent3.core.alignment.Alignment.html" title="previous chapter">Alignment</a></li>
+      <li>Next: <a href="../../sequence/sequence.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sequence</span></code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="arrayalignment">
+<h1>ArrayAlignment<a class="headerlink" href="#arrayalignment" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="cogent3.core.alignment.ArrayAlignment">
+<em class="property">class </em><code class="sig-prename descclassname">cogent3.core.alignment.</code><code class="sig-name descname">ArrayAlignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds a dense array representing a multiple sequence alignment.</p>
+<p>An Alignment is _often_, but not necessarily, an array of chars. You might
+want to use some other data type for the alignment if you have a large
+number of symbols. For example, codons on an ungapped DNA alphabet has
+4*4*4=64 entries so can fit in a standard char data type, but tripeptides
+on the 20-letter ungapped protein alphabet has 20*20*20=8000 entries so
+can _not_ fit in a char and values will wrap around (i.e. you will get an
+unpredictable, wrong value for any item whose index is greater than the
+max value, e.g. 255 for uint8), so in this case you would need to use
+UInt16, which can hold 65536 values. DO NOT USE SIGNED DATA TYPES FOR YOUR
+ALIGNMENT ARRAY UNLESS YOU LOVE MISERY AND HARD-TO-DEBUG PROBLEMS.</p>
+<p>Implementation: aln[i] returns position i in the alignment.</p>
+<p>aln.positions[i] returns the same as aln[i] – usually, users think of this
+as a ‘column’, because alignment editors such as Clustal typically display
+each sequence as a row so a position that cuts across sequences is a
+column.</p>
+<p>aln.seqs[i] returns a sequence, or ‘row’ of the alignment in standard
+terminology.</p>
+<p>WARNING: aln.seqs and aln.positions are different views of the same array,
+so if you change one you will change the other. This will no longer be
+true if you assign to seqs or positions directly, so don’t do it. If you
+want to change the data in the whole array, always assign to a slice so
+that both views update: aln.seqs[:] = x instead of aln.seqs = x. If you
+get the two views out of sync, you will get all sorts of exceptions. No
+validation is performed on aln.seqs and aln.positions for performance
+reasons, so this can really get you into trouble.</p>
+<p>Alignments are immutable, though this is not enforced. If you change the
+data after the alignment is created, all sorts of bad things might happen.</p>
+<p>Class properties:
+alphabet: should be an Alphabet object. Must provide mapping between items
+(possibly, but not necessarily, characters) in the alignment and indices
+of those characters in the resulting Alignment object.</p>
+<p>SequenceType: Constructor to use when building sequences. Default: Sequence</p>
+<p>_input_handlers: dict of {input_type:input_handler} where input_handler is
+from the _input_handlers above and input_type is a result of the method
+self._guess_input_type (should always be a string).</p>
+<p>Creating a new array will always result in a new object unless you use
+the force_same_object=True parameter.</p>
+<p>WARNING: Rebinding the names attribute in a ArrayAlignment is not
+recommended because not all methods will use the updated name order. This
+is because the original sequence and name order are used to produce data
+structures that are cached for efficiency, and are not updated if you
+change the names attribute.</p>
+<p>WARNING: ArrayAlignment strips off info objects from sequences that have
+them, primarily for efficiency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>named_seqs</strong></dt><dd></dd>
+<dt><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.num_seqs" title="cogent3.core.alignment.ArrayAlignment.num_seqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_seqs</span></code></a></dt><dd><p>Returns the number of sequences in the alignment.</p>
+</dd>
+<dt><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.positions" title="cogent3.core.alignment.ArrayAlignment.positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">positions</span></code></a></dt><dd><p>Override superclass positions to return positions as symbols.</p>
+</dd>
+<dt><strong>seqs</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.add_from_ref_aln" title="cogent3.core.alignment.ArrayAlignment.add_from_ref_aln"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_from_ref_aln</span></code></a>(self, ref_aln[, …])</p></td>
+<td><p>Insert sequence(s) to self based on their alignment to a reference sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.add_seqs" title="cogent3.core.alignment.ArrayAlignment.add_seqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_seqs</span></code></a>(self, other[, before_name, after_name])</p></td>
+<td><p>Returns new object of class self with sequences from other added.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.alignment_quality" title="cogent3.core.alignment.ArrayAlignment.alignment_quality"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alignment_quality</span></code></a>(self[, equifreq_mprobs])</p></td>
+<td><p>Computes the alignment quality for an alignment based on eq.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.apply_pssm" title="cogent3.core.alignment.ArrayAlignment.apply_pssm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_pssm</span></code></a>(self[, pssm, path, background, …])</p></td>
+<td><p>scores sequences using the specified pssm</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.coevolution" title="cogent3.core.alignment.ArrayAlignment.coevolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coevolution</span></code></a>(self[, method, segments, …])</p></td>
+<td><p>performs pairwise coevolution measurement</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.copy" title="cogent3.core.alignment.ArrayAlignment.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>(self)</p></td>
+<td><p>Returns deep copy of self.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.count_gaps_per_pos" title="cogent3.core.alignment.ArrayAlignment.count_gaps_per_pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count_gaps_per_pos</span></code></a>(self[, include_ambiguity])</p></td>
+<td><p>return counts of gaps per position as a DictArray</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.count_gaps_per_seq" title="cogent3.core.alignment.ArrayAlignment.count_gaps_per_seq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count_gaps_per_seq</span></code></a>(self[, induced_by, …])</p></td>
+<td><p>return counts of gaps per sequence as a DictArray</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.counts" title="cogent3.core.alignment.ArrayAlignment.counts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">counts</span></code></a>(self[, motif_length, …])</p></td>
+<td><p>returns dict of counts of motifs</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.counts_per_pos" title="cogent3.core.alignment.ArrayAlignment.counts_per_pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">counts_per_pos</span></code></a>(self[, motif_length, …])</p></td>
+<td><p>return DictArray of counts per position</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.counts_per_seq" title="cogent3.core.alignment.ArrayAlignment.counts_per_seq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">counts_per_seq</span></code></a>(self[, motif_length, …])</p></td>
+<td><p>returns dict of counts of non-overlapping motifs per sequence</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.deepcopy" title="cogent3.core.alignment.ArrayAlignment.deepcopy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deepcopy</span></code></a>(self[, sliced])</p></td>
+<td><p>Returns deep copy of self.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.degap" title="cogent3.core.alignment.ArrayAlignment.degap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">degap</span></code></a>(self, \*\*kwargs)</p></td>
+<td><p>Returns copy in which sequences have no gaps.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.distance_matrix" title="cogent3.core.alignment.ArrayAlignment.distance_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance_matrix</span></code></a>(self[, calc, show_progress, …])</p></td>
+<td><p>Returns pairwise distances between sequences.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.dotplot" title="cogent3.core.alignment.ArrayAlignment.dotplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dotplot</span></code></a>(self[, name1, name2, window, …])</p></td>
+<td><p>make a dotplot between specified sequences.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.entropy_per_pos" title="cogent3.core.alignment.ArrayAlignment.entropy_per_pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">entropy_per_pos</span></code></a>(self[, motif_length, …])</p></td>
+<td><p>returns shannon entropy per position</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.entropy_per_seq" title="cogent3.core.alignment.ArrayAlignment.entropy_per_seq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">entropy_per_seq</span></code></a>(self[, motif_length, …])</p></td>
+<td><p>returns the Shannon entropy per sequence</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.filtered" title="cogent3.core.alignment.ArrayAlignment.filtered"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filtered</span></code></a>(self, predicate[, motif_length, …])</p></td>
+<td><p>The alignment positions where predicate(column) is true.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_ambiguous_positions" title="cogent3.core.alignment.ArrayAlignment.get_ambiguous_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ambiguous_positions</span></code></a>(self)</p></td>
+<td><p>Returns dict of seq:{position:char} for ambiguous chars.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_degapped_relative_to" title="cogent3.core.alignment.ArrayAlignment.get_degapped_relative_to"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_degapped_relative_to</span></code></a>(self, name)</p></td>
+<td><p>Remove all columns with gaps in sequence with given name.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_gap_array" title="cogent3.core.alignment.ArrayAlignment.get_gap_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gap_array</span></code></a>(self[, include_ambiguity])</p></td>
+<td><p>returns bool array with gap state True, False otherwise</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_gapped_seq" title="cogent3.core.alignment.ArrayAlignment.get_gapped_seq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gapped_seq</span></code></a>(self, seq_name[, …])</p></td>
+<td><p>Return a gapped Sequence object for the specified seqname.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_identical_sets" title="cogent3.core.alignment.ArrayAlignment.get_identical_sets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_identical_sets</span></code></a>(self[, mask_degen])</p></td>
+<td><p>returns sets of names for sequences that are identical</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_lengths" title="cogent3.core.alignment.ArrayAlignment.get_lengths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_lengths</span></code></a>(self[, include_ambiguity, allow_gap])</p></td>
+<td><p>returns {name: seq length, …}</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_motif_probs" title="cogent3.core.alignment.ArrayAlignment.get_motif_probs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_motif_probs</span></code></a>(self[, alphabet, …])</p></td>
+<td><p>Return a dictionary of motif probs, calculated as the averaged frequency across sequences.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_position_indices" title="cogent3.core.alignment.ArrayAlignment.get_position_indices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_position_indices</span></code></a>(self, f[, native, negate])</p></td>
+<td><p>Returns list of column indices for which f(col) is True.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_seq" title="cogent3.core.alignment.ArrayAlignment.get_seq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_seq</span></code></a>(self, seqname)</p></td>
+<td><p>Return a sequence object for the specified seqname.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_seq_indices" title="cogent3.core.alignment.ArrayAlignment.get_seq_indices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_seq_indices</span></code></a>(self, f[, negate])</p></td>
+<td><p>Returns list of keys of seqs where f(row) is True.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_similar" title="cogent3.core.alignment.ArrayAlignment.get_similar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_similar</span></code></a>(self, target[, min_similarity, …])</p></td>
+<td><p>Returns new Alignment containing sequences similar to target.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_sub_alignment" title="cogent3.core.alignment.ArrayAlignment.get_sub_alignment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sub_alignment</span></code></a>(self[, seqs, pos, …])</p></td>
+<td><p>Returns subalignment of specified sequences and positions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.get_translation" title="cogent3.core.alignment.ArrayAlignment.get_translation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_translation</span></code></a>(self[, gc, incomplete_ok])</p></td>
+<td><p>translate from nucleic acid to protein</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.has_terminal_stops" title="cogent3.core.alignment.ArrayAlignment.has_terminal_stops"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_terminal_stops</span></code></a>(self[, gc, allow_partial])</p></td>
+<td><p>Returns True if any sequence has a terminal stop codon.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.information_plot" title="cogent3.core.alignment.ArrayAlignment.information_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">information_plot</span></code></a>(self[, width, height, …])</p></td>
+<td><p>plot information per position</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.is_ragged" title="cogent3.core.alignment.ArrayAlignment.is_ragged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_ragged</span></code></a>(self)</p></td>
+<td><p>Returns True if alignment has sequences of different lengths.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.iter_positions" title="cogent3.core.alignment.ArrayAlignment.iter_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iter_positions</span></code></a>(self[, pos_order])</p></td>
+<td><p>Iterates over positions in the alignment, in order.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.iter_selected" title="cogent3.core.alignment.ArrayAlignment.iter_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iter_selected</span></code></a>(self[, seq_order, pos_order])</p></td>
+<td><p>Iterates over elements in the alignment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.iter_seqs" title="cogent3.core.alignment.ArrayAlignment.iter_seqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iter_seqs</span></code></a>(self[, seq_order])</p></td>
+<td><p>Iterates over values (sequences) in the alignment, in order.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.iupac_consensus" title="cogent3.core.alignment.ArrayAlignment.iupac_consensus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iupac_consensus</span></code></a>(self[, alphabet])</p></td>
+<td><p>Returns string containing IUPAC consensus sequence of the alignment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.majority_consensus" title="cogent3.core.alignment.ArrayAlignment.majority_consensus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">majority_consensus</span></code></a>(self)</p></td>
+<td><p>Returns list containing most frequent item at each position.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.matching_ref" title="cogent3.core.alignment.ArrayAlignment.matching_ref"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matching_ref</span></code></a>(self, ref_name, gap_fraction, …)</p></td>
+<td><p>Returns new alignment with seqs well aligned with a reference.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.no_degenerates" title="cogent3.core.alignment.ArrayAlignment.no_degenerates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">no_degenerates</span></code></a>(self[, motif_length, allow_gap])</p></td>
+<td><p>returns new alignment without degenerate characters</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.omit_bad_seqs" title="cogent3.core.alignment.ArrayAlignment.omit_bad_seqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">omit_bad_seqs</span></code></a>(self[, quantile])</p></td>
+<td><p>Returns new alignment without sequences with a number of uniquely introduced gaps exceeding quantile</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.omit_gap_pos" title="cogent3.core.alignment.ArrayAlignment.omit_gap_pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">omit_gap_pos</span></code></a>(self[, allowed_gap_frac, …])</p></td>
+<td><p>Returns new alignment where all cols (motifs) have &lt;= allowed_gap_frac gaps.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.omit_gap_runs" title="cogent3.core.alignment.ArrayAlignment.omit_gap_runs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">omit_gap_runs</span></code></a>(self[, allowed_run])</p></td>
+<td><p>Returns new alignment where all seqs have runs of gaps &lt;=allowed_run.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.omit_gap_seqs" title="cogent3.core.alignment.ArrayAlignment.omit_gap_seqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">omit_gap_seqs</span></code></a>(self[, allowed_gap_frac])</p></td>
+<td><p>Returns new alignment with seqs that have &lt;= allowed_gap_frac.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.pad_seqs" title="cogent3.core.alignment.ArrayAlignment.pad_seqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pad_seqs</span></code></a>(self[, pad_length])</p></td>
+<td><p>Returns copy in which sequences are padded to same length.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.probs_per_pos" title="cogent3.core.alignment.ArrayAlignment.probs_per_pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">probs_per_pos</span></code></a>(self[, motif_length, …])</p></td>
+<td><p>returns MotifFreqsArray per position</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.probs_per_seq" title="cogent3.core.alignment.ArrayAlignment.probs_per_seq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">probs_per_seq</span></code></a>(self[, motif_length, …])</p></td>
+<td><p>return MotifFreqsArray per sequence</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.quick_tree" title="cogent3.core.alignment.ArrayAlignment.quick_tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quick_tree</span></code></a>(self[, calc, bootstrap, …])</p></td>
+<td><p>Returns pairwise distances between sequences.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.rc" title="cogent3.core.alignment.ArrayAlignment.rc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rc</span></code></a>(self)</p></td>
+<td><p>Returns the reverse complement alignment</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.rename_seqs" title="cogent3.core.alignment.ArrayAlignment.rename_seqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename_seqs</span></code></a>(self, renamer)</p></td>
+<td><p>returns new instance with sequences renamed</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.replace_seqs" title="cogent3.core.alignment.ArrayAlignment.replace_seqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replace_seqs</span></code></a>(self, seqs[, aa_to_codon])</p></td>
+<td><p>Returns new alignment with same shape but with data taken from seqs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.reverse_complement" title="cogent3.core.alignment.ArrayAlignment.reverse_complement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverse_complement</span></code></a>(self)</p></td>
+<td><p>Returns the reverse complement alignment.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.sample" title="cogent3.core.alignment.ArrayAlignment.sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample</span></code></a>(self[, n, with_replacement, …])</p></td>
+<td><p>Returns random sample of positions from self, e.g.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.seqlogo" title="cogent3.core.alignment.ArrayAlignment.seqlogo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seqlogo</span></code></a>(self[, width, height, wrap, vspace, …])</p></td>
+<td><p>returns Drawable sequence logo using mutual information</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.set_repr_policy" title="cogent3.core.alignment.ArrayAlignment.set_repr_policy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_repr_policy</span></code></a>(self[, num_seqs, num_pos, …])</p></td>
+<td><p>specify policy for repr(self)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.sliding_windows" title="cogent3.core.alignment.ArrayAlignment.sliding_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sliding_windows</span></code></a>(self, window, step[, start, end])</p></td>
+<td><p>Generator yielding new Alignments of given length and interval.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.strand_symmetry" title="cogent3.core.alignment.ArrayAlignment.strand_symmetry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strand_symmetry</span></code></a>(self[, motif_length])</p></td>
+<td><p>returns dict of strand symmetry test results per seq</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.take_positions" title="cogent3.core.alignment.ArrayAlignment.take_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">take_positions</span></code></a>(self, cols[, negate])</p></td>
+<td><p>Returns new Alignment containing only specified positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.take_positions_if" title="cogent3.core.alignment.ArrayAlignment.take_positions_if"><code class="xref py py-obj docutils literal notranslate"><span class="pre">take_positions_if</span></code></a>(self, f[, negate])</p></td>
+<td><p>Returns new Alignment containing cols where f(col) is True.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.take_seqs" title="cogent3.core.alignment.ArrayAlignment.take_seqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">take_seqs</span></code></a>(self, seqs[, negate])</p></td>
+<td><p>Returns new Alignment containing only specified seqs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.take_seqs_if" title="cogent3.core.alignment.ArrayAlignment.take_seqs_if"><code class="xref py py-obj docutils literal notranslate"><span class="pre">take_seqs_if</span></code></a>(self, f[, negate])</p></td>
+<td><p>Returns new Alignment containing seqs where f(row) is True.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_dict" title="cogent3.core.alignment.ArrayAlignment.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a>(self)</p></td>
+<td><p>Returns the alignment as dict of names -&gt; strings.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_dna" title="cogent3.core.alignment.ArrayAlignment.to_dna"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dna</span></code></a>(self)</p></td>
+<td><p>returns copy of self as an alignment of DNA moltype seqs</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_fasta" title="cogent3.core.alignment.ArrayAlignment.to_fasta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_fasta</span></code></a>(self)</p></td>
+<td><p>Return alignment in Fasta format</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_html" title="cogent3.core.alignment.ArrayAlignment.to_html"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_html</span></code></a>(self[, name_order, interleave_len, …])</p></td>
+<td><p>returns html with embedded styles for sequence colouring</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_json" title="cogent3.core.alignment.ArrayAlignment.to_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_json</span></code></a>(self)</p></td>
+<td><p>returns json formatted string</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_moltype" title="cogent3.core.alignment.ArrayAlignment.to_moltype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_moltype</span></code></a>(self, moltype)</p></td>
+<td><p>returns copy of self with moltype seqs</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_nexus" title="cogent3.core.alignment.ArrayAlignment.to_nexus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_nexus</span></code></a>(self, seq_type[, interleave_len])</p></td>
+<td><p>Return alignment in NEXUS format and mapping to sequence ids</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_phylip" title="cogent3.core.alignment.ArrayAlignment.to_phylip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_phylip</span></code></a>(self)</p></td>
+<td><p>Return alignment in PHYLIP format and mapping to sequence ids</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_pretty" title="cogent3.core.alignment.ArrayAlignment.to_pretty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_pretty</span></code></a>(self[, name_order, interleave_len])</p></td>
+<td><p>returns a string representation of the alignment in pretty print format</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_protein" title="cogent3.core.alignment.ArrayAlignment.to_protein"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_protein</span></code></a>(self)</p></td>
+<td><p>returns copy of self as an alignment of PROTEIN moltype seqs</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_rich_dict" title="cogent3.core.alignment.ArrayAlignment.to_rich_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_rich_dict</span></code></a>(self)</p></td>
+<td><p>returns detailed content including info and moltype attributes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_rna" title="cogent3.core.alignment.ArrayAlignment.to_rna"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_rna</span></code></a>(self)</p></td>
+<td><p>returns copy of self as an alignment of RNA moltype seqs</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.to_type" title="cogent3.core.alignment.ArrayAlignment.to_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_type</span></code></a>(self[, array_align, moltype, alphabet])</p></td>
+<td><p>returns alignment of type indicated by array_align</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trim_stop_codons</span></code>()</p></td>
+<td><p>Removes any terminal stop codons from the sequences</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.variable_positions" title="cogent3.core.alignment.ArrayAlignment.variable_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variable_positions</span></code></a>(self[, include_gap_motif])</p></td>
+<td><p>Return a list of variable position indexes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.with_modified_termini" title="cogent3.core.alignment.ArrayAlignment.with_modified_termini"><code class="xref py py-obj docutils literal notranslate"><span class="pre">with_modified_termini</span></code></a>(self)</p></td>
+<td><p>Changes the termini to include termini char instead of gapmotif.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.alignment.ArrayAlignment.write" title="cogent3.core.alignment.ArrayAlignment.write"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code></a>(self[, filename, format])</p></td>
+<td><p>Write the alignment to a file, preserving order of sequences.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.add_from_ref_aln">
+<code class="sig-name descname">add_from_ref_aln</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">ref_aln</span></em>, <em class="sig-param"><span class="n">before_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">after_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.add_from_ref_aln" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert sequence(s) to self based on their alignment to a reference
+sequence. Assumes the first sequence in ref_aln.names[0] is the
+reference.</p>
+<p>By default the sequence is appended to the end of the alignment,
+this can be changed by using either before_name or after_name
+arguments.</p>
+<p>Returns Alignment object of the same class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ref_aln</strong></dt><dd><p>reference alignment (Alignment object/series) of
+reference sequence and sequences to add.
+New sequences in ref_aln (ref_aln.names[1:] are sequences to add.
+If series is used as ref_aln, it must have the structure
+[[‘ref_name’, SEQ], [‘name’, SEQ]]</p>
+</dd>
+<dt><strong>before_name</strong></dt><dd><p>name of the sequence before which
+sequence is added</p>
+</dd>
+<dt><strong>after_name</strong></dt><dd><p>name of the sequence after which sequence is added
+If both before_name and after_name are specified seqs will be
+inserted using before_name.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Aln1:
+-AC-DEFGHI (name: seq1)
+XXXXXX–XX (name: seq2)
+YYYY-YYYYY (name: seq3)</p>
+<p>Aln2:
+ACDEFGHI   (name: seq1)
+KL–MNPR   (name: seqX)
+KLACMNPR   (name: seqY)
+KL–MNPR   (name: seqZ)</p>
+<p>Out:
+-AC-DEFGHI (name: seq1)
+XXXXXX–XX (name: seq2)
+YYYY-YYYYY (name: seq3)
+-KL—MNPR (name: seqX)
+-KL-ACMNPR (name: seqY)
+-KL—MNPR (name: seqZ)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.add_seqs">
+<code class="sig-name descname">add_seqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="n">before_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">after_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.add_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new object of class self with sequences from other added.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>other</strong></dt><dd><p>same class as self or coerceable to that class</p>
+</dd>
+<dt><strong>before_name</strong><span class="classifier">str</span></dt><dd><p>which sequence is added</p>
+</dd>
+<dt><strong>after_name</strong><span class="classifier">str</span></dt><dd><p>which sequence is added</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>If both before_name and after_name are specified, the seqs will be
+inserted using before_name.</p>
+<p>By default the sequence is appended to the end of the alignment,
+this can be changed by using either before_name or after_name arguments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.alignment_quality">
+<code class="sig-name descname">alignment_quality</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">equifreq_mprobs</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.alignment_quality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the alignment quality for an alignment based on eq. (2) in noted reference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>equifreq_mprobs</strong><span class="classifier">bool</span></dt><dd><p>If true, specifies equally frequent motif probabilities.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ol class="upperalpha simple" start="7">
+<li><ol class="upperalpha simple" start="26">
+<li><p>Hertz, G. D. Stormo - Published 1999, Bioinformatics, vol. 15 pg. 563-577.</p></li>
+</ol>
+</li>
+</ol>
+<p>The alignment quality statistic is a log-likelihood ratio (computed using log2)
+of the observed alignment column freqs versus the expected.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cogent3.core.alignment.ArrayAlignment.alphabet">
+<code class="sig-name descname">alphabet</code><em class="property"> = ('\x00', '\x01', '\x02', '\x03', '\x04', '\x05', '\x06', '\x07', '\x08', '\t', '\n', '\x0b', '\x0c', '\r', '\x0e', '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17', '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!', '&quot;', '#', '$', '%', '&amp;', &quot;'&quot;, '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '&lt;', '=', '&gt;', '?', '&#64;', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f', '\x80', '\x81', '\x82', '\x83', '\x84', '\x85', '\x86', '\x87', '\x88', '\x89', '\x8a', '\x8b', '\x8c', '\x8d', '\x8e', '\x8f', '\x90', '\x91', '\x92', '\x93', '\x94', '\x95', '\x96', '\x97', '\x98', '\x99', '\x9a', '\x9b', '\x9c', '\x9d', '\x9e', '\x9f', '\xa0', '¡', '¢', '£', '¤', '¥', '¦', '§', '¨', '©', 'ª', '«', '¬', '\xad', '®', '¯', '°', '±', '²', '³', '´', 'µ', '¶', '·', '¸', '¹', 'º', '»', '¼', '½', '¾', '¿', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ')</em><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.alphabet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.apply_pssm">
+<code class="sig-name descname">apply_pssm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">pssm</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">background</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pseudocount</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">names</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ui</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.apply_pssm" title="Permalink to this definition">¶</a></dt>
+<dd><p>scores sequences using the specified pssm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>pssm</strong><span class="classifier">profile.PSSM</span></dt><dd><p>if not provided, will be loaded from path</p>
+</dd>
+<dt><strong>path</strong></dt><dd><p>path to either a jaspar or cisbp matrix (path must end have a suffix
+matching the format).</p>
+</dd>
+<dt><strong>pseudocount</strong></dt><dd><p>adjustment for zero in matrix</p>
+</dd>
+<dt><strong>names</strong></dt><dd><p>returns only scores for these sequences and in the name order</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>numpy array of log2 based scores at every position</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.coevolution">
+<code class="sig-name descname">coevolution</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'nmi'</span></em>, <em class="sig-param"><span class="n">segments</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">drawable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">show_progress</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">ui</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.coevolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>performs pairwise coevolution measurement</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>method</strong><span class="classifier">str</span></dt><dd><p>coevolution metric, defaults to ‘nmi’ (Normalized Mutual
+Information). Valid choices are ‘rmi’ (Resampled Mutual Information)
+and ‘mi’, mutual information.</p>
+</dd>
+<dt><strong>segments</strong><span class="classifier">coordinate series</span></dt><dd><p>coordinates of the form [(start, end), …] where all possible
+pairs of alignment positions within and between segments are
+examined.</p>
+</dd>
+<dt><strong>drawable</strong><span class="classifier">None or str</span></dt><dd><p>Result object is capable of plotting data specified type. str value
+must be one of plot type ‘box’, ‘heatmap’, ‘violin’.</p>
+</dd>
+<dt><strong>show_progress</strong><span class="classifier">bool</span></dt><dd><p>shows a progress bar</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>DictArray of results with lower-triangular values. Upper triangular</dt><dd></dd>
+<dt>elements and estimates that could not be computed for numerical reasons</dt><dd></dd>
+<dt>are set as nan</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns deep copy of self.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.count_gaps_per_pos">
+<code class="sig-name descname">count_gaps_per_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.count_gaps_per_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>return counts of gaps per position as a DictArray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>include_ambiguity</strong><span class="classifier">bool</span></dt><dd><p>if True, ambiguity characters that include the gap state are
+included</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.count_gaps_per_seq">
+<code class="sig-name descname">count_gaps_per_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">induced_by</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">unique</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">drawable</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.count_gaps_per_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>return counts of gaps per sequence as a DictArray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>induced_by</strong><span class="classifier">bool</span></dt><dd><p>a gapped column is considered to be induced by a seq if the seq
+has a non-gap character in that column.</p>
+</dd>
+<dt><strong>unique</strong><span class="classifier">bool</span></dt><dd><p>count is limited to gaps uniquely induced by each sequence</p>
+</dd>
+<dt><strong>include_ambiguity</strong><span class="classifier">bool</span></dt><dd><p>if True, ambiguity characters that include the gap state are
+included</p>
+</dd>
+<dt><strong>drawable</strong><span class="classifier">bool or str</span></dt><dd><p>if True, resulting object is capable of plotting data via specified
+plot type ‘bar’, ‘box’ or ‘violin’</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.counts">
+<code class="sig-name descname">counts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exclude_unobserved</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns dict of counts of motifs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>motif_length</strong></dt><dd><p>number of elements per character.</p>
+</dd>
+<dt><strong>include_ambiguity</strong></dt><dd><p>if True, motifs containing ambiguous characters
+from the seq moltype are included. No expansion of those is attempted.</p>
+</dd>
+<dt><strong>allow_gaps</strong></dt><dd><p>if True, motifs containing a gap character are included.</p>
+</dd>
+<dt><strong>exclude_unobserved</strong></dt><dd><p>if True, unobserved motif combinations are excluded.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>only non-overlapping motifs are counted</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.counts_per_pos">
+<code class="sig-name descname">counts_per_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">alert</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.counts_per_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>return DictArray of counts per position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>alert</strong></dt><dd><p>warns if motif_length &gt; 1 and alignment trimmed to produce
+motif columns</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.counts_per_seq">
+<code class="sig-name descname">counts_per_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exclude_unobserved</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">alert</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.counts_per_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns dict of counts of non-overlapping motifs per sequence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>motif_length</strong></dt><dd><p>number of elements per character.</p>
+</dd>
+<dt><strong>include_ambiguity</strong></dt><dd><p>if True, motifs containing ambiguous characters
+from the seq moltype are included. No expansion of those is attempted.</p>
+</dd>
+<dt><strong>allow_gaps</strong></dt><dd><p>if True, motifs containing a gap character are included.</p>
+</dd>
+<dt><strong>exclude_unobserved</strong></dt><dd><p>if False, all canonical states included</p>
+</dd>
+<dt><strong>alert</strong></dt><dd><p>warns if motif_length &gt; 1 and alignment trimmed to produce
+motif columns</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.deepcopy">
+<code class="sig-name descname">deepcopy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">sliced</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.deepcopy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns deep copy of self.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cogent3.core.alignment.ArrayAlignment.default_gap">
+<code class="sig-name descname">default_gap</code><em class="property"> = '-'</em><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.default_gap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.degap">
+<code class="sig-name descname">degap</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.degap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns copy in which sequences have no gaps.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.distance_matrix">
+<code class="sig-name descname">distance_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">calc</span><span class="o">=</span><span class="default_value">'percent'</span></em>, <em class="sig-param"><span class="n">show_progress</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">drop_invalid</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.distance_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns pairwise distances between sequences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>calc</strong><span class="classifier">str</span></dt><dd><p>a pairwise distance calculator or name of one. For options see
+cogent3.evolve.fast_distance.available_distances</p>
+</dd>
+<dt><strong>show_progress</strong><span class="classifier">bool</span></dt><dd><p>controls progress display for distance calculation</p>
+</dd>
+<dt><strong>drop_invalid</strong><span class="classifier">bool</span></dt><dd><p>If True, sequences for which a pairwise distance could not be
+calculated are excluded. If False, an ArithmeticError is raised if
+a distance could not be computed on observed data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.dotplot">
+<code class="sig-name descname">dotplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name1</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name2</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">window</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">threshold</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">min_gap</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rc</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_progress</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.dotplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>make a dotplot between specified sequences. Random sequences
+chosen if names not provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name1, name2</strong><span class="classifier">str or None</span></dt><dd><p>names of sequences. If one is not provided, a random choice is made</p>
+</dd>
+<dt><strong>window</strong><span class="classifier">int</span></dt><dd><p>k-mer size for comparison between sequences</p>
+</dd>
+<dt><strong>threshold</strong><span class="classifier">int</span></dt><dd><p>windows where the sequences are identical &gt;= threshold are a match</p>
+</dd>
+<dt><strong>min_gap</strong><span class="classifier">int</span></dt><dd><p>permitted gap for joining adjacent line segments, default is no gap
+joining</p>
+</dd>
+<dt><strong>width</strong><span class="classifier">int</span></dt><dd><p>figure width. Figure height is computed based on the ratio of
+len(seq1) / len(seq2)</p>
+</dd>
+<dt><strong>title</strong></dt><dd><p>title for the plot</p>
+</dd>
+<dt><strong>rc</strong><span class="classifier">bool or None</span></dt><dd><p>include dotplot of reverse compliment also. Only applies to Nucleic
+acids moltypes</p>
+</dd>
+<dt><strong>Returns</strong></dt><dd></dd>
+<dt><strong>——-</strong></dt><dd></dd>
+<dt><strong>a Drawable or AnnotatedDrawable</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.entropy_per_pos">
+<code class="sig-name descname">entropy_per_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">alert</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.entropy_per_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns shannon entropy per position</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.entropy_per_seq">
+<code class="sig-name descname">entropy_per_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exclude_unobserved</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">alert</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.entropy_per_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the Shannon entropy per sequence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>motif_length</strong></dt><dd><p>number of characters per tuple.</p>
+</dd>
+<dt><strong>include_ambiguity</strong></dt><dd><p>if True, motifs containing ambiguous characters
+from the seq moltype are included. No expansion of those is attempted.</p>
+</dd>
+<dt><strong>allow_gap</strong></dt><dd><p>if True, motifs containing a gap character are included.</p>
+</dd>
+<dt><strong>exclude_unobserved</strong></dt><dd><p>if True, unobserved motif combinations are excluded.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>For motif_length &gt; 1, it’s advisable to specify exclude_unobserved=True,
+this avoids unnecessary calculations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.filtered">
+<code class="sig-name descname">filtered</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">predicate</em>, <em class="sig-param">motif_length=1</em>, <em class="sig-param">drop_remainder=True</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.filtered" title="Permalink to this definition">¶</a></dt>
+<dd><p>The alignment positions where predicate(column) is true.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>predicate</strong><span class="classifier">callable</span></dt><dd><p>a callback function that takes an tuple of motifs and returns
+True/False</p>
+</dd>
+<dt><strong>motif_length</strong><span class="classifier">int</span></dt><dd><p>length of the motifs the sequences should be split  into, eg. 3 for
+filtering aligned codons.</p>
+</dd>
+<dt><strong>drop_remainder</strong><span class="classifier">bool</span></dt><dd><p>If length is not modulo motif_length, allow dropping the terminal
+remaining columns</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cogent3.core.alignment.ArrayAlignment.gap_chars">
+<code class="sig-name descname">gap_chars</code><em class="property"> = {'-': None, '?': None}</em><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.gap_chars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_ambiguous_positions">
+<code class="sig-name descname">get_ambiguous_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_ambiguous_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns dict of seq:{position:char} for ambiguous chars.</p>
+<p>Used in likelihood calculations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_degapped_relative_to">
+<code class="sig-name descname">get_degapped_relative_to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_degapped_relative_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all columns with gaps in sequence with given name.</p>
+<p>Returns Alignment object of the same class.
+Note that the seqs in the new Alignment are always new objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name</strong></dt><dd><p>sequence name</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_gap_array">
+<code class="sig-name descname">get_gap_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_gap_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns bool array with gap state True, False otherwise</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>include_ambiguity</strong><span class="classifier">bool</span></dt><dd><p>if True, ambiguity characters that include the gap state are
+included</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_gapped_seq">
+<code class="sig-name descname">get_gapped_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">seq_name</span></em>, <em class="sig-param"><span class="n">recode_gaps</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">moltype</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_gapped_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a gapped Sequence object for the specified seqname.</p>
+<p>Note: return type may depend on what data was loaded into the
+SequenceCollection or Alignment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_identical_sets">
+<code class="sig-name descname">get_identical_sets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">mask_degen</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_identical_sets" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns sets of names for sequences that are identical</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>mask_degen</strong></dt><dd><p>if True, degenerate characters are ignored</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_lengths">
+<code class="sig-name descname">get_lengths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_lengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns {name: seq length, …}</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>include_ambiguity</strong></dt><dd><p>if True, motifs containing ambiguous characters
+from the seq moltype are included. No expansion of those is attempted.</p>
+</dd>
+<dt><strong>allow_gaps</strong></dt><dd><p>if True, motifs containing a gap character are included.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_motif_probs">
+<code class="sig-name descname">get_motif_probs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">alphabet</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exclude_unobserved</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pseudocount</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_motif_probs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary of motif probs, calculated as the averaged
+frequency across sequences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>include_ambiguity</strong></dt><dd><p>if True resolved ambiguous codes are
+included in estimation of frequencies, default is False.</p>
+</dd>
+<dt><strong>exclude_unobserved</strong></dt><dd><p>if True, motifs that are not present in
+the alignment are excluded from the returned dictionary,
+default is False.</p>
+</dd>
+<dt><strong>allow_gap</strong></dt><dd><p>allow gap motif</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>only non-overlapping motifs are counted</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_position_indices">
+<code class="sig-name descname">get_position_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">native</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">negate</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_position_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of column indices for which f(col) is True.</p>
+<dl class="simple">
+<dt>f<span class="classifier">callable</span></dt><dd><p>function that returns true/false given an alignment position</p>
+</dd>
+<dt>native<span class="classifier">boolean</span></dt><dd><p>if True, and ArrayAlignment, f is provided with slice of array
+otherwise the string is used</p>
+</dd>
+<dt>negate<span class="classifier">boolean</span></dt><dd><p>if True, not f() is used</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_seq">
+<code class="sig-name descname">get_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">seqname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a sequence object for the specified seqname.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_seq_indices">
+<code class="sig-name descname">get_seq_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">negate</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_seq_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of keys of seqs where f(row) is True.</p>
+<p>List will be in the same order as self.names, if present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_similar">
+<code class="sig-name descname">get_similar</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">target</em>, <em class="sig-param">min_similarity=0.0</em>, <em class="sig-param">max_similarity=1.0</em>, <em class="sig-param">metric=&lt;cogent3.util.transform.for_seq object at 0x11658c310&gt;</em>, <em class="sig-param">transform=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_similar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new Alignment containing sequences similar to target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>target</strong></dt><dd><p>sequence object to compare to. Can be in the alignment.</p>
+</dd>
+<dt><strong>min_similarity</strong></dt><dd><p>minimum similarity that will be kept. Default 0.0.</p>
+</dd>
+<dt><strong>max_similarity</strong></dt><dd><p>maximum similarity that will be kept. Default 1.0.
+(Note that both min_similarity and max_similarity are inclusive.)
+metric
+similarity function to use. Must be f(first_seq, second_seq).</p>
+</dd>
+<dt><strong>The default metric is fraction similarity, ranging from 0.0 (0%</strong></dt><dd></dd>
+<dt><strong>identical) to 1.0 (100% identical). The Sequence classes have lots</strong></dt><dd></dd>
+<dt><strong>of methods that can be passed in as unbound methods to act as the</strong></dt><dd></dd>
+<dt><strong>metric, e.g. frac_same_gaps.</strong></dt><dd></dd>
+<dt><strong>transform</strong></dt><dd><p>transformation function to use on the sequences before
+the metric is calculated. If None, uses the whole sequences in each
+case. A frequent transformation is a function that returns a specified
+range of a sequence, e.g. eliminating the ends. Note that the
+transform applies to both the real sequence and the target sequence.</p>
+</dd>
+<dt><strong>WARNING: if the transformation changes the type of the sequence (e.g.</strong></dt><dd></dd>
+<dt><strong>extracting a string from an RnaSequence object), distance metrics that</strong></dt><dd></dd>
+<dt><strong>depend on instance data of the original class may fail.</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_sub_alignment">
+<code class="sig-name descname">get_sub_alignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">seqs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">invert_seqs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">invert_pos</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_sub_alignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns subalignment of specified sequences and positions.</p>
+<p>seqs and pos can be passed in as lists of sequence indices to keep
+or positions to keep.</p>
+<p>invert_seqs: if True (default False), gets everything _except_ the
+specified sequences.</p>
+<p>invert_pos: if True (default False), gets everything _except_ the
+specified positions.</p>
+<p>Unlike most of the other code that gets things out of an alignment,
+this method returns a new alignment that does NOT share data with the
+original alignment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.get_translation">
+<code class="sig-name descname">get_translation</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">gc=None</em>, <em class="sig-param">incomplete_ok=False</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.get_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>translate from nucleic acid to protein</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gc</strong></dt><dd><p>genetic code, either the number or name
+(use cogent3.core.genetic_code.available_codes)</p>
+</dd>
+<dt><strong>incomplete_ok</strong><span class="classifier">bool</span></dt><dd><p>codons that are mixes of nucleotide and gaps converted to ‘?’.
+raises a ValueError if False</p>
+</dd>
+<dt><strong>kwargs</strong></dt><dd><p>related to construction of the resulting object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>A new instance of self translated into protein</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.has_terminal_stops">
+<code class="sig-name descname">has_terminal_stops</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">gc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">allow_partial</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.has_terminal_stops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if any sequence has a terminal stop codon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gc</strong></dt><dd><p>genetic code object</p>
+</dd>
+<dt><strong>allow_partial</strong></dt><dd><p>if True and the sequence length is not divisible
+by 3, ignores the 3’ terminal incomplete codon</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.information_plot">
+<code class="sig-name descname">information_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">window</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stat</span><span class="o">=</span><span class="default_value">'median'</span></em>, <em class="sig-param"><span class="n">include_gap</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.information_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot information per position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>width</strong><span class="classifier">int</span></dt><dd><p>figure width in pixels</p>
+</dd>
+<dt><strong>height</strong><span class="classifier">int</span></dt><dd><p>figure height in pixels</p>
+</dd>
+<dt><strong>window</strong><span class="classifier">int or None</span></dt><dd><p>used for smoothing line, defaults to sqrt(length)</p>
+</dd>
+<dt><strong>stat</strong><span class="classifier">str</span></dt><dd><p>‘mean’ or ‘median, used as the summary statistic for each window</p>
+</dd>
+<dt><strong>include_gap</strong></dt><dd><p>whether to include gap counts, shown on right y-axis</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cogent3.core.alignment.ArrayAlignment.is_array">
+<code class="sig-name descname">is_array</code><em class="property"> = {'array', 'array_seqs'}</em><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.is_array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.is_ragged">
+<code class="sig-name descname">is_ragged</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.is_ragged" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if alignment has sequences of different lengths.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.iter_positions">
+<code class="sig-name descname">iter_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">pos_order</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.iter_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over positions in the alignment, in order.</p>
+<p>pos_order refers to a list of indices (ints) specifying the column
+order. This lets you rearrange positions if you want to (e.g. to pull
+out individual codon positions).</p>
+<p>Note that self.iter_positions() always returns new objects, by default
+lists of elements. Use map(f, self.iter_positions) to apply the
+constructor or function f to the resulting lists (f must take a single
+list as a parameter).</p>
+<p>Will raise IndexError if one of the indices in order exceeds the
+sequence length. This will always happen on ragged alignments:
+assign to self.seq_len to set all sequences to the same length.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.iter_selected">
+<code class="sig-name descname">iter_selected</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">seq_order</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pos_order</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.iter_selected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over elements in the alignment.</p>
+<p>seq_order (names) can be used to select a subset of seqs.
+pos_order (positions) can be used to select a subset of positions.</p>
+<p>Always iterates along a seq first, then down a position (transposes
+normal order of a[i][j]; possibly, this should change)..</p>
+<p>WARNING: Alignment.iter_selected() is not the same as alignment.iteritems()
+(which is the built-in dict iteritems that iterates over key-value
+pairs).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.iter_seqs">
+<code class="sig-name descname">iter_seqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">seq_order</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.iter_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over values (sequences) in the alignment, in order.</p>
+<p>seq_order: list of keys giving the order in which seqs will be returned.
+Defaults to self.Names. Note that only these sequences will be
+returned, and that KeyError will be raised if there are sequences
+in order that have been deleted from the Alignment. If self.Names
+is None, returns the sequences in the same order as
+self.named_seqs.values().</p>
+<p>Use map(f, self.seqs()) to apply the constructor f to each seq. f must
+accept a single list as an argument.</p>
+<p>Always returns references to the same objects that are values of the
+alignment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.iupac_consensus">
+<code class="sig-name descname">iupac_consensus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">alphabet</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.iupac_consensus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns string containing IUPAC consensus sequence of the alignment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.majority_consensus">
+<code class="sig-name descname">majority_consensus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.majority_consensus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list containing most frequent item at each position.</p>
+<p>Optional parameter transform gives constructor for type to which result
+will be converted (useful when consensus should be same type as
+originals).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.matching_ref">
+<code class="sig-name descname">matching_ref</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">ref_name</span></em>, <em class="sig-param"><span class="n">gap_fraction</span></em>, <em class="sig-param"><span class="n">gap_run</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.matching_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new alignment with seqs well aligned with a reference.</p>
+<dl class="simple">
+<dt>gap_fraction = fraction of positions that either have a gap in the</dt><dd><p>template but not in the seq or in the seq but not in the template</p>
+</dd>
+<dt>gap_run = number of consecutive gaps tolerated in query relative to</dt><dd><p>sequence or sequence relative to query</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="cogent3.core.alignment.ArrayAlignment.moltype">
+<code class="sig-name descname">moltype</code><em class="property"> = MolType(('\x00', '\x01', '\x02', '\x03', '\x04', '\x05', '\x06', '\x07', '\x08', '\t', '\n', '\x0b', '\x0c', '\r', '\x0e', '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17', '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!', '&quot;', '#', '$', '%', '&amp;', &quot;'&quot;, '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '&lt;', '=', '&gt;', '?', '&#64;', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f', '\x80', '\x81', '\x82', '\x83', '\x84', '\x85', '\x86', '\x87', '\x88', '\x89', '\x8a', '\x8b', '\x8c', '\x8d', '\x8e', '\x8f', '\x90', '\x91', '\x92', '\x93', '\x94', '\x95', '\x96', '\x97', '\x98', '\x99', '\x9a', '\x9b', '\x9c', '\x9d', '\x9e', '\x9f', '\xa0', '¡', '¢', '£', '¤', '¥', '¦', '§', '¨', '©', 'ª', '«', '¬', '\xad', '®', '¯', '°', '±', '²', '³', '´', 'µ', '¶', '·', '¸', '¹', 'º', '»', '¼', '½', '¾', '¿', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ'))</em><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.moltype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.named_seqs">
+<em class="property">property </em><code class="sig-name descname">named_seqs</code><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.named_seqs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.no_degenerates">
+<code class="sig-name descname">no_degenerates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.no_degenerates" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns new alignment without degenerate characters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>motif_length</strong></dt><dd><p>sequences are segmented into units of this size</p>
+</dd>
+<dt><strong>allow_gaps</strong></dt><dd><p>whether gaps are to be treated as a degenerate
+character (default, most evolutionary modelling treats gaps as
+N) or not.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.num_seqs">
+<em class="property">property </em><code class="sig-name descname">num_seqs</code><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.num_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of sequences in the alignment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.omit_bad_seqs">
+<code class="sig-name descname">omit_bad_seqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">quantile</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.omit_bad_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new alignment without sequences with a number of uniquely
+introduced gaps exceeding quantile</p>
+<p>Uses count_gaps_per_seq(unique=True) to obtain the counts of gaps
+uniquely introduced by a sequence. The cutoff is the the quantile of
+this distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>quantile</strong><span class="classifier">float or None</span></dt><dd><p>sequences whose unique gap count is in a quantile larger than this
+cutoff are excluded. The default quantile is (num_seqs - 1) / num_seqs</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.omit_gap_pos">
+<code class="sig-name descname">omit_gap_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">allowed_gap_frac</span><span class="o">=</span><span class="default_value">0.999999</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.omit_gap_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new alignment where all cols (motifs) have &lt;= allowed_gap_frac gaps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>allowed_gap_frac</strong></dt><dd><p>specifies proportion of gaps is allowed in each
+column (default is just &lt; 1, i.e. only cols with at least one gap
+character are preserved). Set to 1 - e-6 to exclude strictly gapped
+columns.</p>
+</dd>
+<dt><strong>motif_length</strong></dt><dd><p>set’s the “column” width, e.g. setting to 3
+corresponds to codons. A motif that includes a gap at any position
+is included in the counting. Default is 1.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.omit_gap_runs">
+<code class="sig-name descname">omit_gap_runs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">allowed_run</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.omit_gap_runs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new alignment where all seqs have runs of gaps &lt;=allowed_run.</p>
+<p>Note that seqs with exactly allowed_run gaps are not deleted.
+Default is for allowed_run to be 1 (i.e. no consecutive gaps allowed).</p>
+<p>Because the test for whether the current gap run exceeds the maximum
+allowed gap run is only triggered when there is at least one gap, even
+negative values for allowed_run will still let sequences with no gaps
+through.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.omit_gap_seqs">
+<code class="sig-name descname">omit_gap_seqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">allowed_gap_frac</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.omit_gap_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new alignment with seqs that have &lt;= allowed_gap_frac.</p>
+<p>allowed_gap_frac should be a fraction between 0 and 1 inclusive.
+Default is 0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.pad_seqs">
+<code class="sig-name descname">pad_seqs</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pad_length=None</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.pad_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns copy in which sequences are padded to same length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>pad_length</strong></dt><dd><p>Length all sequences are to be padded to.  Will pad
+to max sequence length if pad_length is None or less than max
+length.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.positions">
+<em class="property">property </em><code class="sig-name descname">positions</code><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override superclass positions to return positions as symbols.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.probs_per_pos">
+<code class="sig-name descname">probs_per_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">alert</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.probs_per_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns MotifFreqsArray per position</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.probs_per_seq">
+<code class="sig-name descname">probs_per_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">include_ambiguity</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_gap</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exclude_unobserved</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">alert</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.probs_per_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>return MotifFreqsArray per sequence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>motif_length</strong></dt><dd><p>number of characters per tuple.</p>
+</dd>
+<dt><strong>include_ambiguity</strong></dt><dd><p>if True, motifs containing ambiguous characters
+from the seq moltype are included. No expansion of those is attempted.</p>
+</dd>
+<dt><strong>allow_gap</strong></dt><dd><p>if True, motifs containing a gap character are included.</p>
+</dd>
+<dt><strong>exclude_unobserved</strong></dt><dd><p>if True, unobserved motif combinations are excluded.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.quick_tree">
+<code class="sig-name descname">quick_tree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">calc</span><span class="o">=</span><span class="default_value">'percent'</span></em>, <em class="sig-param"><span class="n">bootstrap</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">drop_invalid</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_progress</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">ui</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.quick_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns pairwise distances between sequences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>calc</strong><span class="classifier">str</span></dt><dd><p>a pairwise distance calculator or name of one. For options see
+cogent3.evolve.fast_distance.available_distances</p>
+</dd>
+<dt><strong>show_progress</strong><span class="classifier">bool</span></dt><dd><p>controls progress display for distance calculation</p>
+</dd>
+<dt><strong>drop_invalid</strong><span class="classifier">bool</span></dt><dd><p>If True, sequences for which a pairwise distance could not be
+calculated are excluded. If False, an ArithmeticError is raised if
+a distance could not be computed on observed data.</p>
+</dd>
+<dt><strong>bootstrap</strong><span class="classifier">int or None</span></dt><dd><p>Number of non-parametric bootstrap replicates. Resamples alignment
+columns with replacement and builds a phylogeny for each such
+resampling.</p>
+</dd>
+<dt><strong>drop_invalid</strong><span class="classifier">bool</span></dt><dd><p>If True, sequences for which a pairwise distance could not be
+calculated are excluded. If False, an ArithmeticError is raised if
+a distance could not be computed on observed data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>a phylogenetic tree. If bootstrap specified, returns the weighted</dt><dd></dd>
+<dt>majority consensus. Support for each node is stored as</dt><dd></dd>
+<dt>edge.params[‘params’].</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Sequences in the observed alignment for which distances could not be
+computed are omitted. Bootstrap replicates are required to have
+distances for all seqs present in the observed data distance matrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.rc">
+<code class="sig-name descname">rc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.rc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the reverse complement alignment</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.rename_seqs">
+<code class="sig-name descname">rename_seqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">renamer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.rename_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns new instance with sequences renamed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>renamer</strong><span class="classifier">callable</span></dt><dd><p>function that will take current sequences and return the new one</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.replace_seqs">
+<code class="sig-name descname">replace_seqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">seqs</span></em>, <em class="sig-param"><span class="n">aa_to_codon</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.replace_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new alignment with same shape but with data taken from seqs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>aa_to_codon</strong></dt><dd><p>If True (default) aligns codons from protein
+alignment, or, more generally, substituting in codons from a set
+of protein sequences (not necessarily aligned). For this reason,
+it takes characters from seqs three at a time rather than one at
+a time (i.e. 3 characters in seqs are put in place of 1 character
+in self). If False, seqs must be the same lengths.</p>
+</dd>
+<dt><strong>If seqs is an alignment, any gaps in it will be ignored.</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.reverse_complement">
+<code class="sig-name descname">reverse_complement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.reverse_complement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the reverse complement alignment. A synonymn for rc.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">n=None</em>, <em class="sig-param">with_replacement=False</em>, <em class="sig-param">motif_length=1</em>, <em class="sig-param">randint=&lt;built-in method randint of numpy.random.mtrand.RandomState object at 0x1151d95a0&gt;</em>, <em class="sig-param">permutation=&lt;built-in method permutation of numpy.random.mtrand.RandomState object at 0x1151d95a0&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns random sample of positions from self, e.g. to bootstrap.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>n</strong></dt><dd><p>the number of positions to sample from the alignment.
+Default is alignment length</p>
+</dd>
+<dt><strong>with_replacement</strong></dt><dd><p>boolean flag for determining if sampled
+positions</p>
+</dd>
+<dt><strong>randint and permutation</strong></dt><dd><p>functions for random integer in a
+specified range, and permutation, respectively.</p>
+</dd>
+<dt><strong>Notes:</strong></dt><dd><p>By default (resampling all positions without replacement), generates
+a permutation of the positions of the alignment.</p>
+<p>Setting with_replacement to True and otherwise leaving parameters
+as defaults generates a standard bootstrap resampling of the
+alignment.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.seqlogo">
+<code class="sig-name descname">seqlogo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">700</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">wrap</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vspace</span><span class="o">=</span><span class="default_value">0.005</span></em>, <em class="sig-param"><span class="n">colours</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.seqlogo" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns Drawable sequence logo using mutual information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>width, height</strong><span class="classifier">float</span></dt><dd><p>plot dimensions in pixels</p>
+</dd>
+<dt><strong>wrap</strong><span class="classifier">int</span></dt><dd><p>number of alignment columns per row</p>
+</dd>
+<dt><strong>vspace</strong><span class="classifier">float</span></dt><dd><p>vertical separation between rows, as a proportion of total plot</p>
+</dd>
+<dt><strong>colours</strong><span class="classifier">dict</span></dt><dd><p>mapping of characters to colours. If note provided, defaults to
+custom for everything ecept protein, which uses protein moltype
+colours.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Computes MI based on log2 and includes the gap state, so the maximum
+possible value is -log2(1/num_states)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.seqs">
+<em class="property">property </em><code class="sig-name descname">seqs</code><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.seqs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.set_repr_policy">
+<code class="sig-name descname">set_repr_policy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">num_seqs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">num_pos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ref_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.set_repr_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>specify policy for repr(self)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>num_seqs</strong><span class="classifier">int or None</span></dt><dd><p>number of sequences to include in represented display.</p>
+</dd>
+<dt><strong>num_pos</strong><span class="classifier">int or None</span></dt><dd><p>length of sequences to include in represented display.</p>
+</dd>
+<dt><strong>ref_name</strong><span class="classifier">str or None</span></dt><dd><p>name of sequence to be placed first, or “longest” (default).
+If latter, indicates longest sequence will be chosen.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.sliding_windows">
+<code class="sig-name descname">sliding_windows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">window</span></em>, <em class="sig-param"><span class="n">step</span></em>, <em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.sliding_windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator yielding new Alignments of given length and interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>window</strong></dt><dd><p>The length of each returned alignment.</p>
+</dd>
+<dt><strong>step</strong></dt><dd><p>The interval between the start of the successive
+alignment objects returned.</p>
+</dd>
+<dt><strong>start</strong></dt><dd><p>first window start position</p>
+</dd>
+<dt><strong>end</strong></dt><dd><p>last window start position</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.strand_symmetry">
+<code class="sig-name descname">strand_symmetry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">motif_length</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.strand_symmetry" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns dict of strand symmetry test results per seq</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.take_positions">
+<code class="sig-name descname">take_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">cols</span></em>, <em class="sig-param"><span class="n">negate</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.take_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new Alignment containing only specified positions.</p>
+<p>By default, the seqs will be lists, but an alternative constructor
+can be specified.</p>
+<p>Note that take_positions will fail on ragged positions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.take_positions_if">
+<code class="sig-name descname">take_positions_if</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">negate</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.take_positions_if" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new Alignment containing cols where f(col) is True.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.take_seqs">
+<code class="sig-name descname">take_seqs</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">seqs</em>, <em class="sig-param">negate=False</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.take_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new Alignment containing only specified seqs.</p>
+<p>Note that the seqs in the new alignment will be references to the
+same objects as the seqs in the old alignment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.take_seqs_if">
+<code class="sig-name descname">take_seqs_if</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">f</em>, <em class="sig-param">negate=False</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.take_seqs_if" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new Alignment containing seqs where f(row) is True.</p>
+<p>Note that the seqs in the new Alignment are the same objects as the
+seqs in the old Alignment, not copies.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_dict">
+<code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the alignment as dict of names -&gt; strings.</p>
+<p>Note: returns strings, NOT Sequence objects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_dna">
+<code class="sig-name descname">to_dna</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_dna" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns copy of self as an alignment of DNA moltype seqs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_fasta">
+<code class="sig-name descname">to_fasta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_fasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return alignment in Fasta format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>make_seqlabel</strong></dt><dd><p>callback function that takes the seq object and
+returns a label str</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_html">
+<code class="sig-name descname">to_html</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name_order</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">interleave_len</span><span class="o">=</span><span class="default_value">60</span></em>, <em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ref_name</span><span class="o">=</span><span class="default_value">'longest'</span></em>, <em class="sig-param"><span class="n">colors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">font_size</span><span class="o">=</span><span class="default_value">12</span></em>, <em class="sig-param"><span class="n">font_family</span><span class="o">=</span><span class="default_value">'Lucida Console'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_html" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns html with embedded styles for sequence colouring</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>name_order</strong></dt><dd><p>order of names for display.</p>
+</dd>
+<dt><strong>interleave_len</strong></dt><dd><p>maximum number of printed bases, defaults to
+alignment length</p>
+</dd>
+<dt><strong>limit</strong></dt><dd><p>truncate alignment to this length</p>
+</dd>
+<dt><strong>ref_name</strong></dt><dd><p>Name of an existing sequence or ‘longest’. If the latter, the
+longest sequence (excluding gaps and ambiguities) is selected as the
+reference.</p>
+</dd>
+<dt><strong>colors</strong></dt><dd><p>{character
+moltype.</p>
+</dd>
+<dt><strong>font_size</strong></dt><dd><p>in points. Affects labels and sequence and line spacing
+(proportional to value)</p>
+</dd>
+<dt><strong>font_family</strong></dt><dd><p>string denoting font family</p>
+</dd>
+<dt><strong>To display in jupyter notebook:</strong></dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">HTML</span><span class="p">(</span><span class="n">aln</span><span class="o">.</span><span class="n">to_html</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_json">
+<code class="sig-name descname">to_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns json formatted string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_moltype">
+<code class="sig-name descname">to_moltype</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">moltype</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_moltype" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns copy of self with moltype seqs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_nexus">
+<code class="sig-name descname">to_nexus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">seq_type</span></em>, <em class="sig-param"><span class="n">interleave_len</span><span class="o">=</span><span class="default_value">50</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_nexus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return alignment in NEXUS format and mapping to sequence ids</p>
+<dl class="simple">
+<dt><strong>NOTE</strong> Not that every sequence in the alignment MUST come from</dt><dd><p>a different species!! (You can concatenate multiple sequences from
+same species together before building tree)</p>
+</dd>
+</dl>
+<p>seq_type: dna, rna, or protein</p>
+<p>Raises exception if invalid alignment</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_phylip">
+<code class="sig-name descname">to_phylip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_phylip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return alignment in PHYLIP format and mapping to sequence ids</p>
+<p>raises exception if invalid alignment</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_pretty">
+<code class="sig-name descname">to_pretty</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name_order</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">interleave_len</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_pretty" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a string representation of the alignment in pretty print format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name_order</strong></dt><dd><p>order of names for display.</p>
+</dd>
+<dt><strong>interleave_len</strong></dt><dd><p>maximum number of printed bases, defaults to alignment length</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_protein">
+<code class="sig-name descname">to_protein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_protein" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns copy of self as an alignment of PROTEIN moltype seqs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_rich_dict">
+<code class="sig-name descname">to_rich_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_rich_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns detailed content including info and moltype attributes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_rna">
+<code class="sig-name descname">to_rna</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_rna" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns copy of self as an alignment of RNA moltype seqs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.to_type">
+<code class="sig-name descname">to_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">array_align</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">moltype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alphabet</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.to_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns alignment of type indicated by array_align</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>array_align: bool</strong></dt><dd><p>if True, returns as ArrayAlignment. Otherwise as “standard”
+Alignment class. Conversion to ArrayAlignment loses annotations.</p>
+</dd>
+<dt><strong>moltype</strong><span class="classifier">MolType instance</span></dt><dd><p>overrides self.moltype</p>
+</dd>
+<dt><strong>alphabet</strong><span class="classifier">Alphabet instance</span></dt><dd><p>overrides self.alphabet</p>
+</dd>
+<dt><strong>If array_align would result in no change (class is same as self),</strong></dt><dd></dd>
+<dt><strong>returns self</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">ArrayAlignment.trim_stop_codons(self, gc=Standard Nuclear</code></dt>
+<dt>
+<code class="sig-name descname">======================================================</code></dt>
+<dt>
+<code class="sig-name descname">aa    IUPAC code                     codons</code></dt>
+<dt>
+<code class="sig-name descname">------------------------------------------------------</code></dt>
+<dt>
+<code class="sig-name descname">Alanine             A            GCT,GCC,GCA,GCG</code></dt>
+<dt>
+<code class="sig-name descname">Cysteine             C                    TGT,TGC</code></dt>
+<dt>
+<code class="sig-name descname">Aspartic Acid             D                    GAT,GAC</code></dt>
+<dt>
+<code class="sig-name descname">Glutamic Acid             E                    GAA,GAG</code></dt>
+<dt>
+<code class="sig-name descname">Phenylalanine             F                    TTT,TTC</code></dt>
+<dt>
+<code class="sig-name descname">Glycine             G            GGT,GGC,GGA,GGG</code></dt>
+<dt>
+<code class="sig-name descname">Histidine             H                    CAT,CAC</code></dt>
+<dt>
+<code class="sig-name descname">Isoleucine             I                ATT,ATC,ATA</code></dt>
+<dt>
+<code class="sig-name descname">Lysine             K                    AAA,AAG</code></dt>
+<dt>
+<code class="sig-name descname">Leucine             L    TTA,TTG,CTT,CTC,CTA,CTG</code></dt>
+<dt>
+<code class="sig-name descname">Methionine             M                        ATG</code></dt>
+<dt>
+<code class="sig-name descname">Asparagine             N                    AAT,AAC</code></dt>
+<dt>
+<code class="sig-name descname">Proline             P            CCT,CCC,CCA,CCG</code></dt>
+<dt>
+<code class="sig-name descname">Glutamine             Q                    CAA,CAG</code></dt>
+<dt>
+<code class="sig-name descname">Arginine             R    CGT,CGC,CGA,CGG,AGA,AGG</code></dt>
+<dt>
+<code class="sig-name descname">Serine             S    TCT,TCC,TCA,TCG,AGT,AGC</code></dt>
+<dt>
+<code class="sig-name descname">Threonine             T            ACT,ACC,ACA,ACG</code></dt>
+<dt>
+<code class="sig-name descname">Valine             V            GTT,GTC,GTA,GTG</code></dt>
+<dt>
+<code class="sig-name descname">Tryptophan             W                        TGG</code></dt>
+<dt>
+<code class="sig-name descname">Tyrosine             Y                    TAT,TAC</code></dt>
+<dt>
+<code class="sig-name descname">STOP             \*                TAA,TAG,TGA</code></dt>
+<dt>
+<code class="sig-name descname">------------------------------------------------------, allow_partial=False, \*\*kwargs)</code></dt>
+<dd><p>Removes any terminal stop codons from the sequences</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gc</strong></dt><dd><p>genetic code object</p>
+</dd>
+<dt><strong>allow_partial</strong></dt><dd><p>if True and the sequence length is not divisible
+by 3, ignores the 3’ terminal incomplete codon</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.variable_positions">
+<code class="sig-name descname">variable_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_gap_motif</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.variable_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of variable position indexes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>include_gap_motif</strong></dt><dd><p>if False, sequences with a gap motif in a
+column are ignored.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.with_modified_termini">
+<code class="sig-name descname">with_modified_termini</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.with_modified_termini" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the termini to include termini char instead of gapmotif.</p>
+<p>Useful to correct the standard gap char output by most
+alignment programs when aligned sequences have different ends.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.alignment.ArrayAlignment.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">filename=None</em>, <em class="sig-param">format=None</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.alignment.ArrayAlignment.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the alignment to a file, preserving order of sequences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename</strong></dt><dd><p>name of the sequence file</p>
+</dd>
+<dt><strong>format</strong></dt><dd><p>format of the sequence file</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>If format is None, will attempt to infer format from the filename
+suffix.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/api/alignment/classes/cogent3.core.alignment.ArrayAlignment.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

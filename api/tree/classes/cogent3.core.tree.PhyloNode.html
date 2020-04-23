@@ -1,0 +1,1220 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>PhyloNode &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Data Files Used in the Documentation" href="../../../data_file_links.html" />
+    <link rel="prev" title="tree" href="../tree.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../library.html">The Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../cookbook/index.html">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../library.html">The Library</a><ul>
+  <li><a href="../../index.html">API</a><ul>
+  <li><a href="../tree.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tree</span></code></a><ul>
+      <li>Previous: <a href="../tree.html" title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tree</span></code></a></li>
+      <li>Next: <a href="../../../data_file_links.html" title="next chapter">Data Files Used in the Documentation</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="phylonode">
+<h1>PhyloNode<a class="headerlink" href="#phylonode" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="cogent3.core.tree.PhyloNode">
+<em class="property">class </em><code class="sig-prename descclassname">cogent3.core.tree.</code><code class="sig-name descname">PhyloNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>length</strong></dt><dd></dd>
+<dt><a class="reference internal" href="#cogent3.core.tree.PhyloNode.parent" title="cogent3.core.tree.PhyloNode.parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent</span></code></a></dt><dd><p>Accessor for parent.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.ancestors" title="cogent3.core.tree.PhyloNode.ancestors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ancestors</span></code></a>(self)</p></td>
+<td><p>Returns all ancestors back to the root.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.append" title="cogent3.core.tree.PhyloNode.append"><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code></a>(self, i)</p></td>
+<td><p>Appends i to self.children, in-place, cleaning up refs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.ascii_art" title="cogent3.core.tree.PhyloNode.ascii_art"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ascii_art</span></code></a>(self[, show_internal, compact])</p></td>
+<td><p>Returns a string containing an ascii drawing of the tree.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.balanced" title="cogent3.core.tree.PhyloNode.balanced"><code class="xref py py-obj docutils literal notranslate"><span class="pre">balanced</span></code></a>(self)</p></td>
+<td><p>Tree ‘rooted’ here with no neighbour having &gt; 50% of the edges.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.bifurcating" title="cogent3.core.tree.PhyloNode.bifurcating"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bifurcating</span></code></a>(self[, eps, constructor, …])</p></td>
+<td><p>Wrap multifurcating with a num of 2</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.child_groups" title="cogent3.core.tree.PhyloNode.child_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">child_groups</span></code></a>(self)</p></td>
+<td><p>Returns list containing lists of children sharing a state.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.compare_by_names" title="cogent3.core.tree.PhyloNode.compare_by_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_by_names</span></code></a>(self, other)</p></td>
+<td><p>Equality test for trees by name</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.compare_by_subsets" title="cogent3.core.tree.PhyloNode.compare_by_subsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_by_subsets</span></code></a>(self, other[, …])</p></td>
+<td><p>Returns fraction of overlapping subsets where self and other differ.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.compare_by_tip_distances" title="cogent3.core.tree.PhyloNode.compare_by_tip_distances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_by_tip_distances</span></code></a>(self, other[, …])</p></td>
+<td><p>Compares self to other using tip-to-tip distance matrices.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.compare_name" title="cogent3.core.tree.PhyloNode.compare_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_name</span></code></a>(self, other)</p></td>
+<td><p>Compares TreeNode by name</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.copy" title="cogent3.core.tree.PhyloNode.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>(self[, memo, _nil, constructor])</p></td>
+<td><p>Returns a copy of self using an iterative approach</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.copy_recursive" title="cogent3.core.tree.PhyloNode.copy_recursive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_recursive</span></code></a>(self[, memo, _nil, constructor])</p></td>
+<td><p>Returns copy of self’s structure, including shallow copy of attrs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.copy_topology" title="cogent3.core.tree.PhyloNode.copy_topology"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_topology</span></code></a>(self[, constructor])</p></td>
+<td><p>Copies only the topology and labels of a tree, not any extra data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.deepcopy" title="cogent3.core.tree.PhyloNode.deepcopy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deepcopy</span></code></a>(self[, memo, _nil, constructor])</p></td>
+<td><p>Returns a copy of self using an iterative approach</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.descendant_array" title="cogent3.core.tree.PhyloNode.descendant_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">descendant_array</span></code></a>(self[, tip_list])</p></td>
+<td><p>Returns numpy array with nodes in rows and descendants in columns.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.distance" title="cogent3.core.tree.PhyloNode.distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance</span></code></a>(self, other)</p></td>
+<td><p>Returns branch length between self and other.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.extend" title="cogent3.core.tree.PhyloNode.extend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code></a>(self, items)</p></td>
+<td><p>Extends self.children by items, in-place, cleaning up refs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_connecting_edges" title="cogent3.core.tree.PhyloNode.get_connecting_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connecting_edges</span></code></a>(self, name1, name2)</p></td>
+<td><p>returns a list of edges connecting two nodes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_connecting_node" title="cogent3.core.tree.PhyloNode.get_connecting_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connecting_node</span></code></a>(self, name1, name2)</p></td>
+<td><p>Finds the last common ancestor of the two named edges.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_distances" title="cogent3.core.tree.PhyloNode.get_distances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_distances</span></code></a>(self[, endpoints])</p></td>
+<td><p>The distance matrix as a dictionary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_edge_names" title="cogent3.core.tree.PhyloNode.get_edge_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_edge_names</span></code></a>(self, tip1name, tip2name[, …])</p></td>
+<td><p>Return the list of stem and/or sub tree (clade) edge name(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_edge_vector" title="cogent3.core.tree.PhyloNode.get_edge_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_edge_vector</span></code></a>(self[, include_root])</p></td>
+<td><p>Collect the list of edges in postfix order</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_figure" title="cogent3.core.tree.PhyloNode.get_figure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_figure</span></code></a>(self[, style])</p></td>
+<td><p>gets Dendrogram for plotting the phylogeny</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_max_tip_tip_distance" title="cogent3.core.tree.PhyloNode.get_max_tip_tip_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_max_tip_tip_distance</span></code></a>(self)</p></td>
+<td><p>Returns the max tip tip distance between any pair of tips</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_newick" title="cogent3.core.tree.PhyloNode.get_newick"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_newick</span></code></a>(self[, with_distances, …])</p></td>
+<td><p>Return the newick string for this tree.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_newick_recursive" title="cogent3.core.tree.PhyloNode.get_newick_recursive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_newick_recursive</span></code></a>(self[, with_distances, …])</p></td>
+<td><p>Return the newick string for this edge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_node_names" title="cogent3.core.tree.PhyloNode.get_node_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_node_names</span></code></a>(self[, includeself, tipsonly])</p></td>
+<td><p>Return a list of edges from this edge - may or may not include self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_nodes_dict" title="cogent3.core.tree.PhyloNode.get_nodes_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_nodes_dict</span></code></a>(self)</p></td>
+<td><p>Returns a dict keyed by node name, value is node</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_param_value" title="cogent3.core.tree.PhyloNode.get_param_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_param_value</span></code></a>(self, param, edge)</p></td>
+<td><p>returns the parameter value for named edge</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_sub_tree" title="cogent3.core.tree.PhyloNode.get_sub_tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sub_tree</span></code></a>(self, name_list[, …])</p></td>
+<td><p>A new instance of a sub tree that contains all the otus that are listed in name_list.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_tip_names" title="cogent3.core.tree.PhyloNode.get_tip_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tip_names</span></code></a>(self[, includeself])</p></td>
+<td><p>return the list of the names of all tips contained by this edge</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.get_xml" title="cogent3.core.tree.PhyloNode.get_xml"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_xml</span></code></a>(self)</p></td>
+<td><p>Return XML formatted tree string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.index_in_parent" title="cogent3.core.tree.PhyloNode.index_in_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_in_parent</span></code></a>(self)</p></td>
+<td><p>Returns index of self in parent.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.insert" title="cogent3.core.tree.PhyloNode.insert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert</span></code></a>(self, index, i)</p></td>
+<td><p>Inserts an item at specified position in self.children.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.is_root" title="cogent3.core.tree.PhyloNode.is_root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_root</span></code></a>(self)</p></td>
+<td><p>Returns True if the current is a root, i.e.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.is_tip" title="cogent3.core.tree.PhyloNode.is_tip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_tip</span></code></a>(self)</p></td>
+<td><p>Returns True if the current node is a tip, i.e.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.isroot" title="cogent3.core.tree.PhyloNode.isroot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isroot</span></code></a>(self)</p></td>
+<td><p>Returns True if root of a tree, i.e.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.istip" title="cogent3.core.tree.PhyloNode.istip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">istip</span></code></a>(self)</p></td>
+<td><p>Returns True if is tip, i.e.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.iter_nontips" title="cogent3.core.tree.PhyloNode.iter_nontips"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iter_nontips</span></code></a>(self[, include_self])</p></td>
+<td><p>Iterates over nontips descended from self, [] if none.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.iter_tips" title="cogent3.core.tree.PhyloNode.iter_tips"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iter_tips</span></code></a>(self[, include_self])</p></td>
+<td><p>Iterates over tips descended from self, [] if self is a tip.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.last_common_ancestor" title="cogent3.core.tree.PhyloNode.last_common_ancestor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">last_common_ancestor</span></code></a>(self, other)</p></td>
+<td><p>Finds last common ancestor of self and other, or None.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.lca" title="cogent3.core.tree.PhyloNode.lca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lca</span></code></a>(self, other)</p></td>
+<td><p>Finds last common ancestor of self and other, or None.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.levelorder" title="cogent3.core.tree.PhyloNode.levelorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">levelorder</span></code></a>(self[, include_self])</p></td>
+<td><p>Performs levelorder iteration over tree</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.lowest_common_ancestor" title="cogent3.core.tree.PhyloNode.lowest_common_ancestor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lowest_common_ancestor</span></code></a>(self, tipnames)</p></td>
+<td><p>Lowest common ancestor for a list of tipnames</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.make_tree_array" title="cogent3.core.tree.PhyloNode.make_tree_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_tree_array</span></code></a>(self[, dec_list])</p></td>
+<td><p>Makes an array with nodes in rows and descendants in columns.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.max_tip_tip_distance" title="cogent3.core.tree.PhyloNode.max_tip_tip_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_tip_tip_distance</span></code></a>(self)</p></td>
+<td><p>returns the max distance between any pair of tips</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.multifurcating" title="cogent3.core.tree.PhyloNode.multifurcating"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multifurcating</span></code></a>(self, num[, eps, …])</p></td>
+<td><p>return a new tree with every node having num or few children</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.name_unnamed_nodes" title="cogent3.core.tree.PhyloNode.name_unnamed_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name_unnamed_nodes</span></code></a>(self)</p></td>
+<td><p>sets the Data property of unnamed nodes to an arbitrary value</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.non_tip_children" title="cogent3.core.tree.PhyloNode.non_tip_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">non_tip_children</span></code></a>(self)</p></td>
+<td><p>Returns direct children in self that have descendants.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.nontips" title="cogent3.core.tree.PhyloNode.nontips"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nontips</span></code></a>(self[, include_self])</p></td>
+<td><p>Returns nontips descended from self.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.pop" title="cogent3.core.tree.PhyloNode.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>(self[, index])</p></td>
+<td><p>Returns and deletes child of self at index (default: -1)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.postorder" title="cogent3.core.tree.PhyloNode.postorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">postorder</span></code></a>(self[, include_self])</p></td>
+<td><p>performs postorder iteration over tree.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.pre_and_postorder" title="cogent3.core.tree.PhyloNode.pre_and_postorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pre_and_postorder</span></code></a>(self[, include_self])</p></td>
+<td><p>Performs iteration over tree, visiting node before and after.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.preorder" title="cogent3.core.tree.PhyloNode.preorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preorder</span></code></a>(self[, include_self])</p></td>
+<td><p>Performs preorder iteration over tree.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.prune" title="cogent3.core.tree.PhyloNode.prune"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prune</span></code></a>(self)</p></td>
+<td><p>Reconstructs correct tree after nodes have been removed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.reassign_names" title="cogent3.core.tree.PhyloNode.reassign_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reassign_names</span></code></a>(self, mapping[, nodes])</p></td>
+<td><p>Reassigns node names based on a mapping dict</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.remove" title="cogent3.core.tree.PhyloNode.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a>(self, target)</p></td>
+<td><p>Removes node by name instead of identity.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.remove_deleted" title="cogent3.core.tree.PhyloNode.remove_deleted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_deleted</span></code></a>(self, is_deleted)</p></td>
+<td><p>Removes all nodes where is_deleted tests true.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.remove_node" title="cogent3.core.tree.PhyloNode.remove_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_node</span></code></a>(self, target)</p></td>
+<td><p>Removes node by identity instead of value.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.root" title="cogent3.core.tree.PhyloNode.root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root</span></code></a>(self)</p></td>
+<td><p>Returns root of the tree self is in.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.root_at_midpoint" title="cogent3.core.tree.PhyloNode.root_at_midpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_at_midpoint</span></code></a>(self)</p></td>
+<td><p>return a new tree rooted at midpoint of the two tips farthest apart</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.rooted_at" title="cogent3.core.tree.PhyloNode.rooted_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rooted_at</span></code></a>(self, edge_name)</p></td>
+<td><p>Return a new tree rooted at the provided node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.rooted_with_tip" title="cogent3.core.tree.PhyloNode.rooted_with_tip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rooted_with_tip</span></code></a>(self, outgroup_name)</p></td>
+<td><p>A new tree with the named tip as one of the root’s children</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.same_shape" title="cogent3.core.tree.PhyloNode.same_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">same_shape</span></code></a>(self, other)</p></td>
+<td><p>Ignores lengths and order, so trees should be sorted first</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.same_topology" title="cogent3.core.tree.PhyloNode.same_topology"><code class="xref py py-obj docutils literal notranslate"><span class="pre">same_topology</span></code></a>(self, other)</p></td>
+<td><p>Tests whether two trees have the same topology.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.scale_branch_lengths" title="cogent3.core.tree.PhyloNode.scale_branch_lengths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale_branch_lengths</span></code></a>(self[, max_length, …])</p></td>
+<td><p>Scales BranchLengths in place to integers for ascii output.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.separation" title="cogent3.core.tree.PhyloNode.separation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">separation</span></code></a>(self, other)</p></td>
+<td><p>Returns number of edges separating self and other.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.set_max_tip_tip_distance" title="cogent3.core.tree.PhyloNode.set_max_tip_tip_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_max_tip_tip_distance</span></code></a>(self)</p></td>
+<td><p>Propagate tip distance information up the tree</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.set_param_value" title="cogent3.core.tree.PhyloNode.set_param_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_param_value</span></code></a>(self, param, edge, value)</p></td>
+<td><p>set’s the value for param at named edge</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.set_tip_distances" title="cogent3.core.tree.PhyloNode.set_tip_distances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_tip_distances</span></code></a>(self)</p></td>
+<td><p>Sets distance from each node to the most distant tip.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.siblings" title="cogent3.core.tree.PhyloNode.siblings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">siblings</span></code></a>(self)</p></td>
+<td><p>Returns all nodes that are children of the same parent as self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.sorted" title="cogent3.core.tree.PhyloNode.sorted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sorted</span></code></a>(self[, sort_order])</p></td>
+<td><p>An equivalent tree sorted into a standard order.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.subset" title="cogent3.core.tree.PhyloNode.subset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subset</span></code></a>(self)</p></td>
+<td><p>Returns set of names that descend from specified node</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.subsets" title="cogent3.core.tree.PhyloNode.subsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subsets</span></code></a>(self)</p></td>
+<td><p>Returns all sets of names that come from specified node and its kids</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.tip_children" title="cogent3.core.tree.PhyloNode.tip_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tip_children</span></code></a>(self)</p></td>
+<td><p>Returns direct children of self that are tips.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.tip_to_tip_distances" title="cogent3.core.tree.PhyloNode.tip_to_tip_distances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tip_to_tip_distances</span></code></a>(self[, endpoints, …])</p></td>
+<td><p>Returns distance matrix between all pairs of tips, and a tip order.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.tips" title="cogent3.core.tree.PhyloNode.tips"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tips</span></code></a>(self[, include_self])</p></td>
+<td><p>Returns tips descended from self, [] if self is a tip.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.tips_within_distance" title="cogent3.core.tree.PhyloNode.tips_within_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tips_within_distance</span></code></a>(self, distance)</p></td>
+<td><p>Returns tips within specified distance from self</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.to_json" title="cogent3.core.tree.PhyloNode.to_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_json</span></code></a>(self)</p></td>
+<td><p>returns json formatted string {‘newick’: with edges and distances, ‘edge_attributes’: }</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.to_rich_dict" title="cogent3.core.tree.PhyloNode.to_rich_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_rich_dict</span></code></a>(self)</p></td>
+<td><p>returns {‘newick’: with node names, ‘edge_attributes’: {‘tip1’: {‘length’: …}, …}}</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.total_descending_branch_length" title="cogent3.core.tree.PhyloNode.total_descending_branch_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">total_descending_branch_length</span></code></a>(self)</p></td>
+<td><p>Returns total descending branch length from self</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.total_length" title="cogent3.core.tree.PhyloNode.total_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">total_length</span></code></a>(self)</p></td>
+<td><p>returns the sum of all branch lengths in tree</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.traverse" title="cogent3.core.tree.PhyloNode.traverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">traverse</span></code></a>(self[, self_before, self_after, …])</p></td>
+<td><p>Returns iterator over descendants.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.traverse_recursive" title="cogent3.core.tree.PhyloNode.traverse_recursive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">traverse_recursive</span></code></a>(self[, self_before, …])</p></td>
+<td><p>Returns iterator over descendants.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.unrooted" title="cogent3.core.tree.PhyloNode.unrooted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unrooted</span></code></a>(self)</p></td>
+<td><p>A tree with at least 3 children at the root.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.core.tree.PhyloNode.write" title="cogent3.core.tree.PhyloNode.write"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code></a>(self, filename[, with_distances, format])</p></td>
+<td><p>Save the tree to filename</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 72%" />
+<col style="width: 28%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>get_node_matching_name</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>unrooted_deepcopy</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.ancestors">
+<code class="sig-name descname">ancestors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.ancestors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all ancestors back to the root. Dynamically calculated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.append">
+<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">i</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends i to self.children, in-place, cleaning up refs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.ascii_art">
+<code class="sig-name descname">ascii_art</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">show_internal</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">compact</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.ascii_art" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string containing an ascii drawing of the tree.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>show_internal</strong></dt><dd><p>includes internal edge names.</p>
+</dd>
+<dt><strong>compact</strong></dt><dd><p>use exactly one line per tip.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.balanced">
+<code class="sig-name descname">balanced</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.balanced" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tree ‘rooted’ here with no neighbour having &gt; 50% of the edges.</p>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>Using a balanced tree can substantially improve performance of
+the likelihood calculations. Note that the resulting tree has a
+different orientation with the effect that specifying clades or
+stems for model parameterisation should be done using the
+‘outgroup_name’ argument.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.bifurcating">
+<code class="sig-name descname">bifurcating</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">eps</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">constructor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name_unnamed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.bifurcating" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap multifurcating with a num of 2</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.child_groups">
+<code class="sig-name descname">child_groups</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.child_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list containing lists of children sharing a state.</p>
+<p>In other words, returns runs of tip and nontip children.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.compare_by_names">
+<code class="sig-name descname">compare_by_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.compare_by_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equality test for trees by name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.compare_by_subsets">
+<code class="sig-name descname">compare_by_subsets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="n">exclude_absent_taxa</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.compare_by_subsets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns fraction of overlapping subsets where self and other differ.</p>
+<p>Other is expected to be a tree object compatible with PhyloNode.</p>
+<p>Note: names present in only one of the two trees will count as
+mismatches: if you don’t want this behavior, strip out the non-matching
+tips first.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.compare_by_tip_distances">
+<code class="sig-name descname">compare_by_tip_distances</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">other</em>, <em class="sig-param">sample=None</em>, <em class="sig-param">dist_f=&lt;function distance_from_r at 0x116b29d40&gt;</em>, <em class="sig-param">shuffle_f=&lt;bound method Random.shuffle of &lt;random.Random object at 0x7fbae301d820&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.compare_by_tip_distances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compares self to other using tip-to-tip distance matrices.</p>
+<p>Value returned is dist_f(m1, m2) for the two matrices. Default is
+to use the Pearson correlation coefficient, with +1 giving a distance
+of 0 and -1 giving a distance of +1 (the madimum possible value).
+Depending on the application, you might instead want to use
+distance_from_r_squared, which counts correlations of both +1 and -1
+as identical (0 distance).</p>
+<p>Note: automatically strips out the names that don’t match (this is
+necessary for this method because the distance between non-matching
+names and matching names is undefined in the tree where they don’t
+match, and because we need to reorder the names in the two trees to
+match up the distance matrices).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.compare_name">
+<code class="sig-name descname">compare_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.compare_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compares TreeNode by name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">_nil</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">constructor</span><span class="o">=</span><span class="default_value">'ignored'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of self using an iterative approach</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.copy_recursive">
+<code class="sig-name descname">copy_recursive</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">_nil</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">constructor</span><span class="o">=</span><span class="default_value">'ignored'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.copy_recursive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns copy of self’s structure, including shallow copy of attrs.</p>
+<p>constructor is ignored; required to support old tree unit tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.copy_topology">
+<code class="sig-name descname">copy_topology</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">constructor</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.copy_topology" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies only the topology and labels of a tree, not any extra data.</p>
+<p>Useful when you want another copy of the tree with the same structure
+and labels, but want to e.g. assign different branch lengths and
+environments. Does not use deepcopy from the copy module, so _much_
+faster than the copy() method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.deepcopy">
+<code class="sig-name descname">deepcopy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">_nil</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">constructor</span><span class="o">=</span><span class="default_value">'ignored'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.deepcopy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of self using an iterative approach</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.descendant_array">
+<code class="sig-name descname">descendant_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">tip_list</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.descendant_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns numpy array with nodes in rows and descendants in columns.</p>
+<p>A value of 1 indicates that the decendant is a descendant of that node/
+A value of 0 indicates that it is not</p>
+<p>Also returns a list of nodes in the same order as they are listed
+in the array.</p>
+<p>tip_list is a list of the names of the tips that will be considered,
+in the order they will appear as columns in the final array. Internal
+nodes will appear as rows in preorder traversal order.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.distance">
+<code class="sig-name descname">distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns branch length between self and other.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.extend">
+<code class="sig-name descname">extend</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">items</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends self.children by items, in-place, cleaning up refs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_connecting_edges">
+<code class="sig-name descname">get_connecting_edges</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name1</span></em>, <em class="sig-param"><span class="n">name2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_connecting_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of edges connecting two nodes.</p>
+<p>If both are tips, the LCA is excluded from the result.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_connecting_node">
+<code class="sig-name descname">get_connecting_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name1</span></em>, <em class="sig-param"><span class="n">name2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_connecting_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the last common ancestor of the two named edges.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_distances">
+<code class="sig-name descname">get_distances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">endpoints</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_distances" title="Permalink to this definition">¶</a></dt>
+<dd><p>The distance matrix as a dictionary.</p>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>Grabs the branch lengths (evolutionary distances) as
+a complete matrix (i.e. a,b and b,a).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_edge_names">
+<code class="sig-name descname">get_edge_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">tip1name</span></em>, <em class="sig-param"><span class="n">tip2name</span></em>, <em class="sig-param"><span class="n">clade</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">stem</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">outgroup_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_edge_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of stem and/or sub tree (clade) edge name(s).
+This is done by finding the common intersection, and then getting
+the list of names. If the clade traverses the root, then use the
+outgroup_name argument to ensure valid specification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>tip1/2name</strong></dt><dd><p>edge 1/2 names</p>
+</dd>
+<dt><strong>stem</strong></dt><dd><p>whether the name of the clade stem edge is returned.</p>
+</dd>
+<dt><strong>clade</strong></dt><dd><p>whether the names of the edges within the clade are
+returned</p>
+</dd>
+<dt><strong>outgroup_name</strong></dt><dd><p>if provided the calculation is done on a version of
+the tree re-rooted relative to the provided tip.</p>
+</dd>
+<dt><strong>Usage:</strong></dt><dd><p>The returned list can be used to specify subtrees for special
+parameterisation. For instance, say you want to allow the primates
+to have a different value of a particular parameter. In this case,
+provide the results of this method to the parameter controller
+method <cite>set_param_rule()</cite> along with the parameter name etc..</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_edge_vector">
+<code class="sig-name descname">get_edge_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_root</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_edge_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect the list of edges in postfix order</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>include_root</strong></dt><dd><p>specifies whether root edge included</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_figure">
+<code class="sig-name descname">get_figure</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">style='square'</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets Dendrogram for plotting the phylogeny</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>style</strong><span class="classifier">string</span></dt><dd><p>‘square’, ‘angular’, ‘radial’ or ‘circular’</p>
+</dd>
+<dt><strong>kwargs</strong></dt><dd><p>arguments passed to Dendrogram constructor</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_max_tip_tip_distance">
+<code class="sig-name descname">get_max_tip_tip_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_max_tip_tip_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the max tip tip distance between any pair of tips</p>
+<p>Returns (dist, tip_names, internal_node)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_newick">
+<code class="sig-name descname">get_newick</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">with_distances</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">semicolon</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">escape_name</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">with_node_names</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_newick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the newick string for this tree.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>with_distances</strong></dt><dd><p>whether branch lengths are included.</p>
+</dd>
+<dt><strong>semicolon</strong></dt><dd><p>end tree string with a semicolon</p>
+</dd>
+<dt><strong>escape_name</strong></dt><dd><p>if any of these characters []’”(),
+nodes name, wrap the name in single quotes</p>
+</dd>
+<dt><strong>with_node_names</strong></dt><dd><p>includes internal node names (except ‘root’)</p>
+</dd>
+<dt><strong>NOTE: This method returns the Newick representation of this node</strong></dt><dd></dd>
+<dt><strong>and its descendents.</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_newick_recursive">
+<code class="sig-name descname">get_newick_recursive</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">with_distances</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">semicolon</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">escape_name</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">with_node_names</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_newick_recursive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the newick string for this edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>with_distances</strong></dt><dd><p>whether branch lengths are included.</p>
+</dd>
+<dt><strong>semicolon</strong></dt><dd><p>end tree string with a semicolon</p>
+</dd>
+<dt><strong>escape_name</strong></dt><dd><p>if any of these characters []’”(),
+nodes name, wrap the name in single quotes</p>
+</dd>
+<dt><strong>with_node_names</strong></dt><dd><p>includes internal node names (except ‘root’)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_node_matching_name">
+<code class="sig-name descname">get_node_matching_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_node_matching_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_node_names">
+<code class="sig-name descname">get_node_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">includeself</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">tipsonly</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_node_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of edges from this edge - may or may not include self.
+This node (or first connection) will be the first, and then they will
+be listed in the natural traverse order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>includeself</strong><span class="classifier">bool</span></dt><dd><p>excludes self.name from the result</p>
+</dd>
+<dt><strong>tipsonly</strong><span class="classifier">bool</span></dt><dd><p>only tips returned</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_nodes_dict">
+<code class="sig-name descname">get_nodes_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_nodes_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dict keyed by node name, value is node</p>
+<p>Will raise TreeError if non-unique names are encountered</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_param_value">
+<code class="sig-name descname">get_param_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">param</span></em>, <em class="sig-param"><span class="n">edge</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_param_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the parameter value for named edge</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_sub_tree">
+<code class="sig-name descname">get_sub_tree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name_list</span></em>, <em class="sig-param"><span class="n">ignore_missing</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">keep_root</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tipsonly</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_sub_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>A new instance of a sub tree that contains all the otus that are
+listed in name_list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ignore_missing</strong></dt><dd><p>if False, get_sub_tree will raise a ValueError if
+name_list contains names that aren’t nodes in the tree</p>
+</dd>
+<dt><strong>keep_root</strong></dt><dd><p>if False, the root of the subtree will be the last common
+ancestor of all nodes kept in the subtree. Root to tip distance is
+then (possibly) different from the original tree. If True, the root to
+tip distance remains constant, but root may only have one child node.</p>
+</dd>
+<dt><strong>tipsonly</strong></dt><dd><p>only tip names matching name_list are allowed</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_tip_names">
+<code class="sig-name descname">get_tip_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">includeself</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_tip_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the list of the names of all tips contained by this edge</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.get_xml">
+<code class="sig-name descname">get_xml</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.get_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return XML formatted tree string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.index_in_parent">
+<code class="sig-name descname">index_in_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.index_in_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns index of self in parent.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.insert">
+<code class="sig-name descname">insert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">i</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts an item at specified position in self.children.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.is_root">
+<code class="sig-name descname">is_root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.is_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the current is a root, i.e. has no parent.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.is_tip">
+<code class="sig-name descname">is_tip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.is_tip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the current node is a tip, i.e. has no children.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.isroot">
+<code class="sig-name descname">isroot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.isroot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if root of a tree, i.e. no parent.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.istip">
+<code class="sig-name descname">istip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.istip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if is tip, i.e. no children.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.iter_nontips">
+<code class="sig-name descname">iter_nontips</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.iter_nontips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over nontips descended from self, [] if none.</p>
+<p>include_self, if True (default is False), will return the current
+node as part of the list of nontips if it is a nontip.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.iter_tips">
+<code class="sig-name descname">iter_tips</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.iter_tips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over tips descended from self, [] if self is a tip.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.last_common_ancestor">
+<code class="sig-name descname">last_common_ancestor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.last_common_ancestor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds last common ancestor of self and other, or None.</p>
+<p>Always tests by identity.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.lca">
+<code class="sig-name descname">lca</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.lca" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds last common ancestor of self and other, or None.</p>
+<p>Always tests by identity.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.length">
+<em class="property">property </em><code class="sig-name descname">length</code><a class="headerlink" href="#cogent3.core.tree.PhyloNode.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.levelorder">
+<code class="sig-name descname">levelorder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.levelorder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs levelorder iteration over tree</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.lowest_common_ancestor">
+<code class="sig-name descname">lowest_common_ancestor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">tipnames</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.lowest_common_ancestor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lowest common ancestor for a list of tipnames</p>
+<p>This should be around O(H sqrt(n)), where H is height and n is the
+number of tips passed in.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.make_tree_array">
+<code class="sig-name descname">make_tree_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">dec_list</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.make_tree_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes an array with nodes in rows and descendants in columns.</p>
+<p>A value of 1 indicates that the decendant is a descendant of that node/
+A value of 0 indicates that it is not</p>
+<p>also returns a list of nodes in the same order as they are listed
+in the array</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.max_tip_tip_distance">
+<code class="sig-name descname">max_tip_tip_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.max_tip_tip_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the max distance between any pair of tips</p>
+<p>Also returns the tip names  that it is between as a tuple</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.multifurcating">
+<code class="sig-name descname">multifurcating</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">num</span></em>, <em class="sig-param"><span class="n">eps</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">constructor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name_unnamed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.multifurcating" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a new tree with every node having num or few children</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>num</strong><span class="classifier">int</span></dt><dd><p>the number of children a node can have max</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float</span></dt><dd><p>default branch length to set if self or constructor is of
+PhyloNode type</p>
+</dd>
+<dt><strong>constructor</strong></dt><dd><p>a TreeNode or subclass constructor. If None, uses self</p>
+</dd>
+<dt><strong>name_unnamed</strong><span class="classifier">bool</span></dt><dd><p>names unnamed nodes</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.name_unnamed_nodes">
+<code class="sig-name descname">name_unnamed_nodes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.name_unnamed_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the Data property of unnamed nodes to an arbitrary value</p>
+<p>Internal nodes are often unnamed and so this function assigns a
+value for referencing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.non_tip_children">
+<code class="sig-name descname">non_tip_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.non_tip_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns direct children in self that have descendants.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.nontips">
+<code class="sig-name descname">nontips</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.nontips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns nontips descended from self.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.parent">
+<em class="property">property </em><code class="sig-name descname">parent</code><a class="headerlink" href="#cogent3.core.tree.PhyloNode.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor for parent.</p>
+<p>If using an algorithm that accesses parent a lot, it will be much
+faster to access self._parent directly, but don’t do it if mutating
+self._parent! (or, if you must, remember to clean up the refs).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.pop">
+<code class="sig-name descname">pop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">index</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns and deletes child of self at index (default: -1)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.postorder">
+<code class="sig-name descname">postorder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.postorder" title="Permalink to this definition">¶</a></dt>
+<dd><p>performs postorder iteration over tree.</p>
+<p class="rubric">Notes</p>
+<p>This is somewhat inelegant compared to saving the node and its index
+on the stack, but is 30% faster in the average case and 3x faster in
+the worst case (for a comb tree).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.pre_and_postorder">
+<code class="sig-name descname">pre_and_postorder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.pre_and_postorder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs iteration over tree, visiting node before and after.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.preorder">
+<code class="sig-name descname">preorder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.preorder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs preorder iteration over tree.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.prune">
+<code class="sig-name descname">prune</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.prune" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstructs correct tree after nodes have been removed.</p>
+<p>Internal nodes with only one child will be removed and new connections
+and Branch lengths will be made to reflect change.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.reassign_names">
+<code class="sig-name descname">reassign_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">mapping</span></em>, <em class="sig-param"><span class="n">nodes</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.reassign_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reassigns node names based on a mapping dict</p>
+<p>mapping : dict, old_name -&gt; new_name
+nodes : specific nodes for renaming (such as just tips, etc…)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.remove">
+<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes node by name instead of identity.</p>
+<p>Returns True if node was present, False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.remove_deleted">
+<code class="sig-name descname">remove_deleted</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">is_deleted</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.remove_deleted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes all nodes where is_deleted tests true.</p>
+<p>Internal nodes that have no children as a result of removing deleted
+are also removed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.remove_node">
+<code class="sig-name descname">remove_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.remove_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes node by identity instead of value.</p>
+<p>Returns True if node was present, False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.root">
+<code class="sig-name descname">root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns root of the tree self is in. Dynamically calculated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.root_at_midpoint">
+<code class="sig-name descname">root_at_midpoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.root_at_midpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a new tree rooted at midpoint of the two tips farthest apart</p>
+<p>this fn doesn’t preserve the internal node naming or structure,
+but does keep tip to tip distances correct.  uses unrooted_deepcopy()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.rooted_at">
+<code class="sig-name descname">rooted_at</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">edge_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.rooted_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new tree rooted at the provided node.</p>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>This can be useful for drawing unrooted trees with an orientation
+that reflects knowledge of the true root location.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.rooted_with_tip">
+<code class="sig-name descname">rooted_with_tip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">outgroup_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.rooted_with_tip" title="Permalink to this definition">¶</a></dt>
+<dd><p>A new tree with the named tip as one of the root’s children</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.same_shape">
+<code class="sig-name descname">same_shape</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.same_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ignores lengths and order, so trees should be sorted first</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.same_topology">
+<code class="sig-name descname">same_topology</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.same_topology" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests whether two trees have the same topology.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.scale_branch_lengths">
+<code class="sig-name descname">scale_branch_lengths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">max_length</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">ultrametric</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.scale_branch_lengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scales BranchLengths in place to integers for ascii output.</p>
+<p>Warning: tree might not be exactly the length you specify.</p>
+<p>Set ultrametric=True if you want all the root-tip distances to end
+up precisely the same.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.separation">
+<code class="sig-name descname">separation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.separation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of edges separating self and other.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.set_max_tip_tip_distance">
+<code class="sig-name descname">set_max_tip_tip_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.set_max_tip_tip_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Propagate tip distance information up the tree</p>
+<p>This method was originally implemented by Julia Goodrich with the intent
+of being able to determine max tip to tip distances between nodes on
+large trees efficiently. The code has been modified to track the
+specific tips the distance is between</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.set_param_value">
+<code class="sig-name descname">set_param_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">param</span></em>, <em class="sig-param"><span class="n">edge</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.set_param_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>set’s the value for param at named edge</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.set_tip_distances">
+<code class="sig-name descname">set_tip_distances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.set_tip_distances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets distance from each node to the most distant tip.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.siblings">
+<code class="sig-name descname">siblings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.siblings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all nodes that are children of the same parent as self.</p>
+<p>Note: excludes self from the list. Dynamically calculated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.sorted">
+<code class="sig-name descname">sorted</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">sort_order</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.sorted" title="Permalink to this definition">¶</a></dt>
+<dd><p>An equivalent tree sorted into a standard order. If this is not
+specified then alphabetical order is used.  At each node starting from
+root, the algorithm will try to put the descendant which contains the
+lowest scoring tip on the left.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.subset">
+<code class="sig-name descname">subset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns set of names that descend from specified node</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.subsets">
+<code class="sig-name descname">subsets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.subsets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all sets of names that come from specified node and its kids</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.tip_children">
+<code class="sig-name descname">tip_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.tip_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns direct children of self that are tips.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.tip_to_tip_distances">
+<code class="sig-name descname">tip_to_tip_distances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">endpoints</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">default_length</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.tip_to_tip_distances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns distance matrix between all pairs of tips, and a tip order.</p>
+<p>Warning: .__start and .__stop added to self and its descendants.</p>
+<p>tip_order contains the actual node objects, not their names (may be
+confusing in some cases).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.tips">
+<code class="sig-name descname">tips</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.tips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns tips descended from self, [] if self is a tip.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.tips_within_distance">
+<code class="sig-name descname">tips_within_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">distance</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.tips_within_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns tips within specified distance from self</p>
+<p>Branch lengths of None will be interpreted as 0</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.to_json">
+<code class="sig-name descname">to_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns json formatted string {‘newick’: with edges and distances, ‘edge_attributes’: }</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.to_rich_dict">
+<code class="sig-name descname">to_rich_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.to_rich_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns {‘newick’: with node names,
+‘edge_attributes’: {‘tip1’: {‘length’: …}, …}}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.total_descending_branch_length">
+<code class="sig-name descname">total_descending_branch_length</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.total_descending_branch_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns total descending branch length from self</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.total_length">
+<code class="sig-name descname">total_length</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.total_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the sum of all branch lengths in tree</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.traverse">
+<code class="sig-name descname">traverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">self_before</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">self_after</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns iterator over descendants. Iterative: safe for large trees.</p>
+<p>self_before includes each node before its descendants if True.
+self_after includes each node after its descendants if True.
+include_self includes the initial node if True.</p>
+<p>self_before and self_after are independent. If neither is True, only
+terminal nodes will be returned.</p>
+<p>Note that if self is terminal, it will only be included once even if
+self_before and self_after are both True.</p>
+<p>This is a depth-first traversal. Since the trees are not binary,
+preorder and postorder traversals are possible, but inorder traversals
+would depend on the data in the tree and are not handled here.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.traverse_recursive">
+<code class="sig-name descname">traverse_recursive</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">self_before</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">self_after</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_self</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.traverse_recursive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns iterator over descendants. IMPORTANT: read notes below.</p>
+<p>traverse_recursive is slower than traverse, and can lead to stack
+errors. However, you _must_ use traverse_recursive if you plan to
+modify the tree topology as you walk over it (e.g. in post-order),
+because the iterative methods use their own stack that is not updated
+if you alter the tree.</p>
+<p>self_before includes each node before its descendants if True.
+self_after includes each node after its descendants if True.
+include_self includes the initial node if True.</p>
+<p>self_before and self_after are independent. If neither is True, only
+terminal nodes will be returned.</p>
+<p>Note that if self is terminal, it will only be included once even if
+self_before and self_after are both True.</p>
+<p>This is a depth-first traversal. Since the trees are not binary,
+preorder and postorder traversals are possible, but inorder traversals
+would depend on the data in the tree and are not handled here.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.unrooted">
+<code class="sig-name descname">unrooted</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.unrooted" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tree with at least 3 children at the root.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.unrooted_deepcopy">
+<code class="sig-name descname">unrooted_deepcopy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">constructor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.unrooted_deepcopy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.core.tree.PhyloNode.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">with_distances</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.core.tree.PhyloNode.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the tree to filename</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename</strong></dt><dd><p>self</p>
+</dd>
+<dt><strong>with_distances</strong></dt><dd><p>whether branch lengths are included in string.</p>
+</dd>
+<dt><strong>format</strong></dt><dd><p>default is newick, xml is alternate. Argument overrides
+the filename suffix. All attributes are saved in the xml format.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/api/tree/classes/cogent3.core.tree.PhyloNode.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

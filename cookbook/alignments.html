@@ -1,0 +1,968 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Collections and Alignments &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Annotations" href="annotations.html" />
+    <link rel="prev" title="Protein sequences" href="protein_sequences.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Cookbook</a><ul>
+  <li><a href="manipulating_biological_data.html">Manipulating biological data</a><ul>
+      <li>Previous: <a href="protein_sequences.html" title="previous chapter">Protein sequences</a></li>
+      <li>Next: <a href="annotations.html" title="next chapter">Annotations</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="collections-and-alignments">
+<h1>Collections and Alignments<a class="headerlink" href="#collections-and-alignments" title="Permalink to this headline">¶</a></h1>
+<p>For loading collections of unaligned or aligned sequences see <a class="reference internal" href="loading_sequences.html#load-seqs"><span class="std std-ref">Loading nucleotide, protein sequences</span></a>.</p>
+<div class="section" id="basic-collection-objects">
+<h2>Basic Collection objects<a class="headerlink" href="#basic-collection-objects" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="constructing-a-sequencecollection-or-alignment-object-from-strings">
+<h3>Constructing a <code class="docutils literal notranslate"><span class="pre">SequenceCollection</span></code> or <code class="docutils literal notranslate"><span class="pre">Alignment</span></code> object from strings<a class="headerlink" href="#constructing-a-sequencecollection-or-alignment-object-from-strings" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span><span class="p">,</span> <span class="n">make_unaligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dna</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;seq1&#39;</span><span class="p">:</span> <span class="s1">&#39;ATGACC&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;seq2&#39;</span><span class="p">:</span> <span class="s1">&#39;ATCGCC&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dna</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">seqs</span><span class="p">))</span>
+<span class="go">&lt;class &#39;cogent3.core.alignment.ArrayAlignment&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="n">make_unaligned_seqs</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">seqs</span><span class="p">))</span>
+<span class="go">&lt;class &#39;cogent3.core.alignment.SequenceCollection&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="constructing-a-arrayalignment-using-make-aligned-seqs">
+<h3>Constructing a <code class="docutils literal notranslate"><span class="pre">ArrayAlignment</span></code> using <code class="docutils literal notranslate"><span class="pre">make_aligned_seqs</span></code><a class="headerlink" href="#constructing-a-arrayalignment-using-make-aligned-seqs" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dna</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;seq1&#39;</span><span class="p">:</span> <span class="s1">&#39;ATGACC&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;seq2&#39;</span><span class="p">:</span> <span class="s1">&#39;ATCGCC&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dna</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">,</span> <span class="n">array_align</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">seqs</span><span class="p">))</span>
+<span class="go">&lt;class &#39;cogent3.core.alignment.ArrayAlignment&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ATGACC</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ATCGCC</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="converting-a-sequencecollection-to-fasta-format">
+<h3>Converting a <code class="docutils literal notranslate"><span class="pre">SequenceCollection</span></code> to FASTA format<a class="headerlink" href="#converting-a-sequencecollection-to-fasta-format" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_unaligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="n">load_unaligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/test.paml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>  
+<span class="go">&gt;DogFaced</span>
+<span class="go">GCAAGGAGCCAGCAGAACAGATGGGTTGAAACTAAGGAAACATGTAATGATAGGCAGACT</span>
+<span class="go">&gt;HowlerMon</span>
+<span class="go">GCAAGGAGCCAACATAACAGATGGGCTGAAAGTGAGGAAACATGTAATGATAGGCAGACT</span>
+<span class="go">&gt;Human</span>
+<span class="go">GCAAGGAGCCAACATAACAGATGGGCTGGAAGTAAGGAAACATGTAATGATAGGCGGACT</span>
+<span class="go">&gt;Mouse</span>
+<span class="go">GCAGTGAGCCAGCAGAGCAGATGGGCTGCAAGTAAAGGAACATGTAACGACAGGCAGGTT</span>
+<span class="go">&gt;NineBande</span>
+<span class="go">GCAAGGCGCCAACAGAGCAGATGGGCTGAAAGTAAGGAAACATGTAATGATAGGCAGACT</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="adding-new-sequences-to-an-existing-collection-or-alignment">
+<h2>Adding new sequences to an existing collection or alignment<a class="headerlink" href="#adding-new-sequences-to-an-existing-collection-or-alignment" title="Permalink to this headline">¶</a></h2>
+<p>New sequences can be either appended or inserted using the <code class="docutils literal notranslate"><span class="pre">add_seqs</span></code> method. More than one sequence can be added at the same time. Note that <code class="docutils literal notranslate"><span class="pre">add_seqs</span></code> does not modify the existing collection/alignment, it creates a new one.</p>
+<div class="section" id="appending-the-sequences">
+<h3>Appending the sequences<a class="headerlink" href="#appending-the-sequences" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">add_seqs</span></code> without additional parameters will append the sequences to the end of the collection/alignment.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">([(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAA------&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                      <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATG-AGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                      <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;AT--AG-GATG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ATGAA------</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ATG-AGTGATG</span>
+<span class="go">&gt;seq3</span>
+<span class="go">AT--AG-GATG</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_seqs</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">([(</span><span class="s1">&#39;seq0&#39;</span><span class="p">,</span> <span class="s1">&#39;ATG-AGT-AGG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                          <span class="p">(</span><span class="s1">&#39;seq4&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGCC------&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_aln</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">add_seqs</span><span class="p">(</span><span class="n">new_seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new_aln</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ATGAA------</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ATG-AGTGATG</span>
+<span class="go">&gt;seq3</span>
+<span class="go">AT--AG-GATG</span>
+<span class="go">&gt;seq0</span>
+<span class="go">ATG-AGT-AGG</span>
+<span class="go">&gt;seq4</span>
+<span class="go">ATGCC------</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The order is not preserved if you use <code class="docutils literal notranslate"><span class="pre">to_fasta</span></code> method, which sorts sequences by name.</p>
+</div>
+</div>
+<div class="section" id="inserting-the-sequences">
+<h3>Inserting the sequences<a class="headerlink" href="#inserting-the-sequences" title="Permalink to this headline">¶</a></h3>
+<p>Sequences can be inserted into an alignment at the specified position using either the <code class="docutils literal notranslate"><span class="pre">before_name</span></code> or <code class="docutils literal notranslate"><span class="pre">after_name</span></code> arguments.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">new_aln</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">add_seqs</span><span class="p">(</span><span class="n">new_seqs</span><span class="p">,</span> <span class="n">before_name</span><span class="o">=</span><span class="s1">&#39;seq2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new_aln</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ATGAA------</span>
+<span class="go">&gt;seq0</span>
+<span class="go">ATG-AGT-AGG</span>
+<span class="go">&gt;seq4</span>
+<span class="go">ATGCC------</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ATG-AGTGATG</span>
+<span class="go">&gt;seq3</span>
+<span class="go">AT--AG-GATG</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_aln</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">add_seqs</span><span class="p">(</span><span class="n">new_seqs</span><span class="p">,</span> <span class="n">after_name</span><span class="o">=</span><span class="s1">&#39;seq2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new_aln</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ATGAA------</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ATG-AGTGATG</span>
+<span class="go">&gt;seq0</span>
+<span class="go">ATG-AGT-AGG</span>
+<span class="go">&gt;seq4</span>
+<span class="go">ATGCC------</span>
+<span class="go">&gt;seq3</span>
+<span class="go">AT--AG-GATG</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="inserting-sequence-s-based-on-their-alignment-to-a-reference-sequence">
+<h3>Inserting sequence(s) based on their alignment to a reference sequence<a class="headerlink" href="#inserting-sequence-s-based-on-their-alignment-to-a-reference-sequence" title="Permalink to this headline">¶</a></h3>
+<p>Already aligned sequences can be added to an existing <code class="docutils literal notranslate"><span class="pre">Alignment</span></code> object and aligned at the same time using the <code class="docutils literal notranslate"><span class="pre">add_from_ref_aln</span></code> method. The alignment is performed based on their alignment to a reference sequence (which must be present in both alignments). The method assumes the first sequence in <code class="docutils literal notranslate"><span class="pre">ref_aln.names[0]</span></code> is the reference.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">([(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAA------&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATG-AGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;AT--AG-GATG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref_aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">([(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;ATAGGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                         <span class="p">(</span><span class="s1">&#39;seq0&#39;</span><span class="p">,</span> <span class="s1">&#39;ATG-AGCG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                         <span class="p">(</span><span class="s1">&#39;seq4&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGCTGGG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_aln</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">add_from_ref_aln</span><span class="p">(</span><span class="n">ref_aln</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new_aln</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ATGAA------</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ATG-AGTGATG</span>
+<span class="go">&gt;seq3</span>
+<span class="go">AT--AG-GATG</span>
+<span class="go">&gt;seq0</span>
+<span class="go">AT--G--AGCG</span>
+<span class="go">&gt;seq4</span>
+<span class="go">AT--GC-TGGG</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">add_from_ref_aln</span></code> has the same arguments as <code class="docutils literal notranslate"><span class="pre">add_seqs</span></code> so <code class="docutils literal notranslate"><span class="pre">before_name</span></code> and <code class="docutils literal notranslate"><span class="pre">after_name</span></code> can be used to insert the new sequences at the desired position.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method does not work with the <code class="docutils literal notranslate"><span class="pre">ArrayAlignment</span></code> class.</p>
+</div>
+<div class="section" id="removing-all-columns-with-gaps-in-a-named-sequence">
+<h4>Removing all columns with gaps in a named sequence<a class="headerlink" href="#removing-all-columns-with-gaps-in-a-named-sequence" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">([(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAA---TG-&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATG-AGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;AT--AG-GATG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_aln</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_degapped_relative_to</span><span class="p">(</span><span class="s1">&#39;seq1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new_aln</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ATGAATG</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ATG-AAT</span>
+<span class="go">&gt;seq3</span>
+<span class="go">AT--AAT</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-elements-of-a-collection-or-alignment">
+<h2>The elements of a collection or alignment<a class="headerlink" href="#the-elements-of-a-collection-or-alignment" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="accessing-individual-sequences-from-a-collection-or-alignment-by-name">
+<h3>Accessing individual sequences from a collection or alignment by name<a class="headerlink" href="#accessing-individual-sequences-from-a-collection-or-alignment-by-name" title="Permalink to this headline">¶</a></h3>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">get_seq</span></code> method allows for extracting an unaligned sequence from a collection or alignment by name.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">([(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAA------&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATG-AGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;AT--AG-GATG&#39;</span><span class="p">)],</span>
+<span class="gp">... </span>                <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">,</span> <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;seq1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;seq1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="go">&lt;class &#39;cogent3.core.sequence.DnaSequence&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span><span class="o">.</span><span class="n">is_gapped</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Alternatively, if you want to extract the aligned (i.e., gapped) sequence from an alignment, you can use <code class="docutils literal notranslate"><span class="pre">get_gapped_seq</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_gapped_seq</span><span class="p">(</span><span class="s1">&#39;seq1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span><span class="o">.</span><span class="n">is_gapped</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="go">ATGAA------</span>
+</pre></div>
+</div>
+<p>To see the names of the sequences in a sequence collection, you can use either the <code class="docutils literal notranslate"><span class="pre">Names</span></code> attribute or <code class="docutils literal notranslate"><span class="pre">get_seq_names</span></code> method.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="o">.</span><span class="n">names</span>
+<span class="go">[&#39;seq1&#39;, &#39;seq2&#39;, &#39;seq3&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="o">.</span><span class="n">names</span>
+<span class="go">[&#39;seq1&#39;, &#39;seq2&#39;, &#39;seq3&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="slice-the-sequences-from-an-alignment-like-a-list">
+<h3>Slice the sequences from an alignment like a list<a class="headerlink" href="#slice-the-sequences-from-an-alignment-like-a-list" title="Permalink to this headline">¶</a></h3>
+<p>The usual approach is to access a <code class="docutils literal notranslate"><span class="pre">SequenceCollection</span></code> or <code class="docutils literal notranslate"><span class="pre">Alignment</span></code> object as a dictionary, obtaining the individual sequences using the titles as “keys” (above).  However, one can also iterate through the collection like a list.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_unaligned_seqs</span><span class="p">,</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span> <span class="o">=</span> <span class="s1">&#39;data/long_testseqs.fasta&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="n">load_unaligned_seqs</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_seq</span> <span class="o">=</span> <span class="n">seqs</span><span class="o">.</span><span class="n">seqs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_seq</span><span class="p">[:</span><span class="mi">24</span><span class="p">]</span>
+<span class="go">DnaSequence(TGTGGCA... 24)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">my_seq</span><span class="p">[:</span><span class="mi">24</span><span class="p">])</span>
+<span class="go">&#39;TGTGGCACAAATACTCATGCCAGC&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">my_seq</span><span class="p">)</span>
+<span class="go">&lt;class &#39;cogent3.core.sequence.DnaSequence&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="o">.</span><span class="n">seqs</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">24</span><span class="p">]</span>
+<span class="go">DnaSequence(TGTGGCA... 24)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="o">.</span><span class="n">seqs</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">24</span><span class="p">])</span>
+<span class="go">TGTGGCACAAATACTCATGCCAGC</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-a-subset-of-sequences-from-the-alignment">
+<h3>Getting a subset of sequences from the alignment<a class="headerlink" href="#getting-a-subset-of-sequences-from-the-alignment" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/test.paml&#39;</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="o">.</span><span class="n">names</span>
+<span class="go">[&#39;NineBande&#39;, &#39;Mouse&#39;, &#39;Human&#39;, &#39;HowlerMon&#39;, &#39;DogFaced&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">take_seqs</span><span class="p">([</span><span class="s1">&#39;Human&#39;</span><span class="p">,</span> <span class="s1">&#39;HowlerMon&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new</span><span class="o">.</span><span class="n">names</span>
+<span class="go">[&#39;Human&#39;, &#39;HowlerMon&#39;]</span>
+</pre></div>
+</div>
+<p>Note, if you set <code class="docutils literal notranslate"><span class="pre">array_align=False</span></code>, then the subset contain references to the original sequences, not copies.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/test.paml&#39;</span><span class="p">,</span> <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;Human&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">take_seqs</span><span class="p">([</span><span class="s1">&#39;Human&#39;</span><span class="p">,</span> <span class="s1">&#39;HowlerMon&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">id</span><span class="p">(</span><span class="n">new</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;Human&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="n">aln</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;Human&#39;</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="alignments">
+<h2>Alignments<a class="headerlink" href="#alignments" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-an-alignment-object-from-a-sequencecollection">
+<h3>Creating an <code class="docutils literal notranslate"><span class="pre">Alignment</span></code> object from a <code class="docutils literal notranslate"><span class="pre">SequenceCollection</span></code><a class="headerlink" href="#creating-an-alignment-object-from-a-sequencecollection" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_unaligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.core.alignment</span> <span class="kn">import</span> <span class="n">Alignment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">load_unaligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/test.paml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fasta_1</span> <span class="o">=</span> <span class="n">seq</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fasta_2</span> <span class="o">=</span> <span class="n">aln</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">fasta_1</span> <span class="o">==</span> <span class="n">fasta_2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-alignment-to-dna-rna-or-protein-moltypes">
+<h3>Convert alignment to DNA, RNA or PROTEIN moltypes<a class="headerlink" href="#convert-alignment-to-dna-rna-or-protein-moltypes" title="Permalink to this headline">¶</a></h3>
+<p>This is useful if you’ve loaded a sequence alignment without specifying the moltype and later need to convert it.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;ACG---&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;CCTGGG&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dna</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_dna</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dna</span>
+<span class="go">2 x 6 dna alignment: a[ACG---], b[CCTGGG]</span>
+</pre></div>
+</div>
+<p>To RNA</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;ACG---&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;CCUGGG&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rna</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_rna</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rna</span>
+<span class="go">2 x 6 rna alignment: a[ACG---], b[CCUGGG]</span>
+</pre></div>
+</div>
+<p>To PROTEIN</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;TYV&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;TE-&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prot</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_protein</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prot</span>
+<span class="go">2 x 3 protein alignment: x[TYV], y[TE-]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="handling-gaps">
+<h3>Handling gaps<a class="headerlink" href="#handling-gaps" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="remove-all-gaps-from-an-alignment-in-fasta-format">
+<h4>Remove all gaps from an alignment in FASTA format<a class="headerlink" href="#remove-all-gaps-from-an-alignment-in-fasta-format" title="Permalink to this headline">¶</a></h4>
+<p>This necessarily returns a <code class="docutils literal notranslate"><span class="pre">SequenceCollection</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s2">&quot;data/primate_cdx2_promoter.fasta&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">degapped</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">degap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">degapped</span><span class="p">))</span>
+<span class="go">&lt;class &#39;cogent3.core.alignment.SequenceCollection&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="writing-sequences-to-file">
+<h3>Writing sequences to file<a class="headerlink" href="#writing-sequences-to-file" title="Permalink to this headline">¶</a></h3>
+<p>Both collection and alignment objects have a <code class="docutils literal notranslate"><span class="pre">write</span></code> method. The output format is inferred from the filename suffix,</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dna</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;seq1&#39;</span><span class="p">:</span> <span class="s1">&#39;ATGACC&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;seq2&#39;</span><span class="p">:</span> <span class="s1">&#39;ATCGCC&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dna</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;sample.fasta&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or by the <code class="docutils literal notranslate"><span class="pre">format</span></code> argument.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;fasta&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="converting-an-alignment-to-fasta-format">
+<h3>Converting an alignment to FASTA format<a class="headerlink" href="#converting-an-alignment-to-fasta-format" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.core.alignment</span> <span class="kn">import</span> <span class="n">Alignment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/long_testseqs.fasta&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fasta_align</span> <span class="o">=</span> <span class="n">aln</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="converting-an-alignment-into-phylip-format">
+<h3>Converting an alignment into Phylip format<a class="headerlink" href="#converting-an-alignment-into-phylip-format" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.core.alignment</span> <span class="kn">import</span> <span class="n">Alignment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/test.paml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">got</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_phylip</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">got</span><span class="p">)</span>
+<span class="go">5  60</span>
+<span class="go">NineBande GCAAGGCGCCAACAGAGCAGATGGGCTGAAAGTAAGGAAACATGTAATGATAGGCAGACT</span>
+<span class="go">Mouse     GCAGTGAGCCAGCAGAGCAGATGGGCTGCAAGTAAAGGAACATGTAACGACAGGCAGGTT</span>
+<span class="go">Human     GCAAGGAGCCAACATAACAGATGGGCTGGAAGTAAGGAAACATGTAATGATAGGCGGACT</span>
+<span class="go">HowlerMon GCAAGGAGCCAACATAACAGATGGGCTGAAAGTGAGGAAACATGTAATGATAGGCAGACT</span>
+<span class="go">DogFaced  GCAAGGAGCCAGCAGAACAGATGGGTTGAAACTAAGGAAACATGTAATGATAGGCAGACT</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="converting-an-alignment-to-a-list-of-strings">
+<h3>Converting an alignment to a list of strings<a class="headerlink" href="#converting-an-alignment-to-a-list-of-strings" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.core.alignment</span> <span class="kn">import</span> <span class="n">Alignment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/test.paml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">string_list</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="slicing-an-alignment">
+<h2>Slicing an alignment<a class="headerlink" href="#slicing-an-alignment" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="by-rows-sequences">
+<h3>By rows (sequences)<a class="headerlink" href="#by-rows-sequences" title="Permalink to this headline">¶</a></h3>
+<p>An <code class="docutils literal notranslate"><span class="pre">Alignment</span></code> can be sliced</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span> <span class="o">=</span> <span class="s1">&#39;data/long_testseqs.fasta&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="p">[:</span><span class="mi">24</span><span class="p">])</span>
+<span class="go">&gt;Human</span>
+<span class="go">TGTGGCACAAATACTCATGCCAGC</span>
+<span class="go">&gt;HowlerMon</span>
+<span class="go">TGTGGCACAAATACTCATGCCAGC</span>
+<span class="go">&gt;Mouse</span>
+<span class="go">TGTGGCACAGATGCTCATGCCAGC</span>
+<span class="go">&gt;NineBande</span>
+<span class="go">TGTGGCACAAATACTCATGCCAAC</span>
+<span class="go">&gt;DogFaced</span>
+<span class="go">TGTGGCACAAATACTCATGCCAAC</span>
+</pre></div>
+</div>
+<p>but a <code class="docutils literal notranslate"><span class="pre">SequenceCollection</span></code> cannot be sliced</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_unaligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span> <span class="o">=</span> <span class="s1">&#39;data/long_testseqs.fasta&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="n">load_unaligned_seqs</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">seqs</span><span class="p">[:</span><span class="mi">24</span><span class="p">])</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">TypeError</span>: <span class="n">&#39;SequenceCollection&#39; object...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-a-single-column-from-an-alignment">
+<h3>Getting a single column from an alignment<a class="headerlink" href="#getting-a-single-column-from-an-alignment" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/test.paml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_four</span> <span class="o">=</span> <span class="n">aln</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-a-region-of-contiguous-columns">
+<h3>Getting a region of contiguous columns<a class="headerlink" href="#getting-a-region-of-contiguous-columns" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/long_testseqs.fasta&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">region</span> <span class="o">=</span> <span class="n">aln</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">70</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iterating-over-alignment-positions">
+<h3>Iterating over alignment positions<a class="headerlink" href="#iterating-over-alignment-positions" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/primate_cdx2_promoter.fasta&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">col</span> <span class="o">=</span> <span class="n">aln</span><span class="p">[</span><span class="mi">113</span><span class="p">:</span><span class="mi">115</span><span class="p">]</span><span class="o">.</span><span class="n">iter_positions</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+<span class="go">&lt;class &#39;generator&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+<span class="go">[[ByteSequence(A), ByteSequence(A), ByteSequence(A)], [ByteSequence(T)...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-codon-3rd-positions-from-alignment">
+<h3>Getting codon 3rd positions from <code class="docutils literal notranslate"><span class="pre">Alignment</span></code><a class="headerlink" href="#getting-codon-3rd-positions-from-alignment" title="Permalink to this headline">¶</a></h3>
+<p>We’ll do this by specifying the position indices of interest, creating a sequence <code class="docutils literal notranslate"><span class="pre">Feature</span></code> and using that to extract the positions.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;seq1&#39;</span><span class="p">:</span> <span class="s1">&#39;ATGATGATG---&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="s1">&#39;seq2&#39;</span><span class="p">:</span> <span class="s1">&#39;ATGATGATGATG&#39;</span><span class="p">},</span> <span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aln</span><span class="p">))[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">])</span>
+<span class="go">[2, 5, 8, 11]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aln</span><span class="p">))[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span>
+<span class="go">[(2, 3), (5, 6), (8, 9), (11, 12)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos3</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s1">&#39;pos3&#39;</span><span class="p">,</span> <span class="s1">&#39;pos3&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos3</span> <span class="o">=</span> <span class="n">pos3</span><span class="o">.</span><span class="n">get_slice</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pos3</span><span class="p">)</span>  
+<span class="go">&gt;seq2</span>
+<span class="go">GGGG</span>
+<span class="go">&gt;seq1</span>
+<span class="go">GGG-</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-codon-3rd-positions-from-arrayalignment">
+<h3>Getting codon 3rd positions from <code class="docutils literal notranslate"><span class="pre">ArrayAlignment</span></code><a class="headerlink" href="#getting-codon-3rd-positions-from-arrayalignment" title="Permalink to this headline">¶</a></h3>
+<p>We can use more conventional slice notation in this instance. Note, because Python counts from 0, the 3rd position starts at index 2.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;seq1&#39;</span><span class="p">:</span> <span class="s1">&#39;ATGATGATG---&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="s1">&#39;seq2&#39;</span><span class="p">:</span> <span class="s1">&#39;ATGATGATGATG&#39;</span><span class="p">},</span> <span class="n">array_align</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos3</span> <span class="o">=</span> <span class="n">aln</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pos3</span><span class="p">)</span>  
+<span class="go">&gt;seq1</span>
+<span class="go">GGG-</span>
+<span class="go">&gt;seq2</span>
+<span class="go">GGGG</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering-positions">
+<span id="filter-positions"></span><h3>Filtering positions<a class="headerlink" href="#filtering-positions" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="trim-terminal-stop-codons">
+<h4>Trim terminal stop codons<a class="headerlink" href="#trim-terminal-stop-codons" title="Permalink to this headline">¶</a></h4>
+<p>For evolutionary analyses that use codon models we need to exclude terminating stop codons. For the case where the sequences are all of length divisible by 3.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;seq1&#39;</span><span class="p">:</span> <span class="s1">&#39;ACGTAA---&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="s1">&#39;seq2&#39;</span><span class="p">:</span> <span class="s1">&#39;ACGACA---&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="s1">&#39;seq3&#39;</span><span class="p">:</span> <span class="s1">&#39;ACGCAATGA&#39;</span><span class="p">},</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">trim_stop_codons</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>  
+<span class="go">&gt;seq3</span>
+<span class="go">ACGCAA</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ACGACA</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ACG---</span>
+</pre></div>
+</div>
+<p>If the alignment contains sequences not divisible by 3, use the <code class="docutils literal notranslate"><span class="pre">allow_partial</span></code> argument.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;seq1&#39;</span><span class="p">:</span> <span class="s1">&#39;ACGTAA---&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="s1">&#39;seq2&#39;</span><span class="p">:</span> <span class="s1">&#39;ACGAC----&#39;</span><span class="p">,</span> <span class="c1"># terminal codon incomplete</span>
+<span class="gp">... </span>                     <span class="s1">&#39;seq3&#39;</span><span class="p">:</span> <span class="s1">&#39;ACGCAATGA&#39;</span><span class="p">},</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">trim_stop_codons</span><span class="p">(</span><span class="n">allow_partial</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>  
+<span class="go">&gt;seq3</span>
+<span class="go">ACGCAA</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ACGAC-</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ACG---</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="eliminating-columns-with-non-nucleotide-characters">
+<h4>Eliminating columns with non-nucleotide characters<a class="headerlink" href="#eliminating-columns-with-non-nucleotide-characters" title="Permalink to this headline">¶</a></h4>
+<p>We sometimes want to eliminate ambiguous or gap data from our alignments. We show how to exclude alignment columns by the characters they contain. In the first instance we do this just for single nucleotide columns, then for trinucleotides (equivalent for handling codons). Both are done using the <code class="docutils literal notranslate"><span class="pre">no_degenerates</span></code> method.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAGGTG---&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                      <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAGGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                      <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAGGNGATG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We apply to nucleotides,</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nucs</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">no_degenerates</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">nucs</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ATGAAGGG</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ATGAAGGG</span>
+<span class="go">&gt;seq3</span>
+<span class="go">ATGAAGGG</span>
+</pre></div>
+</div>
+<p>Applying the same filter to trinucleotides (specified by setting <code class="docutils literal notranslate"><span class="pre">motif_length=3</span></code>).</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">trinucs</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">no_degenerates</span><span class="p">(</span><span class="n">motif_length</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">trinucs</span><span class="p">)</span>
+<span class="go">&gt;seq1</span>
+<span class="go">ATGAAG</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ATGAAG</span>
+<span class="go">&gt;seq3</span>
+<span class="go">ATGAAG</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-all-variable-positions-from-an-alignment">
+<h4>Getting all variable positions from an alignment<a class="headerlink" href="#getting-all-variable-positions-from-an-alignment" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/long_testseqs.fasta&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">variable_positions</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">just_variable_aln</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">take_positions</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">just_variable_aln</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="go">&gt;Human</span>
+<span class="go">AAGCAAAACT</span>
+<span class="go">&gt;HowlerMon</span>
+<span class="go">AAGCAAGACT</span>
+<span class="go">&gt;Mouse</span>
+<span class="go">GGGCCCAGCT</span>
+<span class="go">&gt;NineBande</span>
+<span class="go">AAATAAAACT</span>
+<span class="go">&gt;DogFaced</span>
+<span class="go">AAACAAAATA</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-all-constant-positions-from-an-alignment">
+<h4>Getting all constant positions from an alignment<a class="headerlink" href="#getting-all-constant-positions-from-an-alignment" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/long_testseqs.fasta&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">variable_positions</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">just_constant_aln</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">take_positions</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">negate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">just_constant_aln</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="go">&gt;Human</span>
+<span class="go">TGTGGCACAA</span>
+<span class="go">&gt;HowlerMon</span>
+<span class="go">TGTGGCACAA</span>
+<span class="go">&gt;Mouse</span>
+<span class="go">TGTGGCACAA</span>
+<span class="go">&gt;NineBande</span>
+<span class="go">TGTGGCACAA</span>
+<span class="go">&gt;DogFaced</span>
+<span class="go">TGTGGCACAA</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-all-variable-codons-from-an-alignment">
+<h4>Getting all variable codons from an alignment<a class="headerlink" href="#getting-all-variable-codons-from-an-alignment" title="Permalink to this headline">¶</a></h4>
+<p>This is done using the <code class="docutils literal notranslate"><span class="pre">filtered</span></code> method using the <code class="docutils literal notranslate"><span class="pre">motif_length</span></code> argument. We demonstrate this first for the <code class="docutils literal notranslate"><span class="pre">ArrayAlignment</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/long_testseqs.fasta&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">variable_codons</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">filtered</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">motif_length</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">just_variable_aln</span><span class="p">[:</span><span class="mi">9</span><span class="p">])</span>
+<span class="go">&gt;Human</span>
+<span class="go">AAGCAAAAC</span>
+<span class="go">&gt;HowlerMon</span>
+<span class="go">AAGCAAGAC</span>
+<span class="go">&gt;Mouse</span>
+<span class="go">GGGCCCAGC</span>
+<span class="go">&gt;NineBande</span>
+<span class="go">AAATAAAAC</span>
+<span class="go">&gt;DogFaced</span>
+<span class="go">AAACAAAAT</span>
+</pre></div>
+</div>
+<p>Then for the standard <code class="docutils literal notranslate"><span class="pre">Alignment</span></code> by first converting the <code class="docutils literal notranslate"><span class="pre">ArrayAlignment</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">to_type</span><span class="p">(</span><span class="n">array_align</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">variable_codons</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">filtered</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">motif_length</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">just_variable_aln</span><span class="p">[:</span><span class="mi">9</span><span class="p">])</span>
+<span class="go">&gt;Human</span>
+<span class="go">AAGCAAAAC...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="filtering-sequences">
+<h3>Filtering sequences<a class="headerlink" href="#filtering-sequences" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="extracting-sequences-by-sequence-identifier-into-a-new-alignment-object">
+<h4>Extracting sequences by sequence identifier into a new alignment object<a class="headerlink" href="#extracting-sequences-by-sequence-identifier-into-a-new-alignment-object" title="Permalink to this headline">¶</a></h4>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">take_seqs</span></code> to extract some sequences by sequence identifier from an alignment to a new alignment object:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/long_testseqs.fasta&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="o">.</span><span class="n">take_seqs</span><span class="p">([</span><span class="s1">&#39;Human&#39;</span><span class="p">,</span><span class="s1">&#39;Mouse&#39;</span><span class="p">])</span>
+<span class="go">2 x 2532 bytes alignment: Human[TGTGGCACAAA...], Mouse[TGTGGCACAGA...]</span>
+</pre></div>
+</div>
+<p>Alternatively, you can extract only the sequences which are not specified by passing <code class="docutils literal notranslate"><span class="pre">negate=True</span></code>:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="o">.</span><span class="n">take_seqs</span><span class="p">([</span><span class="s1">&#39;Human&#39;</span><span class="p">,</span><span class="s1">&#39;Mouse&#39;</span><span class="p">],</span> <span class="n">negate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+<span class="go">3 x 2532 bytes alignment: NineBande[TGTGGCACAAA...], HowlerMon[TGTGGCACAAA...], DogFaced[TGTGGCACAAA...]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extracting-sequences-using-an-arbitrary-function-into-a-new-alignment-object">
+<h4>Extracting sequences using an arbitrary function into a new alignment object<a class="headerlink" href="#extracting-sequences-using-an-arbitrary-function-into-a-new-alignment-object" title="Permalink to this headline">¶</a></h4>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">take_seqs_if</span></code> to extract sequences into a new alignment object based on whether an arbitrary function applied to the sequence evaluates to True. For example, to extract sequences which don’t contain any N bases you could do the following:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAGGTG---&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                      <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAGGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                      <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAGGNGATG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">no_N_chars</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="s1">&#39;N&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="o">.</span><span class="n">take_seqs_if</span><span class="p">(</span><span class="n">no_N_chars</span><span class="p">)</span>
+<span class="go">2 x 12 dna alignment: seq1[ATGAAGGTG--...], seq2[ATGAAGGTGAT...]</span>
+</pre></div>
+</div>
+<p>You can additionally get the sequences where the provided function evaluates to False:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="o">.</span><span class="n">take_seqs_if</span><span class="p">(</span><span class="n">no_N_chars</span><span class="p">,</span><span class="n">negate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">1 x 12 dna alignment: seq3[ATGAAGGNGAT...]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="computing-alignment-statistics">
+<h2>Computing alignment statistics<a class="headerlink" href="#computing-alignment-statistics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="getting-motif-counts">
+<h3>Getting motif counts<a class="headerlink" href="#getting-motif-counts" title="Permalink to this headline">¶</a></h3>
+<p>We state the motif length we want and whether to allow gap or ambiguous characters. The latter only has meaning for IPUAC character sets (the DNA, RNA or PROTEIN moltypes). We illustrate this for the DNA moltype with motif lengths of 1 and 3.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAGGTG---&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                      <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAGGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                      <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAGGNGATG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">counts</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">counts</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span> 
+<span class="go">Counter({&#39;G&#39;: 14, &#39;A&#39;: 11, &#39;T&#39;: 7})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">counts</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">counts</span><span class="p">(</span><span class="n">motif_length</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span> 
+<span class="go">Counter({&#39;ATG&#39;: 5, &#39;AAG&#39;: 3, &#39;GTG&#39;: 2})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">counts</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">counts</span><span class="p">(</span><span class="n">include_ambiguity</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span> 
+<span class="go">Counter({&#39;G&#39;: 14, &#39;A&#39;: 11, &#39;T&#39;: 7, &#39;N&#39;: 1})</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only the observed motifs are returned, rather than all defined by the alphabet.</p>
+</div>
+</div>
+<div class="section" id="computing-motif-probabilities-from-an-alignment">
+<h3>Computing motif probabilities from an alignment<a class="headerlink" href="#computing-motif-probabilities-from-an-alignment" title="Permalink to this headline">¶</a></h3>
+<p>The method <code class="docutils literal notranslate"><span class="pre">get_motif_probs</span></code> of <code class="docutils literal notranslate"><span class="pre">Alignment</span></code> objects returns the probabilities for all motifs of a given length. For individual nucleotides:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/primate_cdx2_promoter.fasta&#39;</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">motif_probs</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_motif_probs</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">motif_probs</span><span class="p">)</span> 
+<span class="go">{&#39;A&#39;: 0.24...</span>
+</pre></div>
+</div>
+<p>For dinucleotides or longer, we need to pass in an <code class="docutils literal notranslate"><span class="pre">Alphabet</span></code> with the appropriate word length. Here is an example with trinucleotides:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span><span class="p">,</span> <span class="n">DNA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trinuc_alphabet</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">alphabet</span><span class="o">.</span><span class="n">get_word_alphabet</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/primate_cdx2_promoter.fasta&#39;</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">motif_probs</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_motif_probs</span><span class="p">(</span><span class="n">alphabet</span><span class="o">=</span><span class="n">trinuc_alphabet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">motif_probs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">motif_probs</span><span class="p">[</span><span class="n">x</span><span class="p">],</span>
+<span class="gp">... </span>                <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">  </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">motif_probs</span><span class="p">[</span><span class="n">m</span><span class="p">]))</span>
+<span class="gp">...</span>
+<span class="go">CAG  0.037</span>
+<span class="go">CCT  0.034</span>
+<span class="go">CGC  0.030...</span>
+</pre></div>
+</div>
+<p>The same holds for other arbitrary alphabets, as long as they match the alignment <code class="docutils literal notranslate"><span class="pre">MolType</span></code>.</p>
+<p>Some calculations in <code class="docutils literal notranslate"><span class="pre">cogent3</span></code> require all non-zero values in the motif probabilities, in which case we use a pseudo-count. We illustrate that here with a simple example where T is missing. Without the pseudo-count, the frequency of T is 0.0, with the pseudo-count defined as 1e-6 then the frequency of T will be slightly less than 1e-6.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;AACAAC&#39;</span><span class="p">),(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;AAGAAG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">motif_probs</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_motif_probs</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">motif_probs</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">motif_probs</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_motif_probs</span><span class="p">(</span><span class="n">pseudocount</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">motif_probs</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1e-6</span>
+</pre></div>
+</div>
+<p>It is important to notice that motif probabilities are computed by treating sequences as non-overlapping tuples. Below is a very simple pair of identical sequences where there are clearly 2 ‘AA’ dinucleotides per sequence but only the first one is ‘in-frame’ (frame width = 2).</p>
+<p>We then create a dinucleotide <code class="docutils literal notranslate"><span class="pre">Alphabet</span></code> object and use this to get dinucleotide probabilities. These frequencies are determined by breaking each aligned sequence up into non-overlapping dinucleotides and then doing a count. The expected value for the ‘AA’ dinucleotide in this case will be 2/8 = 0.25.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;AACGTAAG&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;AACGTAAG&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">seqs</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dinuc_alphabet</span> <span class="o">=</span> <span class="n">DNA</span><span class="o">.</span><span class="n">alphabet</span><span class="o">.</span><span class="n">get_word_alphabet</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">motif_probs</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_motif_probs</span><span class="p">(</span><span class="n">alphabet</span><span class="o">=</span><span class="n">dinuc_alphabet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">motif_probs</span><span class="p">[</span><span class="s1">&#39;AA&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.25</span>
+</pre></div>
+</div>
+<p>What about counting the total incidence of dinucleotides including those not in-frame?  A naive application of the Python string object’s count method will not work as desired either because it “returns the number of non-overlapping occurrences”.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;my_seq&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAGTAAG&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">seqs</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_seq</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_seq</span><span class="p">(</span><span class="s1">&#39;my_seq&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_seq</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AA&#39;</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;AAA&#39;</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AA&#39;</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;AAAA&#39;</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AA&#39;</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>To count all occurrences of a given dinucleotide in a DNA sequence, one could use a standard Python approach such as list comprehension:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_seq</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">make_seq</span><span class="p">(</span><span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">,</span> <span class="n">seq</span><span class="o">=</span><span class="s1">&#39;AAAGTAAG&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span>
+<span class="go">DnaSequence(AAAGTAAG)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">di_nucs</span> <span class="o">=</span> <span class="p">[</span><span class="n">seq</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sum</span><span class="p">([</span><span class="n">nn</span> <span class="o">==</span> <span class="s1">&#39;AA&#39;</span> <span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="n">di_nucs</span><span class="p">])</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="working-with-alignment-gaps">
+<h3>Working with alignment gaps<a class="headerlink" href="#working-with-alignment-gaps" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="filtering-extracted-columns-for-the-gap-character">
+<h4>Filtering extracted columns for the gap character<a class="headerlink" href="#filtering-extracted-columns-for-the-gap-character" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/primate_cdx2_promoter.fasta&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">col</span> <span class="o">=</span> <span class="n">aln</span><span class="p">[</span><span class="mi">113</span><span class="p">:</span><span class="mi">115</span><span class="p">]</span><span class="o">.</span><span class="n">iter_positions</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span>
+<span class="go">([ByteSequence(A), ByteSequence(A), ByteSequence(A)], [ByteSequence(T),...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">c1</span><span class="p">))</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">c2</span><span class="p">))</span>
+<span class="go">[ByteSequence(-), ByteSequence(-)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calculating-the-gap-fraction">
+<h4>Calculating the gap fraction<a class="headerlink" href="#calculating-the-gap-fraction" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/primate_cdx2_promoter.fasta&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">aln</span><span class="p">[</span><span class="mi">113</span><span class="p">:</span><span class="mi">150</span><span class="p">]</span><span class="o">.</span><span class="n">iter_positions</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">ungapped</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">column</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="n">gap_fraction</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ungapped</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">gap_fraction</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="go">0.66666...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extracting-maps-of-aligned-to-unaligned-positions-i-e-gap-maps">
+<h4>Extracting maps of aligned to unaligned positions (i.e., gap maps)<a class="headerlink" href="#extracting-maps-of-aligned-to-unaligned-positions-i-e-gap-maps" title="Permalink to this headline">¶</a></h4>
+<p>It’s often important to know how an alignment position relates to a position in one or more of the sequences in the alignment. The <code class="docutils literal notranslate"><span class="pre">gap_maps</span></code> method of the individual sequences is useful for this. To get a map of sequence to alignment positions for a specific sequence in your alignment, do the following:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAGG-TG--&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATG-AGGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAAG--GATG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq_to_aln_map</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_gapped_seq</span><span class="p">(</span><span class="s1">&#39;seq1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">gap_maps</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>It’s now possible to look up positions in the <code class="docutils literal notranslate"><span class="pre">seq1</span></code>, and find out what they map to in the alignment:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">seq_to_aln_map</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq_to_aln_map</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+<span class="go">9</span>
+</pre></div>
+</div>
+<p>This tells us that in position 3 in <code class="docutils literal notranslate"><span class="pre">seq1</span></code> corresponds to position 3 in <code class="docutils literal notranslate"><span class="pre">aln</span></code>, and that position 8 in <code class="docutils literal notranslate"><span class="pre">seq1</span></code> corresponds to position 9 in <code class="docutils literal notranslate"><span class="pre">aln</span></code>.</p>
+<p>Notice that we grabbed the first result from the call to <code class="docutils literal notranslate"><span class="pre">gap_maps</span></code>. This is the sequence position to alignment position map. The second value returned is the alignment position to sequence position map, so if you want to find out what sequence positions the alignment positions correspond to (opposed to what alignment positions the sequence positions correspond to) for a given sequence, you would take the following steps:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln_to_seq_map</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_gapped_seq</span><span class="p">(</span><span class="s1">&#39;seq1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">gap_maps</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln_to_seq_map</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln_to_seq_map</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+<span class="go">7</span>
+</pre></div>
+</div>
+<p>If an alignment position is a gap, and therefore has no corresponding sequence position, you’ll get a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">seq_pos</span> <span class="o">=</span> <span class="n">aln_to_seq_map</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">KeyError</span>: <span class="n">7</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The first position in alignments and sequences is always numbered position 0.</p>
+</div>
+</div>
+<div class="section" id="filtering-alignments-based-on-gaps">
+<h4>Filtering alignments based on gaps<a class="headerlink" href="#filtering-alignments-based-on-gaps" title="Permalink to this headline">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An alternate, computationally faster, approach to removing gaps is to use the <code class="docutils literal notranslate"><span class="pre">filtered</span></code> method as discussed in <a class="reference internal" href="#filter-positions"><span class="std std-ref">Filtering positions</span></a>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">omit_gap_runs</span></code> method can be applied to remove long stretches of gaps in an alignment. In the following example, we remove sequences that have more than two adjacent gaps anywhere in the aligned sequence.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAA---TG-&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATG-AGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;AT--AG-GATG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="o">.</span><span class="n">omit_gap_runs</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>  
+<span class="go">&gt;seq2</span>
+<span class="go">ATG-AGTGATG</span>
+<span class="go">&gt;seq3</span>
+<span class="go">AT--AG-GATG</span>
+</pre></div>
+</div>
+<p>If instead, we just wanted to remove positions from the alignment which are gaps in more than a certain percentage of the sequences, we could use the <code class="docutils literal notranslate"><span class="pre">omit_gap_pos</span></code> function. For example:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAA---TG-&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATG-AGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;AT--AG-GATG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aln</span><span class="o">.</span><span class="n">omit_gap_pos</span><span class="p">(</span><span class="mf">0.40</span><span class="p">))</span>  
+<span class="go">&gt;seq1</span>
+<span class="go">ATGA--TG-</span>
+<span class="go">&gt;seq2</span>
+<span class="go">ATGAGGATG</span>
+<span class="go">&gt;seq3</span>
+<span class="go">AT-AGGATG</span>
+</pre></div>
+</div>
+<p>You’ll notice that the 4th and 7th columns of the alignment have been removed because they contained 66% gaps – more than the allowed 40%.</p>
+<p>If you wanted to remove sequences which contain more than a certain percent gap characters, you could use the <code class="docutils literal notranslate"><span class="pre">omit_gap_seqs</span></code> method. This is commonly applied to filter partial sequences from an alignment.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;seq1&#39;</span><span class="p">,</span> <span class="s1">&#39;ATGAA------&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq2&#39;</span><span class="p">,</span> <span class="s1">&#39;ATG-AGTGATG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                     <span class="p">(</span><span class="s1">&#39;seq3&#39;</span><span class="p">,</span> <span class="s1">&#39;AT--AG-GATG&#39;</span><span class="p">)],</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filtered_aln</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">omit_gap_seqs</span><span class="p">(</span><span class="mf">0.50</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">filtered_aln</span><span class="p">)</span>  
+<span class="go">&gt;seq2</span>
+<span class="go">ATG-AGTGATG</span>
+<span class="go">&gt;seq3</span>
+<span class="go">AT--AG-GATG</span>
+</pre></div>
+</div>
+<p>Note that following this call to <code class="docutils literal notranslate"><span class="pre">omit_gap_seqs</span></code>, the 4th column of <code class="docutils literal notranslate"><span class="pre">filtered_aln</span></code> is 100% gaps. This is generally not desirable, so a call to <code class="docutils literal notranslate"><span class="pre">omit_gap_seqs</span></code> is frequently followed with a call to <code class="docutils literal notranslate"><span class="pre">omit_gap_pos</span></code> with no parameters – this defaults to removing positions which are all gaps:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">filtered_aln</span><span class="o">.</span><span class="n">omit_gap_pos</span><span class="p">())</span>  
+<span class="go">&gt;seq2</span>
+<span class="go">ATGAGTGATG</span>
+<span class="go">&gt;seq3</span>
+<span class="go">AT-AG-GATG</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cookbook/alignments.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Likelihood analysis of multiple loci &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Simulate an alignment" href="simulate_alignment.html" />
+    <link rel="prev" title="Use an empirical protein substitution model" href="empirical_protein_models.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cookbook/index.html">Cookbook</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Usage Examples</a><ul>
+      <li>Previous: <a href="empirical_protein_models.html" title="previous chapter">Use an empirical protein substitution model</a></li>
+      <li>Next: <a href="simulate_alignment.html" title="next chapter">Simulate an alignment</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="likelihood-analysis-of-multiple-loci">
+<h1>Likelihood analysis of multiple loci<a class="headerlink" href="#likelihood-analysis-of-multiple-loci" title="Permalink to this headline">¶</a></h1>
+<p><em>Section author: Gavin Huttley</em></p>
+<p>We want to know whether an exchangeability parameter is different between alignments. We will specify a null model, under which each alignment get’s it’s own motif probabilities and all alignments share branch lengths and the exchangeability parameter kappa (the transition / transversion ratio). We’ll split the example alignment into two-pieces.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_aligned_seqs</span><span class="p">,</span> <span class="n">make_tree</span><span class="p">,</span> <span class="n">make_table</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.evolve.models</span> <span class="kn">import</span> <span class="n">HKY85</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.recalculation.scope</span> <span class="kn">import</span> <span class="n">EACH</span><span class="p">,</span> <span class="n">ALL</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.maths.stats</span> <span class="kn">import</span> <span class="n">chisqprob</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> <span class="o">=</span> <span class="n">load_aligned_seqs</span><span class="p">(</span><span class="s2">&quot;data/long_testseqs.fasta&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">half</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln1</span> <span class="o">=</span> <span class="n">aln</span><span class="p">[:</span><span class="n">half</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln2</span> <span class="o">=</span> <span class="n">aln</span><span class="p">[</span><span class="n">half</span><span class="p">:]</span>
+</pre></div>
+</div>
+<p>We provide names for those alignments, then construct the tree, model instances.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">loci_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;1st-half&quot;</span><span class="p">,</span> <span class="s2">&quot;2nd-half&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loci</span> <span class="o">=</span> <span class="p">[</span><span class="n">aln1</span><span class="p">,</span> <span class="n">aln2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="n">tip_names</span><span class="o">=</span><span class="n">aln</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span> <span class="o">=</span> <span class="n">HKY85</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To make a likelihood function with multiple alignments we provide the list of loci names. We can then specify a parameter (other than length) to be the same across the loci (using the imported <code class="docutils literal notranslate"><span class="pre">ALL</span></code>) or different for each locus (using <code class="docutils literal notranslate"><span class="pre">EACH</span></code>). We conduct a LR test as before.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">make_likelihood_function</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span><span class="n">loci</span><span class="o">=</span><span class="n">loci_names</span><span class="p">,</span><span class="n">digits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">space</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span><span class="o">.</span><span class="n">set_param_rule</span><span class="p">(</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="n">is_independent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span><span class="o">.</span><span class="n">set_param_rule</span><span class="p">(</span><span class="s2">&quot;kappa&quot;</span><span class="p">,</span> <span class="n">loci</span><span class="o">=</span><span class="n">ALL</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span><span class="o">.</span><span class="n">set_alignment</span><span class="p">(</span><span class="n">loci</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lf</span><span class="p">)</span>  
+<span class="go">Likelihood function statistics</span>
+<span class="go">log-likelihood = -9168.3331</span>
+<span class="go">number of free parameters = 2</span>
+<span class="go">==============</span>
+<span class="go">kappa   length</span>
+<span class="go">--------------</span>
+<span class="go"> 3.98     0.13</span>
+<span class="go">--------------</span>
+<span class="go">====================================</span>
+<span class="go">   locus      A      C      G      T</span>
+<span class="go">------------------------------------</span>
+<span class="go">1st-half   0.38   0.18   0.21   0.22</span>
+<span class="go">2nd-half   0.35   0.19   0.22   0.24</span>
+<span class="go">------------------------------------</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_lnL</span> <span class="o">=</span> <span class="n">lf</span><span class="o">.</span><span class="n">lnL</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_nfp</span> <span class="o">=</span> <span class="n">lf</span><span class="o">.</span><span class="n">nfp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span><span class="o">.</span><span class="n">set_param_rule</span><span class="p">(</span><span class="s1">&#39;kappa&#39;</span><span class="p">,</span> <span class="n">loci</span><span class="o">=</span><span class="n">EACH</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lf</span><span class="o">.</span><span class="n">optimise</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">lf</span><span class="p">)</span>  
+<span class="go">Likelihood function statistics</span>
+<span class="go">log-likelihood = -9167.5373</span>
+<span class="go">number of free parameters = 3</span>
+<span class="go">======</span>
+<span class="go">length</span>
+<span class="go">------</span>
+<span class="go">  0.13</span>
+<span class="go">------</span>
+<span class="go">================</span>
+<span class="go">   locus   kappa</span>
+<span class="go">----------------</span>
+<span class="go">1st-half    4.33</span>
+<span class="go">2nd-half    3.74</span>
+<span class="go">----------------</span>
+<span class="go">====================================</span>
+<span class="go">   locus      A      C      G      T</span>
+<span class="go">------------------------------------</span>
+<span class="go">2nd-half   0.35   0.19   0.22   0.24</span>
+<span class="go">1st-half   0.38   0.18   0.21   0.22</span>
+<span class="go">------------------------------------</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">each_lnL</span> <span class="o">=</span> <span class="n">lf</span><span class="o">.</span><span class="n">lnL</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">each_nfp</span> <span class="o">=</span> <span class="n">lf</span><span class="o">.</span><span class="n">nfp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LR</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">each_lnL</span> <span class="o">-</span> <span class="n">all_lnL</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">each_nfp</span> <span class="o">-</span> <span class="n">all_nfp</span>
+</pre></div>
+</div>
+<p>Just to pretty up the result display, I’ll print(a table consisting of the test statistics created on the fly.)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">make_table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LR&#39;</span><span class="p">,</span> <span class="s1">&#39;df&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">],</span>
+<span class="gp">... </span>            <span class="n">rows</span><span class="o">=</span><span class="p">[[</span><span class="n">LR</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">chisqprob</span><span class="p">(</span><span class="n">LR</span><span class="p">,</span> <span class="n">df</span><span class="p">)]],</span> <span class="n">digits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="go">================</span>
+<span class="go">  LR   df      p</span>
+<span class="go">----------------</span>
+<span class="go">1.59    1   0.21</span>
+<span class="go">----------------</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/examples/testing_multi_loci.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

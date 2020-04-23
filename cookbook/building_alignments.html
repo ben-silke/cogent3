@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Building alignments &#8212; cogent3 2020.2.7a documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../_static/require.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Genetic distance calculation" href="calc_genetic_distance.html" />
+    <link rel="prev" title="Tabular data" href="tables.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">cogent3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cookbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../library.html">The Library</a><ul>
+  <li><a href="index.html">Cookbook</a><ul>
+      <li>Previous: <a href="tables.html" title="previous chapter">Tabular data</a></li>
+      <li>Next: <a href="calc_genetic_distance.html" title="next chapter">Genetic distance calculation</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="building-alignments">
+<h1>Building alignments<a class="headerlink" href="#building-alignments" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="using-the-cogent3-aligners">
+<h2>Using the cogent3 aligners<a class="headerlink" href="#using-the-cogent3-aligners" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="running-a-pairwise-needleman-wunsch-alignment">
+<h3>Running a pairwise Needleman-Wunsch-Alignment<a class="headerlink" href="#running-a-pairwise-needleman-wunsch-alignment" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="running-a-progressive-aligner">
+<h3>Running a progressive aligner<a class="headerlink" href="#running-a-progressive-aligner" title="Permalink to this headline">¶</a></h3>
+<p>We import useful functions and then load the sequences to be aligned.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_unaligned_seqs</span><span class="p">,</span> <span class="n">make_tree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="n">load_unaligned_seqs</span><span class="p">(</span><span class="s1">&#39;data/test2.fasta&#39;</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="for-nucleotides">
+<h4>For nucleotides<a class="headerlink" href="#for-nucleotides" title="Permalink to this headline">¶</a></h4>
+<p>We load a canned nucleotide substitution model and the progressive aligner <code class="docutils literal notranslate"><span class="pre">TreeAlign</span></code> function.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.evolve.models</span> <span class="kn">import</span> <span class="n">HKY85</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.align.progressive</span> <span class="kn">import</span> <span class="n">TreeAlign</span>
+</pre></div>
+</div>
+<p>We first align without providing a guide tree. The <code class="docutils literal notranslate"><span class="pre">TreeAlign</span></code> algorithm builds pairwise alignments and estimates the substitution model parameters and pairwise distances. The distances are used to build a neighbour joining tree and the median value of substitution model parameters are provided to the substitution model for the progressive alignment step.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="p">,</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">TreeAlign</span><span class="p">(</span><span class="n">HKY85</span><span class="p">(),</span> <span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> 
+<span class="go">5 x 60 bytes alignment: NineBande[-C-----GCCA...], Mouse[GCAGTGAGCCA...], DogFaced[GCAAGGAGCCA...], ...</span>
+</pre></div>
+</div>
+<p>We then align using a guide tree (pre-estimated) and specifying the ratio of transitions to transversions (kappa).</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="s1">&#39;(((NineBande:0.0128202449453,Mouse:0.184732725695):0.0289459522137,DogFaced:0.0456427810916):0.0271363715538,Human:0.0341320714654,HowlerMon:0.0188456837006)root;&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;kappa&#39;</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="p">,</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">TreeAlign</span><span class="p">(</span><span class="n">HKY85</span><span class="p">(),</span> <span class="n">seqs</span><span class="p">,</span> <span class="n">tree</span><span class="o">=</span><span class="n">tree</span><span class="p">,</span> <span class="n">param_vals</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> 
+<span class="go">5 x 60 bytes alignment: NineBande[-C-----GCCA...], Mouse[GCAGTGAGCCA...], DogFaced[GCAAGGAGCCA...], ...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-codons">
+<h4>For codons<a class="headerlink" href="#for-codons" title="Permalink to this headline">¶</a></h4>
+<p>We load a canned codon substitution model and use a pre-defined tree and parameter estimates.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3.evolve.models</span> <span class="kn">import</span> <span class="n">MG94HKY</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">make_tree</span><span class="p">(</span><span class="s1">&#39;((NineBande:0.0575781680031,Mouse:0.594704139406):0.078919659556,DogFaced:0.142151930069,(HowlerMon:0.0619991555435,Human:0.10343006422):0.0792423439112)&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;kappa&#39;</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span> <span class="s1">&#39;omega&#39;</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span><span class="p">,</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">TreeAlign</span><span class="p">(</span><span class="n">MG94HKY</span><span class="p">(),</span> <span class="n">seqs</span><span class="p">,</span> <span class="n">tree</span><span class="o">=</span><span class="n">tree</span><span class="p">,</span> <span class="n">param_vals</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aln</span> 
+<span class="go">5 x 60 bytes alignment: NineBande[------CGCCA...], Mouse[GCAGTGAGCCA...], DogFaced[GCAAGGAGCCA...], ...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="converting-gaps-from-aa-seq-alignment-to-nuc-seq-alignment">
+<h2>Converting gaps from aa-seq alignment to nuc seq alignment<a class="headerlink" href="#converting-gaps-from-aa-seq-alignment-to-nuc-seq-alignment" title="Permalink to this headline">¶</a></h2>
+<p>We load some unaligned DNA sequences and show their translation.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_unaligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;hum&#39;</span><span class="p">,</span> <span class="s1">&#39;AAGCAGATCCAGGAAAGCAGCGAGAATGGCAGCCTGGCCGCGCGCCAGGAGAGGCAGGCCCAGGTCAACCTCACT&#39;</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s1">&#39;mus&#39;</span><span class="p">,</span> <span class="s1">&#39;AAGCAGATCCAGGAGAGCGGCGAGAGCGGCAGCCTGGCCGCGCGGCAGGAGAGGCAGGCCCAAGTCAACCTCACG&#39;</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s1">&#39;rat&#39;</span><span class="p">,</span> <span class="s1">&#39;CTGAACAAGCAGCCACTTTCAAACAAGAAA&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unaligned_DNA</span> <span class="o">=</span> <span class="n">make_unaligned_seqs</span><span class="p">(</span><span class="n">seqs</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">unaligned_DNA</span><span class="p">)</span>  
+<span class="go">&gt;hum</span>
+<span class="go">AAGCAGATCCAGGAAAGCAGCGAGAATGGCAGCCTGGCCGCGCGCCAGGAGAGGCAGGCCCAGGTCAACCTCACT</span>
+<span class="go">&gt;mus</span>
+<span class="go">AAGCAGATCCAGGAGAGCGGCGAGAGCGGCAGCCTGGCCGCGCGGCAGGAGAGGCAGGCCCAAGTCAACCTCACG</span>
+<span class="go">&gt;rat</span>
+<span class="go">CTGAACAAGCAGCCACTTTCAAACAAGAAA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">unaligned_DNA</span><span class="o">.</span><span class="n">get_translation</span><span class="p">())</span>  
+<span class="go">&gt;hum</span>
+<span class="go">KQIQESSENGSLAARQERQAQVNLT</span>
+<span class="go">&gt;mus</span>
+<span class="go">KQIQESGESGSLAARQERQAQVNLT</span>
+<span class="go">&gt;rat</span>
+<span class="go">LNKQPLSNKK</span>
+</pre></div>
+</div>
+<p>We load an alignment of these protein sequences.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_aligned_seqs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aligned_aa_seqs</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;hum&#39;</span><span class="p">,</span> <span class="s1">&#39;KQIQESSENGSLAARQERQAQVNLT&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                   <span class="p">(</span><span class="s1">&#39;mus&#39;</span><span class="p">,</span> <span class="s1">&#39;KQIQESGESGSLAARQERQAQVNLT&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                   <span class="p">(</span><span class="s1">&#39;rat&#39;</span><span class="p">,</span> <span class="s1">&#39;LNKQ------PLS---------NKK&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aligned_aa</span> <span class="o">=</span> <span class="n">make_aligned_seqs</span><span class="p">(</span><span class="n">aligned_aa_seqs</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;protein&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We then obtain an alignment of the DNA sequences from the alignment of their translation.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aligned_DNA</span> <span class="o">=</span> <span class="n">aligned_aa</span><span class="o">.</span><span class="n">replace_seqs</span><span class="p">(</span><span class="n">unaligned_DNA</span><span class="p">,</span> <span class="n">aa_to_codon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aligned_DNA</span><span class="p">)</span>  
+<span class="go">&gt;hum</span>
+<span class="go">AAGCAGATCCAGGAAAGCAGCGAGAATGGCAGCCTGGCCGCGCGCCAGGAGAGGCAGGCCCAGGTCAACCTCACT</span>
+<span class="go">&gt;mus</span>
+<span class="go">AAGCAGATCCAGGAGAGCGGCGAGAGCGGCAGCCTGGCCGCGCGGCAGGAGAGGCAGGCCCAAGTCAACCTCACG</span>
+<span class="go">&gt;rat</span>
+<span class="go">CTGAACAAGCAG------------------CCACTTTCA---------------------------AACAAGAAA</span>
+</pre></div>
+</div>
+<p>Setting the argument <code class="docutils literal notranslate"><span class="pre">aa_to_codons=False</span></code> is only useful when the sequences have exactly the length. One use case is to allow introducing the gaps onto another copy of the alignment where there are annotations.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, cogent3.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cookbook/building_alignments.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
