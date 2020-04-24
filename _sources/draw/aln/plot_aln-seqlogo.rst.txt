@@ -153,7 +153,7 @@ No difference here except it uses the built-in colour scheme from the protein `M
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.683 seconds)
+   **Total running time of the script:** ( 0 minutes  4.779 seconds)
 
 
 .. _sphx_glr_download_draw_aln_plot_aln-seqlogo.py:
