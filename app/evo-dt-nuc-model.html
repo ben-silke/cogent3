@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 
 <html>
   <head>
     <meta charset="utf-8" />
     <title>Applying a discrete-time, non-stationary nucleotide model &#8212; cogent3 2020.2.7a documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
@@ -23,77 +22,119 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Applying a time-reversible nucleotide model" href="evo-tr-nuc-model.html" />
     <link rel="prev" title="Reconstructing ancestral states" href="evo-ancestral-states.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
-  <div class="document">
-    
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">cogent3</a></h1>
 
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          cogent3</a>
+        <span class="navbar-text navbar-version pull-left"><b>2020.2.7a</b></span>
+      </div>
 
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../install.html">Install</a></li>
+                <li><a href="../draw/index.html">Gallery</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Sections <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#the-progressive-align-app">The <code class="docutils literal notranslate"><span class="pre">progressive_align</span></code> App</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html#the-model-app">The <code class="docutils literal notranslate"><span class="pre">model</span></code> App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#the-hypothesis-app">The <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code> App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#the-natsel-apps">The <code class="docutils literal notranslate"><span class="pre">natsel</span></code> Apps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#the-user-function-apps">The <code class="docutils literal notranslate"><span class="pre">user_function</span></code> Apps</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../library.html">The Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook/index.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
 </ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a><ul>
-      <li>Previous: <a href="evo-ancestral-states.html" title="previous chapter">Reconstructing ancestral states</a></li>
-      <li>Next: <a href="evo-tr-nuc-model.html" title="next chapter">Applying a time-reversible nucleotide model</a></li>
-  </ul></li>
-  </ul></li>
 </ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          
-
-          <div class="body" role="main">
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Applying a discrete-time, non-stationary nucleotide model</a><ul>
+<li><a class="reference internal" href="#Get-a-tree-with-branch-lengths-as-paralinear">Get a tree with branch lengths as paralinear</a></li>
+<li><a class="reference internal" href="#Getting-parameter-estimates">Getting parameter estimates</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
             
+            
+              
+                
+  <li>
+    <a href="evo-ancestral-states.html" title="Previous Chapter: Reconstructing ancestral states"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Reconstructin...</span>
+    </a>
+  </li>
+  <li>
+    <a href="evo-tr-nuc-model.html" title="Next Chapter: Applying a time-reversible nucleotide model"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Applying a ti... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
   
 <style>
 /* CSS for nbsphinx extension */
@@ -691,26 +732,21 @@ tr:last-child {border-bottom: 1px solid #000;} tr > th {text-align: center !impo
 </div>
 
 
-          </div>
-          
-        </div>
-      </div>
-    <div class="clearer"></div>
-  </div>
-    <div class="footer">
-      &copy;2020, cogent3.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="../_sources/app/evo-dt-nuc-model.ipynb.txt"
-          rel="nofollow">Page source</a>
     </div>
-
-    
-
-    
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020, cogent3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.2.<br/>
+    </p>
+  </div>
+</footer>
   </body>
 </html>

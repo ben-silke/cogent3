@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 
 <html>
   <head>
     <meta charset="utf-8" />
     <title>Trees &#8212; cogent3 2020.2.7a documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
@@ -23,79 +22,166 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Phylonodes Methods" href="phylonodes.html" />
     <link rel="prev" title="Translate DNA sequences" href="genetic_code.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
-  <div class="document">
-    
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">cogent3</a></h1>
 
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          cogent3</a>
+        <span class="navbar-text navbar-version pull-left"><b>2020.2.7a</b></span>
+      </div>
 
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../install.html">Install</a></li>
+                <li><a href="../draw/index.html">Gallery</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Sections <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../warning.html">Warning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app/index.html">The <code class="docutils literal notranslate"><span class="pre">apps</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../draw/index.html">Image Gallery</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../library.html">The Library</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cookbook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_file_links.html">Data Files Used in the Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../licenses.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html">Posting Bugs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html#citation">Citation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html#support">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general.html#search">Search</a></li>
 </ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="../library.html">The Library</a><ul>
-  <li><a href="index.html">Cookbook</a><ul>
-  <li><a href="manipulating_biological_data.html">Manipulating biological data</a><ul>
-      <li>Previous: <a href="genetic_code.html" title="previous chapter">Translate DNA sequences</a></li>
-      <li>Next: <a href="phylonodes.html" title="next chapter">Phylonodes Methods</a></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
 </ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          
-
-          <div class="body" role="main">
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Trees</a><ul>
+<li><a class="reference internal" href="#basics">Basics</a><ul>
+<li><a class="reference internal" href="#loading-a-tree-from-a-file-and-visualizing-it-with-ascii-art">Loading a tree from a file and visualizing it with <code class="docutils literal notranslate"><span class="pre">ascii_art()</span></code></a></li>
+<li><a class="reference internal" href="#writing-a-tree-to-a-file">Writing a tree to a file</a></li>
+<li><a class="reference internal" href="#getting-the-individual-nodes-of-a-tree-by-name">Getting the individual nodes of a tree by name</a></li>
+<li><a class="reference internal" href="#getting-the-name-of-a-node-or-a-tree">Getting the name of a node (or a tree)</a></li>
+<li><a class="reference internal" href="#the-object-type-of-a-tree-and-its-nodes-is-the-same">The object type of a tree and its nodes is the same</a></li>
+<li><a class="reference internal" href="#working-with-the-nodes-of-a-tree">Working with the nodes of a tree</a></li>
+<li><a class="reference internal" href="#getting-the-path-between-two-tips-or-edges-connecting-edges">Getting the path between two tips or edges (connecting edges)</a></li>
+<li><a class="reference internal" href="#getting-the-distance-between-two-nodes">Getting the distance between two nodes</a></li>
+<li><a class="reference internal" href="#getting-the-last-common-ancestor-lca-for-two-nodes">Getting the last common ancestor (LCA) for two nodes</a></li>
+<li><a class="reference internal" href="#getting-all-the-ancestors-for-a-node">Getting all the ancestors for a node</a></li>
+<li><a class="reference internal" href="#getting-all-the-children-for-a-node">Getting all the children for a node</a></li>
+<li><a class="reference internal" href="#getting-all-the-distances-for-a-tree">Getting all the distances for a tree</a></li>
+<li><a class="reference internal" href="#getting-the-two-nodes-that-are-farthest-apart">Getting the two nodes that are farthest apart</a></li>
+<li><a class="reference internal" href="#get-the-nodes-within-a-given-distance">Get the nodes within a given distance</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rerooting-trees">Rerooting trees</a><ul>
+<li><a class="reference internal" href="#at-a-named-node">At a named node</a></li>
+<li><a class="reference internal" href="#at-the-midpoint">At the midpoint</a></li>
+<li><a class="reference internal" href="#near-a-given-tip">Near a given tip</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tree-representations">Tree representations</a><ul>
+<li><a class="reference internal" href="#newick-format">Newick format</a></li>
+<li><a class="reference internal" href="#xml-format">XML format</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tree-traversal">Tree traversal</a><ul>
+<li><a class="reference internal" href="#preorder">Preorder</a></li>
+<li><a class="reference internal" href="#postorder">Postorder</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#selecting-subtrees">Selecting subtrees</a><ul>
+<li><a class="reference internal" href="#one-way-to-do-it">One way to do it</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tree-manipulation-methods">Tree manipulation methods</a><ul>
+<li><a class="reference internal" href="#pruning-the-tree">Pruning the tree</a></li>
+<li><a class="reference internal" href="#create-a-full-unrooted-copy-of-the-tree">Create a full unrooted copy of the tree</a></li>
+<li><a class="reference internal" href="#transform-tree-into-a-bifurcating-tree">Transform tree into a bifurcating tree</a></li>
+<li><a class="reference internal" href="#transform-tree-into-a-balanced-tree">Transform tree into a balanced tree</a></li>
+<li><a class="reference internal" href="#test-two-trees-for-same-topology">Test two trees for same topology</a></li>
+<li><a class="reference internal" href="#calculate-each-node-s-maximum-distance-to-a-tip">Calculate each node’s maximum distance to a tip</a></li>
+<li><a class="reference internal" href="#scale-branch-lengths-in-place-to-integers-for-ascii-output">Scale branch lengths in place to integers for ascii output</a></li>
+<li><a class="reference internal" href="#get-tip-to-tip-distances">Get tip-to-tip distances</a></li>
+<li><a class="reference internal" href="#compare-two-trees-using-tip-to-tip-distance-matrices">Compare two trees using tip-to-tip distance matrices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
             
+            
+              
+                
+  <li>
+    <a href="genetic_code.html" title="Previous Chapter: Translate DNA sequences"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Translate DNA...</span>
+    </a>
+  </li>
+  <li>
+    <a href="phylonodes.html" title="Next Chapter: Phylonodes Methods"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Phylonodes Methods &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
   <div class="section" id="trees">
 <h1>Trees<a class="headerlink" href="#trees" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="basics">
@@ -694,26 +780,21 @@ means that the Pearson’s correlation was perfectly bad (-1).</p>
 </div>
 
 
-          </div>
-          
-        </div>
-      </div>
-    <div class="clearer"></div>
-  </div>
-    <div class="footer">
-      &copy;2020, cogent3.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="../_sources/cookbook/simple_trees.rst.txt"
-          rel="nofollow">Page source</a>
     </div>
-
-    
-
-    
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020, cogent3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.2.<br/>
+    </p>
+  </div>
+</footer>
   </body>
 </html>
