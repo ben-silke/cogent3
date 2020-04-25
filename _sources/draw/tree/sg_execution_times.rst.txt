@@ -5,16 +5,16 @@
 
 Computation times
 =================
-**00:13.572** total execution time for **draw_tree** files:
+**00:15.413** total execution time for **draw_tree** files:
 
 +-----------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_tree_plot_tree-square.py` (``plot_tree-square.py``)     | 00:04.348 | 0.0 MB |
+| :ref:`sphx_glr_draw_tree_plot_tree-square.py` (``plot_tree-square.py``)     | 00:05.073 | 0.0 MB |
 +-----------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_tree_plot_tree-circular.py` (``plot_tree-circular.py``) | 00:03.274 | 0.0 MB |
+| :ref:`sphx_glr_draw_tree_plot_tree-circular.py` (``plot_tree-circular.py``) | 00:03.697 | 0.0 MB |
 +-----------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_tree_plot_tree-angular.py` (``plot_tree-angular.py``)   | 00:02.137 | 0.0 MB |
+| :ref:`sphx_glr_draw_tree_plot_tree-angular.py` (``plot_tree-angular.py``)   | 00:02.400 | 0.0 MB |
 +-----------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_tree_plot_tree-radial.py` (``plot_tree-radial.py``)     | 00:02.116 | 0.0 MB |
+| :ref:`sphx_glr_draw_tree_plot_tree-radial.py` (``plot_tree-radial.py``)     | 00:02.345 | 0.0 MB |
 +-----------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_tree_plot_tree-support.py` (``plot_tree-support.py``)   | 00:01.697 | 0.0 MB |
+| :ref:`sphx_glr_draw_tree_plot_tree-support.py` (``plot_tree-support.py``)   | 00:01.899 | 0.0 MB |
 +-----------------------------------------------------------------------------+-----------+--------+
