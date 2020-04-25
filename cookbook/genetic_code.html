@@ -94,12 +94,13 @@
 <li><a class="reference internal" href="#find-out-how-many-stops-in-a-frame">Find out how many stops in a frame</a></li>
 <li><a class="reference internal" href="#translate-a-codon">Translate a codon</a></li>
 <li><a class="reference internal" href="#look-up-the-amino-acid-corresponding-to-a-single-codon">Look up the amino acid corresponding to a single codon</a></li>
-<li><a class="reference internal" href="#or-get-all-the-codons-for-one-amino-acid">Or get all the codons for one amino acid</a></li>
-<li><a class="reference internal" href="#for-a-group-of-amino-acids">For a group of amino acids</a></li>
+<li><a class="reference internal" href="#get-all-the-codons-for-one-amino-acid">Get all the codons for one amino acid</a></li>
+<li><a class="reference internal" href="#get-all-the-codons-for-a-group-of-amino-acids">Get all the codons for a group of amino acids</a></li>
 <li><a class="reference internal" href="#converting-the-codonalphabet-to-codon-series">Converting the <code class="docutils literal notranslate"><span class="pre">CodonAlphabet</span></code> to codon series</a></li>
-<li><a class="reference internal" href="#obtaining-the-codons-from-a-dnasequence-object">Obtaining the codons from a <code class="docutils literal notranslate"><span class="pre">DnaSequence</span></code> object</a><ul>
-<li><a class="reference internal" href="#remove-the-stop-codon-first">Remove the stop codon first</a></li>
-<li><a class="reference internal" href="#or-we-can-just-grab-the-correct-slice-from-the-dnasequence-object">Or we can just grab the correct slice from the <code class="docutils literal notranslate"><span class="pre">DnaSequence</span></code> object</a></li>
+<li><a class="reference internal" href="#obtaining-the-codons-from-a-dnasequence-object">Obtaining the codons from a <code class="docutils literal notranslate"><span class="pre">DnaSequence</span></code> object</a></li>
+<li><a class="reference internal" href="#translating-a-dna-sequence-with-a-terminating-stop-codon">Translating a DNA sequence with a terminating stop codon</a><ul>
+<li><a class="reference internal" href="#by-removing-the-trailing-stop-codon-first">By removing the trailing stop codon first</a></li>
+<li><a class="reference internal" href="#by-slicing-the-dnasequence-first">By slicing the <code class="docutils literal notranslate"><span class="pre">DnaSequence</span></code> first</a></li>
 </ul>
 </li>
 </ul>
@@ -201,8 +202,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="or-get-all-the-codons-for-one-amino-acid">
-<h1>Or get all the codons for one amino acid<a class="headerlink" href="#or-get-all-the-codons-for-one-amino-acid" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="get-all-the-codons-for-one-amino-acid">
+<h1>Get all the codons for one amino acid<a class="headerlink" href="#get-all-the-codons-for-one-amino-acid" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">get_code</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">standard_code</span> <span class="o">=</span> <span class="n">get_code</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">standard_code</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
@@ -210,8 +211,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="for-a-group-of-amino-acids">
-<h1>For a group of amino acids<a class="headerlink" href="#for-a-group-of-amino-acids" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="get-all-the-codons-for-a-group-of-amino-acids">
+<h1>Get all the codons for a group of amino acids<a class="headerlink" href="#get-all-the-codons-for-a-group-of-amino-acids" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">targets</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">codons</span> <span class="o">=</span> <span class="p">[</span><span class="n">standard_code</span><span class="p">[</span><span class="n">aa</span><span class="p">]</span> <span class="k">for</span> <span class="n">aa</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">codons</span>
@@ -243,14 +244,17 @@
 <span class="go">[&#39;ATG&#39;, &#39;CAC&#39;, &#39;TGG&#39;, &#39;TAA&#39;]</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="translating-a-dna-sequence-with-a-terminating-stop-codon">
+<h1>Translating a DNA sequence with a terminating stop codon<a class="headerlink" href="#translating-a-dna-sequence-with-a-terminating-stop-codon" title="Permalink to this headline">¶</a></h1>
 <p>You can’t translate a sequence that contains a stop codon.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pep</span> <span class="o">=</span> <span class="n">my_seq</span><span class="o">.</span><span class="n">get_translation</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
 <span class="gr">cogent3.core.alphabet.AlphabetError</span>: <span class="n">TAA</span>
 </pre></div>
 </div>
-<div class="section" id="remove-the-stop-codon-first">
-<h2>Remove the stop codon first<a class="headerlink" href="#remove-the-stop-codon-first" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="by-removing-the-trailing-stop-codon-first">
+<h2>By removing the trailing stop codon first<a class="headerlink" href="#by-removing-the-trailing-stop-codon-first" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_seq</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_seq</span> <span class="o">=</span> <span class="n">make_seq</span><span class="p">(</span><span class="s1">&#39;ATGCACTGGTAA&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_gene&#39;</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">my_seq</span><span class="o">.</span><span class="n">trim_stop_codon</span><span class="p">()</span>
@@ -264,8 +268,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="or-we-can-just-grab-the-correct-slice-from-the-dnasequence-object">
-<h2>Or we can just grab the correct slice from the <code class="docutils literal notranslate"><span class="pre">DnaSequence</span></code> object<a class="headerlink" href="#or-we-can-just-grab-the-correct-slice-from-the-dnasequence-object" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="by-slicing-the-dnasequence-first">
+<h2>By slicing the <code class="docutils literal notranslate"><span class="pre">DnaSequence</span></code> first<a class="headerlink" href="#by-slicing-the-dnasequence-first" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">make_seq</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_seq</span> <span class="o">=</span> <span class="n">make_seq</span><span class="p">(</span><span class="s1">&#39;CAAATGTATTAA&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_gene&#39;</span><span class="p">,</span> <span class="n">moltype</span><span class="o">=</span><span class="s2">&quot;dna&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pep</span> <span class="o">=</span> <span class="n">my_seq</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">get_translation</span><span class="p">()</span>

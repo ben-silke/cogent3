@@ -89,7 +89,10 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">How does <code class="docutils literal notranslate"><span class="pre">cogent3</span></code> relate to PyCogent?</a></li>
+<li><a class="reference internal" href="#">How does <code class="docutils literal notranslate"><span class="pre">cogent3</span></code> relate to PyCogent?</a><ul>
+<li><a class="reference internal" href="#cogent3-no-longer-includes-module-x-what-do-i-do"><code class="docutils literal notranslate"><span class="pre">cogent3</span></code> no longer includes module <code class="docutils literal notranslate"><span class="pre">x</span></code>, what do I do?</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -136,6 +139,25 @@
 <p><a class="reference external" href="https://github.com/cogent3/cogent3">cogent3</a> is a significantly changed library from the original PyCogent. The renaming has been done to emphasise these differences and to make the project name and import statement consistent (<code class="docutils literal notranslate"><span class="pre">cogent</span></code> was always the import name, originating in the <code class="docutils literal notranslate"><span class="pre">pyevolve</span></code> project from 2004).</p>
 <p>Most of the changes from PyCogent involved elimination of modules, using <a class="reference external" href="https://github.com/psf/black">black</a> and <a class="reference external" href="https://github.com/timothycrosley/isort">isort</a> for coding style, rationalisation of interfaces and the addition of new features. For instance, we have an experimental <code class="docutils literal notranslate"><span class="pre">cogent3.app</span></code> module (documentation still being written) that is intended to present a functional programming style interface to <code class="docutils literal notranslate"><span class="pre">cogent3</span></code> capabilities. We now also use <a class="reference external" href="https://plotly.com/python/">Plotly</a> for all visualisation.</p>
 <p>The rewrite has been a massive amount of work and unfortunately the changes to the API are only indirectly documented by virtue of having the documentation match the library state. Thus, the best way to get older scripts working is to check the Library documentation related to your code. More explicitly, you can also search in the <a class="reference external" href="https://github.com/cogent3/cogent3">repository history</a>.</p>
+<div class="section" id="cogent3-no-longer-includes-module-x-what-do-i-do">
+<h2><code class="docutils literal notranslate"><span class="pre">cogent3</span></code> no longer includes module <code class="docutils literal notranslate"><span class="pre">x</span></code>, what do I do?<a class="headerlink" href="#cogent3-no-longer-includes-module-x-what-do-i-do" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary simple">
+<dt id="term-cogent.app"><code class="docutils literal notranslate"><span class="pre">cogent.app</span></code></dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">PyCogent</span></code> module was concerned with wrapping external applications. There are multple 3rd party alternatives to this, for example <code class="docutils literal notranslate"><span class="pre">click</span></code>, <code class="docutils literal notranslate"><span class="pre">burrito</span></code>, etc.. The <code class="docutils literal notranslate"><span class="pre">cogent3.app</span></code> module is very different being focussed on providing a functional style interface to <code class="docutils literal notranslate"><span class="pre">cogent3</span></code> capabilities.</p>
+</dd>
+<dt id="term-cogent.db.ensembl"><code class="docutils literal notranslate"><span class="pre">cogent.db.ensembl</span></code></dt><dd><p>This has been turned into a standalone project, <a class="reference external" href="https://github.com/cogent3/ensembldb3">EnsemblDb3</a>.</p>
+</dd>
+<dt id="term-cogent.db.eutils"><code class="docutils literal notranslate"><span class="pre">cogent.db.eutils</span></code></dt><dd><p>For querying NCBI via their EUtils interface. A replacement is <a class="reference external" href="https://github.com/biocommons/eutils">biocommons/eutils</a>.</p>
+</dd>
+<dt id="term-cogent.struct"><code class="docutils literal notranslate"><span class="pre">cogent.struct</span></code></dt><dd><p>For manipulating 3D structures. We know of no replacements.</p>
+</dd>
+<dt id="term-cogent.motif"><code class="docutils literal notranslate"><span class="pre">cogent.motif</span></code></dt><dd><p>A subset of k-mer analyses. No direct replacements.</p>
+</dd>
+<dt id="term-cogent.seqsim"><code class="docutils literal notranslate"><span class="pre">cogent.seqsim</span></code></dt><dd><p>See the sequence simulation capabilities in <code class="docutils literal notranslate"><span class="pre">cogent3.evolve</span></code> and <code class="docutils literal notranslate"><span class="pre">cogent3.app.evo</span></code>.</p>
+</dd>
+<dt id="term-cogent.maths.unifrac"><code class="docutils literal notranslate"><span class="pre">cogent.maths.unifrac</span></code></dt><dd><p>The microbiome related functions are now in <a class="reference external" href="https://scikit-bio.org">scikit-bio</a>.</p>
+</dd>
+</dl>
+</div>
 </div>
 
 
