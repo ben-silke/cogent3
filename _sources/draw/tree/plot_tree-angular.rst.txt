@@ -58,7 +58,7 @@ With Contemporaneous Tips
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.250 seconds)
+   **Total running time of the script:** ( 0 minutes  2.156 seconds)
 
 
 .. _sphx_glr_download_draw_tree_plot_tree-angular.py:

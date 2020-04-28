@@ -96,8 +96,6 @@
 <li><a class="reference internal" href="#table-slicing-using-column-indices">Table slicing using column indices</a></li>
 <li><a class="reference internal" href="#changing-displayed-numerical-precision">Changing displayed numerical precision</a></li>
 <li><a class="reference internal" href="#change-digits-or-column-spacing">Change digits or column spacing</a></li>
-<li><a class="reference internal" href="#specify-markdown-as-the-str-format">Specify markdown as the <code class="docutils literal notranslate"><span class="pre">str()</span></code> format</a></li>
-<li><a class="reference internal" href="#specify-latex-as-the-str-format">Specify latex as the <code class="docutils literal notranslate"><span class="pre">str()</span></code> format</a></li>
 <li><a class="reference internal" href="#changing-column-headings">Changing column headings</a></li>
 <li><a class="reference internal" href="#adding-a-new-column">Adding a new column</a></li>
 <li><a class="reference internal" href="#create-a-new-column-from-existing-ones">Create a new column from existing ones</a></li>
@@ -121,6 +119,8 @@
 <li><a class="reference internal" href="#getting-distinct-values">Getting distinct values</a></li>
 <li><a class="reference internal" href="#counting-occurrences-of-values">Counting occurrences of values</a></li>
 <li><a class="reference internal" href="#joining-or-merging-tables">Joining or merging tables</a></li>
+<li><a class="reference internal" href="#specify-markdown-as-the-str-format">Specify markdown as the <code class="docutils literal notranslate"><span class="pre">str()</span></code> format</a></li>
+<li><a class="reference internal" href="#specify-latex-as-the-str-format">Specify latex as the <code class="docutils literal notranslate"><span class="pre">str()</span></code> format</a></li>
 <li><a class="reference internal" href="#get-a-table-as-a-markdown-formatted-string">Get a table as a markdown formatted string</a></li>
 <li><a class="reference internal" href="#get-a-table-as-a-latex-formatted-string">Get a table as a latex formatted string</a></li>
 <li><a class="reference internal" href="#get-a-table-as-a-restructured-text-csv-table">Get a table as a restructured text csv-table</a></li>
@@ -304,37 +304,6 @@
 <span class="go">NP_005500    NonCon           0.0</span>
 <span class="go">NP_055852    NonCon    10933217.7</span>
 <span class="go">---------------------------------</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="specify-markdown-as-the-str-format">
-<h2>Specify markdown as the <code class="docutils literal notranslate"><span class="pre">str()</span></code> format<a class="headerlink" href="#specify-markdown-as-the-str-format" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_table</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s2">&quot;data/stats.tsv&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;md&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
-<span class="go">|     Locus | Region |         Ratio |</span>
-<span class="go">|-----------|--------|---------------|</span>
-<span class="go">| NP_003077 |    Con |        2.5386 |</span>
-<span class="go">| NP_004893 |    Con |   121351.4264 |</span>
-<span class="go">| NP_005079 |    Con |  9516594.9789 |</span>
-<span class="go">| NP_005500 | NonCon |        0.0000 |</span>
-<span class="go">| NP_055852 | NonCon | 10933217.7090 |</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="specify-latex-as-the-str-format">
-<h2>Specify latex as the <code class="docutils literal notranslate"><span class="pre">str()</span></code> format<a class="headerlink" href="#specify-latex-as-the-str-format" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_table</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s2">&quot;data/stats.tsv&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;tex&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
-<span class="go">\begin{table}[htp!]</span>
-<span class="go">\centering</span>
-<span class="go">\begin{tabular}{ r r r }</span>
-<span class="go">\hline</span>
-<span class="go">\bf{Locus} &amp; \bf{Region} &amp; \bf{Ratio} \\</span>
-<span class="go">\hline</span>
-<span class="go">\hline</span>
-<span class="go">NP_003077 &amp;    Con &amp;        2.5386 \\...</span>
 </pre></div>
 </div>
 </div>
@@ -716,7 +685,7 @@
 </div>
 <div class="section" id="joining-or-merging-tables">
 <h2>Joining or merging tables<a class="headerlink" href="#joining-or-merging-tables" title="Permalink to this headline">¶</a></h2>
-<p>We do a standard inner join here for a restricted subset. We must specify the columns that will be used for the join. Here we just use <code class="docutils literal notranslate"><span class="pre">Locus</span></code> but multiple columns can be used, and their names can be different between the tables. Note that the second table’s title becomes a part of the column names.</p>
+<p>We do a standard inner join here for a restricted subset. We must specify the columns that will be used for the join. Here we just use <code class="docutils literal notranslate"><span class="pre">Locus</span></code>.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rows</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;NP_004893&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;NP_005079&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
 <span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;NP_005500&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;NP_055852&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">]]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">region_type</span> <span class="o">=</span> <span class="n">make_table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Locus&#39;</span><span class="p">,</span> <span class="s1">&#39;LargeCon&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">rows</span><span class="p">)</span>
@@ -740,6 +709,39 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">joined()</span></code> method is just a wrapper for the <code class="docutils literal notranslate"><span class="pre">inner_join()</span></code> and <code class="docutils literal notranslate"><span class="pre">cross_join()</span></code> (row cartesian product) methods, which you can use directly.</p>
+</div>
+</div>
+<div class="section" id="specify-markdown-as-the-str-format">
+<h2>Specify markdown as the <code class="docutils literal notranslate"><span class="pre">str()</span></code> format<a class="headerlink" href="#specify-markdown-as-the-str-format" title="Permalink to this headline">¶</a></h2>
+<p>Using the method provides finer control over formatting.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_table</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s2">&quot;data/stats.tsv&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;md&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">|     Locus | Region |         Ratio |</span>
+<span class="go">|-----------|--------|---------------|</span>
+<span class="go">| NP_003077 |    Con |        2.5386 |</span>
+<span class="go">| NP_004893 |    Con |   121351.4264 |</span>
+<span class="go">| NP_005079 |    Con |  9516594.9789 |</span>
+<span class="go">| NP_005500 | NonCon |        0.0000 |</span>
+<span class="go">| NP_055852 | NonCon | 10933217.7090 |</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="specify-latex-as-the-str-format">
+<h2>Specify latex as the <code class="docutils literal notranslate"><span class="pre">str()</span></code> format<a class="headerlink" href="#specify-latex-as-the-str-format" title="Permalink to this headline">¶</a></h2>
+<p>Using the method provides finer control over formatting.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cogent3</span> <span class="kn">import</span> <span class="n">load_table</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">load_table</span><span class="p">(</span><span class="s2">&quot;data/stats.tsv&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;tex&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">\begin{table}[htp!]</span>
+<span class="go">\centering</span>
+<span class="go">\begin{tabular}{ r r r }</span>
+<span class="go">\hline</span>
+<span class="go">\bf{Locus} &amp; \bf{Region} &amp; \bf{Ratio} \\</span>
+<span class="go">\hline</span>
+<span class="go">\hline</span>
+<span class="go">NP_003077 &amp;    Con &amp;        2.5386 \\...</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="get-a-table-as-a-markdown-formatted-string">
