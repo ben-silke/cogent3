@@ -702,14 +702,13 @@
 </pre></div>
 </div>
 <p>You can specify any standard text character that will work with your desired target. Useful separators are tabs (<code class="docutils literal notranslate"><span class="pre">\t</span></code>), or pipes (<code class="docutils literal notranslate"><span class="pre">|</span></code>). If <code class="docutils literal notranslate"><span class="pre">Table</span></code> encounters the specified separator character within a cell, it wraps the cell in quotes – a standard approach to facilitate import by other applications. We will illustrate this with <code class="docutils literal notranslate"><span class="pre">t2</span></code>.</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">))</span>
-<span class="go">           abcd, data</span>
-<span class="go">&quot;[1, 2, 3, 4, 5]&quot;,    0</span>
-<span class="go">              x,  5.0</span>
-<span class="go">              y, None</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
+<span class="go">           abcd,data</span>
+<span class="go">&quot;[1, 2, 3, 4, 5]&quot;,   0</span>
+<span class="go">              x, 5.0</span>
+<span class="go">              y,None</span>
 </pre></div>
 </div>
-<p>Note that I introduced an extra space after the column just to make the result more readable in this example.</p>
 <p>Test the writing of phylip distance matrix format.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rows</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mf">0.088337278874079342</span><span class="p">,</span> <span class="mf">0.18848582712597683</span><span class="p">,</span>
 <span class="gp">... </span> <span class="mf">0.44084000179091454</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mf">0.088337278874079342</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>

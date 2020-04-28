@@ -219,11 +219,17 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#cogent3.util.table.Table.tail" title="cogent3.util.table.Table.tail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tail</span></code></a>(self[, nrows])</p></td>
 <td><p>displays bottom nrows</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_dataframe" title="cogent3.util.table.Table.to_dataframe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dataframe</span></code></a>(self[, categories])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_csv" title="cogent3.util.table.Table.to_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_csv</span></code></a>(self[, with_title, with_legend])</p></td>
+<td><p>return table formatted as comma separated values</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_dataframe" title="cogent3.util.table.Table.to_dataframe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dataframe</span></code></a>(self[, categories])</p></td>
 <td><p>returns pandas DataFrame instance</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_dict" title="cogent3.util.table.Table.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a>(self[, flatten])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_dict" title="cogent3.util.table.Table.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a>(self[, flatten])</p></td>
 <td><p>returns data as a dict</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_latex" title="cogent3.util.table.Table.to_latex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_latex</span></code></a>(self[, concat_title_legend, …])</p></td>
+<td><p>Returns the text a LaTeX table.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_markdown" title="cogent3.util.table.Table.to_markdown"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_markdown</span></code></a>(self[, space, justify])</p></td>
 <td><p>returns markdown formatted table</p></td>
@@ -234,8 +240,14 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_rich_html" title="cogent3.util.table.Table.to_rich_html"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_rich_html</span></code></a>(self[, row_cell_func, …])</p></td>
 <td><p>returns just the table as html.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_string" title="cogent3.util.table.Table.to_string"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code></a>(self[, format, borders, sep, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_rst" title="cogent3.util.table.Table.to_rst"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_rst</span></code></a>(self[, csv_table])</p></td>
+<td><p>returns rst formatted table</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_string" title="cogent3.util.table.Table.to_string"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code></a>(self[, format, borders, sep, …])</p></td>
 <td><p>Return the table as a formatted string.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cogent3.util.table.Table.to_tsv" title="cogent3.util.table.Table.to_tsv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_tsv</span></code></a>(self[, with_title, with_legend])</p></td>
+<td><p>return table formatted as tab separated values</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cogent3.util.table.Table.tolist" title="cogent3.util.table.Table.tolist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tolist</span></code></a>(self[, columns])</p></td>
 <td><p>Returns raw data as a list</p></td>
@@ -598,6 +610,27 @@ False, returns the row sum.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="cogent3.util.table.Table.to_csv">
+<code class="sig-name descname">to_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">with_title</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">with_legend</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.util.table.Table.to_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>return table formatted as comma separated values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>with_title</strong><span class="classifier">bool</span></dt><dd><p>include the table title</p>
+</dd>
+<dt><strong>with_legend</strong><span class="classifier">bool</span></dt><dd><p>include table legend</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>str</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cogent3.util.table.Table.to_dataframe">
 <code class="sig-name descname">to_dataframe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">categories</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.util.table.Table.to_dataframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns pandas DataFrame instance</p>
@@ -630,6 +663,36 @@ frame. Note, categories are not ordered.</p>
 <dt id="cogent3.util.table.Table.to_json">
 <code class="sig-name descname">to_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.util.table.Table.to_json" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.util.table.Table.to_latex">
+<code class="sig-name descname">to_latex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">concat_title_legend</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">justify</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">position</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.util.table.Table.to_latex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the text a LaTeX table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rows</strong></dt><dd><p>table data in row orientation</p>
+</dd>
+<dt><strong>header</strong></dt><dd><p>table header</p>
+</dd>
+<dt><strong>caption</strong></dt><dd><p>title text.</p>
+</dd>
+<dt><strong>legend</strong></dt><dd><p>If provided, the text is placed in a caption*{} command at the
+bottom of the table and the caption is placed at the top.</p>
+</dd>
+<dt><strong>justify</strong></dt><dd><p>column justification, default is right aligned.</p>
+</dd>
+<dt><strong>label</strong></dt><dd><p>for cross referencing</p>
+</dd>
+<dt><strong>position</strong></dt><dd><p>table page position, default is here, top separate page</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The caption*{} command is provided with the caption package. See
+<a class="reference external" href="https://ctan.org/pkg/caption">https://ctan.org/pkg/caption</a> for more details.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="cogent3.util.table.Table.to_markdown">
@@ -688,6 +751,25 @@ e.g. {‘table’: lambda x: ‘&lt;table border=”1” class=”docutils”&gt
 </dd></dl>
 
 <dl class="py method">
+<dt id="cogent3.util.table.Table.to_rst">
+<code class="sig-name descname">to_rst</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">csv_table</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.util.table.Table.to_rst" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns rst formatted table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>csv_table</strong><span class="classifier">bool</span></dt><dd><p>use csv-directive, grid table otherwise</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>str</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="cogent3.util.table.Table.to_string">
 <code class="sig-name descname">to_string</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">format=''</em>, <em class="sig-param">borders=True</em>, <em class="sig-param">sep=None</em>, <em class="sig-param">center=False</em>, <em class="sig-param">concat_title_legend=True</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.util.table.Table.to_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the table as a formatted string.</p>
@@ -712,6 +794,27 @@ justified</p>
 <p class="rubric">Notes</p>
 <p>If format is bedgraph, assumes that column headers are chrom, start,
 end, value. In that order!</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cogent3.util.table.Table.to_tsv">
+<code class="sig-name descname">to_tsv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">with_title</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">with_legend</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cogent3.util.table.Table.to_tsv" title="Permalink to this definition">¶</a></dt>
+<dd><p>return table formatted as tab separated values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>with_title</strong><span class="classifier">bool</span></dt><dd><p>include the table title</p>
+</dd>
+<dt><strong>with_legend</strong><span class="classifier">bool</span></dt><dd><p>include table legend</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>str</dt><dd></dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
