@@ -5,18 +5,18 @@
 
 Computation times
 =================
-**02:05.268** total execution time for **draw_aln** files:
+**01:51.847** total execution time for **draw_aln** files:
 
 +----------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_aln_plot_aln-dotplot-2.py` (``plot_aln-dotplot-2.py``)       | 00:53.165 | 0.0 MB |
+| :ref:`sphx_glr_draw_aln_plot_aln-dotplot-2.py` (``plot_aln-dotplot-2.py``)       | 00:49.965 | 0.0 MB |
 +----------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_aln_plot_aln-dotplot-1.py` (``plot_aln-dotplot-1.py``)       | 00:39.907 | 0.0 MB |
+| :ref:`sphx_glr_draw_aln_plot_aln-dotplot-1.py` (``plot_aln-dotplot-1.py``)       | 00:36.134 | 0.0 MB |
 +----------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_aln_plot_aln-coevolution.py` (``plot_aln-coevolution.py``)   | 00:22.188 | 0.0 MB |
+| :ref:`sphx_glr_draw_aln_plot_aln-coevolution.py` (``plot_aln-coevolution.py``)   | 00:20.738 | 0.0 MB |
 +----------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_aln_plot_aln-seqlogo.py` (``plot_aln-seqlogo.py``)           | 00:04.653 | 0.0 MB |
+| :ref:`sphx_glr_draw_aln_plot_aln-seqlogo.py` (``plot_aln-seqlogo.py``)           | 00:02.331 | 0.0 MB |
 +----------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_aln_plot_aln-info-plot.py` (``plot_aln-info-plot.py``)       | 00:03.222 | 0.0 MB |
+| :ref:`sphx_glr_draw_aln_plot_aln-info-plot.py` (``plot_aln-info-plot.py``)       | 00:02.165 | 0.0 MB |
 +----------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_draw_aln_plot_aln-gaps-per-seq.py` (``plot_aln-gaps-per-seq.py``) | 00:02.134 | 0.0 MB |
+| :ref:`sphx_glr_draw_aln_plot_aln-gaps-per-seq.py` (``plot_aln-gaps-per-seq.py``) | 00:00.514 | 0.0 MB |
 +----------------------------------------------------------------------------------+-----------+--------+
