@@ -47,7 +47,7 @@ def upgma(pairwise_distances):
         if not node.parent:
             node.name = "root"
         elif not node.name:
-            node.name = "edge." + str(index)
+            node.name = f"edge.{str(index)}"
             index += 1
     return tree
 
@@ -111,10 +111,7 @@ def condense_node_order(matrix, smallest_index, node_order):
     nodes = [node1, node2]
     d = distance / 2.0
     for n in nodes:
-        if n.children:
-            n.length = d - n.children[0].TipLength
-        else:
-            n.length = d
+        n.length = d - n.children[0].TipLength if n.children else d
         n.TipLength = d
     # combine the two nodes into a new PhyloNode object
     new_node = PhyloNode()
@@ -143,7 +140,7 @@ def UPGMA_cluster(matrix, node_order, large_number):
     """
     num_entries = len(node_order)
     tree = None
-    for i in range(num_entries - 1):
+    for _ in range(num_entries - 1):
         smallest_index = find_smallest_index(matrix)
         index1, index2 = smallest_index
         # if smallest_index is on the diagonal set the diagonal to large_number

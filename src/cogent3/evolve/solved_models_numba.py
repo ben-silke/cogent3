@@ -52,10 +52,7 @@ def calc_TN93_P(mprobs, time, alpha1, alpha2, result):  # pragma: no cover
         i = row // 2
         for column in range(4):
             j = column // 2
-            if i == j:
-                p = transition[i]
-            else:
-                p = transversion
+            p = transition[i] if i == j else transversion
             p *= mprobs[column]
             if row == column:
                 p += e_mu_t[i]

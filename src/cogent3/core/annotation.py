@@ -369,7 +369,7 @@ class _Feature(_Annotatable, _Serialisable):
 
     def get_shadow(self):
         return self.__class__(
-            self.parent, self.map.shadow(), type="region", name="not " + self.name
+            self.parent, self.map.shadow(), type="region", name=f"not {self.name}"
         )
 
     def __len__(self):
@@ -439,7 +439,7 @@ class Source(_Feature):
         self._serialisable = {k: v for k, v in d.items() if k not in exclude}
 
         self.accession = accession
-        self.name = repr(basemap) + " of " + accession
+        self.name = f"{repr(basemap)} of {accession}"
         self.parent = seq
         self.attached = False
         self.map = map
@@ -479,8 +479,8 @@ class _Variable(_Feature):
 def Variable(parent, type, name, xxy_list):
     """A variable that has 2 x-components (start, end) and a single y component.
     Currently used by Vestige - BMC Bioinformatics, 6:130, 2005."""
-    start = min([min(x1, x2) for ((x1, x2), y) in xxy_list])
-    end = max([max(x1, x2) for ((x1, x2), y) in xxy_list])
+    start = min(min(x1, x2) for ((x1, x2), y) in xxy_list)
+    end = max(max(x1, x2) for ((x1, x2), y) in xxy_list)
     if start != 0:
         xxy_list = [((x1 - start, x2 - start), y) for ((x1, x2), y) in xxy_list]
         end -= start

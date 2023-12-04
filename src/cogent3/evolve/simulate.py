@@ -21,8 +21,7 @@ def argpicks(freqs, random_series):
     assert abs(partition[-1] - 1.0) < 1e-6, (freqs, partition)
     while True:
         x = random_series.uniform(0.0, 1.0)
-        i = bisect.bisect_left(partition, x)
-        yield i
+        yield bisect.bisect_left(partition, x)
 
 
 def argpick(freqs, random_series):
@@ -65,7 +64,7 @@ def evolve_sequence(
 
 def random_sequence(random_series, motif_probs, sequence_length):
     getRootRandomMotif = _randomMotifGenerator(random_series, motif_probs).__next__
-    return [getRootRandomMotif() for i in range(sequence_length)]
+    return [getRootRandomMotif() for _ in range(sequence_length)]
 
 
 class AlignmentEvolver(object):

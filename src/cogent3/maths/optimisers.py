@@ -83,11 +83,10 @@ def bounded_function(f, lower_bounds, upper_bounds, report_error=False):
     def _wrapper(x, **kw):
         if numpy.alltrue(numpy.logical_and(lower_bounds <= x, x <= upper_bounds)):
             return f(x, **kw)
-        else:
-            pos = numpy.logical_or(x <= lower_bounds, x >= upper_bounds)
-            lower = numpy.array(lower_bounds)
-            upper = numpy.array(upper_bounds)
-            raise ParameterOutOfBoundsError((lower[pos], x[pos], upper[pos]))
+        pos = numpy.logical_or(x <= lower_bounds, x >= upper_bounds)
+        lower = numpy.array(lower_bounds)
+        upper = numpy.array(upper_bounds)
+        raise ParameterOutOfBoundsError((lower[pos], x[pos], upper[pos]))
 
     return _wrapper
 
@@ -186,7 +185,7 @@ def maximise(
         else:
             gend = 0.0
             for k in kw:
-                warnings.warn("Unused arg for local alignment: " + k)
+                warnings.warn(f"Unused arg for local alignment: {k}")
 
         # Local optimisation
         if do_local:
@@ -210,7 +209,4 @@ def maximise(
     if not multidimensional_input:
         x = numpy.squeeze(x)
 
-    if return_eval_count:
-        return x, evals
-
-    return x
+    return (x, evals) if return_eval_count else x

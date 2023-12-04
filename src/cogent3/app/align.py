@@ -220,12 +220,7 @@ def _subset_gaps_to_align_coords(
     Notes
     -----
     """
-    result = {}
-    for p in subset_gaps:
-        offset = seq_2_aln[p]
-        result[offset + p + orig_gaps[p]] = subset_gaps[p]
-
-    return result
+    return {seq_2_aln[p] + p + orig_gaps[p]: subset_gaps[p] for p in subset_gaps}
 
 
 def _combined_refseq_gaps(seq_gaps: dict, union_gaps: dict) -> dict:

@@ -180,10 +180,7 @@ class Enumeration(tuple):
         # check if motif lengths are homogeneous -- if so, set length
         try:
             motif_lengths = frozenset(list(map(len, self)))
-            if len(motif_lengths) > 1:
-                self._motiflen = None
-            else:
-                self._motiflen = list(motif_lengths)[0]
+            self._motiflen = None if len(motif_lengths) > 1 else list(motif_lengths)[0]
         except TypeError:  # some motifs don't support __len__, e.g. ints
             self._motiflen = None
 
@@ -287,10 +284,7 @@ class Enumeration(tuple):
         JointEnumerations are useful as the basis for contingency tables,
         transition matrices, counts of dinucleotides, etc.
         """
-        if self.moltype is other.moltype:
-            moltype = self.moltype
-        else:
-            moltype = None
+        moltype = self.moltype if self.moltype is other.moltype else None
         return JointEnumeration([self, other], moltype=moltype)
 
     def counts(self, a):
@@ -391,7 +385,7 @@ class JointEnumeration(Enumeration):
 
     def __getnewargs_ex__(self, *args, **kw):
         data = self.to_rich_dict(for_pickle=True)
-        r = tuple([data[k] for k in ("data", "gap", "moltype")])
+        r = tuple(data[k] for k in ("data", "gap", "moltype"))
         return r, {}
 
     def to_rich_dict(self, for_pickle=False):
@@ -411,7 +405,7 @@ class JointEnumeration(Enumeration):
         data = self.to_rich_dict(for_pickle=False)
         return json.dumps(data)
 
-    def _coerce_enumerations(cls, enums):
+    def _coerce_enumerations(self, enums):
         """Coerces putative enumerations into Enumeration objects.
 
         For each object passed in, if it's an Enumeration object already, use
@@ -539,7 +533,7 @@ class Alphabet(Enumeration):
 
     def __getnewargs_ex__(self, *args, **kw):
         data = self.to_rich_dict(for_pickle=True)
-        r = tuple([data[k] for k in ("motifset", "gap", "moltype")])
+        r = tuple(data[k] for k in ("motifset", "gap", "moltype"))
         return r, {}
 
     def to_rich_dict(self, for_pickle=False):
@@ -564,11 +558,10 @@ class Alphabet(Enumeration):
         unpack its indices. However, the items in the result _are_ all strings.
         """
         crossproduct = [""]
-        for a in range(word_length):
+        for _ in range(word_length):
             n = []
             for c in crossproduct:
-                for m in self:
-                    n.append(m + c)
+                n.extend(m + c for m in self)
             crossproduct = n
         return Alphabet(crossproduct, moltype=self.moltype)
 
@@ -708,9 +701,7 @@ class Alphabet(Enumeration):
                 except KeyError:
                     raise AlphabetError(ambig_motif)
             for character2 in resolved:
-                for motif in motif_set:
-                    new_motifs.append("".join([motif, character2]))
-
+                new_motifs.extend("".join([motif, character2]) for motif in motif_set)
             motif_set = new_motifs
 
         # delete sub motifs that are not to be included
@@ -729,13 +720,12 @@ class Alphabet(Enumeration):
             if sample not in self:
                 raise ValueError(f"Can't find motif {sample} in alphabet")
             motif_probs = numpy.array([motif_probs[motif] for motif in self])
-        else:
-            if len(motif_probs) != len(self):
-                if len(motif_probs) != len(self):
-                    raise ValueError(
-                        f"Can't match {len(motif_probs)} probs to {len(self)} alphabet"
-                    )
+        elif len(motif_probs) == len(self):
             motif_probs = numpy.asarray(motif_probs)
+        else:
+            raise ValueError(
+                f"Can't match {len(motif_probs)} probs to {len(self)} alphabet"
+            )
         assert abs(sum(motif_probs) - 1.0) < 0.0001, motif_probs
         return motif_probs
 

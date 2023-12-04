@@ -306,11 +306,7 @@ class AnnotatedDrawable(Drawable):
         self.layout |= dict(f.layout)
         for trace in traces:
             trace.xaxis = xaxis
-            if self._overlaying and "yaxis" in trace:
-                trace.yaxis = "y3"
-            else:
-                trace.yaxis = yaxis
-
+            trace.yaxis = "y3" if self._overlaying and "yaxis" in trace else yaxis
         self._traces = traces
         ticks_on = dict(_ticks_on)
         f.layout.xaxis.title = self.xtitle
@@ -785,10 +781,7 @@ class _MakeShape:
             reverse = type_.map.get_covering_span().reverse
             type_ = type_.type
         else:
-            if coords[0][0] > coords[-1][1]:
-                reverse = True
-            else:
-                reverse = False
+            reverse = coords[0][0] > coords[-1][1]
             if coords is None:
                 raise Exception("No coordinates defined")
         kwargs.update(dict(reverse=reverse))
@@ -798,8 +791,8 @@ class _MakeShape:
         if klass != Arrow:
             kwargs.pop("reverse", None)
 
-        if klass != Point:
-            result = klass(
+        return (
+            klass(
                 name=type_,
                 text=name,
                 legendgroup=type_,
@@ -807,8 +800,8 @@ class _MakeShape:
                 fillcolor=color,
                 **kwargs,
             )
-        else:
-            result = Point(
+            if klass != Point
+            else Point(
                 name=type_,
                 text=name,
                 legendgroup=type_,
@@ -819,7 +812,7 @@ class _MakeShape:
                 fillcolor=color,
                 **kwargs,
             )
-        return result
+        )
 
 
 make_shape = _MakeShape()

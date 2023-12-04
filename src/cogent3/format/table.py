@@ -146,11 +146,7 @@ def rich_html(
         def header_cell_func(v, c):
             return f"<th>{v}</th>"
 
-    if merge_identical:
-        row_iterator = _merge_cells
-    else:
-        row_iterator = enumerate
-
+    row_iterator = _merge_cells if merge_identical else enumerate
     if header:
         thead = formatted("thead", '<thead style="font-weight: bold;">')
         row = [header_cell_func(escape(label), i) for i, label in enumerate(header)]
@@ -167,10 +163,7 @@ def rich_html(
     tbody = formatted("tbody", "<tbody>")
     data += [tbody] + formatted_rows + ["</tbody>"]
     data += ["</table>"]
-    if compact:
-        data = "".join(data)
-    else:
-        data = "\n".join(data)
+    data = "".join(data) if compact else "\n".join(data)
     return data
 
 
@@ -228,9 +221,7 @@ def latex(
         r"\hline",
     ]
     table_format += rows
-    table_format.append(r"\hline")
-    table_format.append(r"\end{tabular}")
-
+    table_format.extend((r"\hline", r"\end{tabular}"))
     caption = r"\caption{%s}" % caption if caption else ""
     label = r"\label{%s}" % label if label else ""
     legend = r"\caption*{%s}" % legend if isinstance(legend, str) else None
@@ -239,10 +230,11 @@ def latex(
     elif caption or label:
         caption = caption or label
 
-    if caption and legend:
-        table_format.insert(2, caption)
-    elif caption:
-        table_format.append(caption)
+    if caption:
+        if legend:
+            table_format.insert(2, caption)
+        else:
+            table_format.append(caption)
 
     if legend is not None:
         table_format.append(legend)
@@ -296,15 +288,9 @@ def get_continuation_tables(
     boundaries.append((begin, len(header)))
     data = {c[0].strip(): c[1:] for c in zip(header, *formatted_table)}
     for start, end in boundaries:
-        if identifiers:
-            subhead = header[:1] + header[start:end]
-        else:
-            subhead = header[start:end]
+        subhead = header[:1] + header[start:end] if identifiers else header[start:end]
         rows = numpy.array([data[c.strip()] for c in subhead], dtype="<U15")
-        if rows.ndim == 1:
-            rows = [rows.tolist()]
-        else:
-            rows = rows.T.tolist()
+        rows = [rows.tolist()] if rows.ndim == 1 else rows.T.tolist()
         tables.append((subhead, rows))
 
     return tables
@@ -533,12 +519,12 @@ def grid_table_format(header, formatted_table, title=None, legend=None):
                 title, len(contiguous_delineator) - 2, space
             )
             for wdex, line in enumerate(wrapped):
-                wrapped[wdex] = "|" + line + "|"
+                wrapped[wdex] = f"|{line}|"
 
             table += wrapped
         else:
             centered = title.center(len(row_delineate) - 2)
-            table.append("|" + centered + "|")
+            table.append(f"|{centered}|")
 
     # insert the heading row
     table.append(row_delineate)
@@ -556,12 +542,12 @@ def grid_table_format(header, formatted_table, title=None, legend=None):
                 legend, len(contiguous_delineator) - 2, space
             )
             for wdex, line in enumerate(wrapped):
-                wrapped[wdex] = "|" + line + "|"
+                wrapped[wdex] = f"|{line}|"
 
             table += wrapped
         else:
             ljust = legend.ljust(len(row_delineate) - 3)
-            table.append("| " + ljust + "|")
+            table.append(f"| {ljust}|")
 
         table.append(contiguous_delineator)
 
@@ -973,7 +959,7 @@ def formatted_array(
             base_format = "d"
         elif "float" in type_name:
             base_format = f".{precision}f"
-        elif "bool" == type_name:
+        elif type_name == "bool":
             base_format = ""
         else:
             # handle mixed types with a custom formatter
@@ -986,7 +972,7 @@ def formatted_array(
 
     formatted = []
     max_length = len(title)
-    for i, v in enumerate(series):
+    for v in series:
         if formatter:
             v = formatter(v)
         else:

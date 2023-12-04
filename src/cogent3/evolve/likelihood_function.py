@@ -124,7 +124,7 @@ def update_scoped_rules(rich, null):
             new_rules.extend(extend_rule_value(rich_rule, matches))
             continue
 
-        if len(matches) > 1 and enames is not None:
+        if len(matches) > 1:
             raise ValueError(f"{rich_key} has too many mappings {matches}")
 
         match = matches[0]
@@ -185,9 +185,8 @@ class _ParamProjection:
         """returns the motif prob corresponding to the model reference cell"""
         if same:
             return 1
-        else:
-            i, j = list(self._rich_coords["ref_cell"])[0]
-            return self._motif_probs[j]
+        i, j = list(self._rich_coords["ref_cell"])[0]
+        return self._motif_probs[j]
 
     def _rate_not_same(self, simple_param, mle):
         """returns {rich_param: val, ...} from simple_param: val"""
@@ -222,11 +221,7 @@ class _ParamProjection:
                 new_rules.append(rule)
                 continue
 
-            if rule.get("is_constant", False):
-                par_val_key = "value"
-            else:
-                par_val_key = "init"
-
+            par_val_key = "value" if rule.get("is_constant", False) else "init"
             mle = rule[par_val_key]
 
             proj_rate = self.projected_rate(name, mle)
@@ -401,16 +396,14 @@ class LikelihoodFunction(ParameterController):
         return DictArrayTemplate(self._motifs, self._motifs).wrap(array)
 
     def _getLikelihoodValuesSummedAcrossAnyBins(self, locus=None):
-        if self.bin_names and len(self.bin_names) > 1:
-            root_lhs = [
-                self.get_param_value("lh", locus=locus, bin=bin)
-                for bin in self.bin_names
-            ]
-            bprobs = self.get_param_value("bprobs")
-            root_lh = bprobs.dot(root_lhs)
-        else:
-            root_lh = self.get_param_value("lh", locus=locus)
-        return root_lh
+        if not self.bin_names or len(self.bin_names) <= 1:
+            return self.get_param_value("lh", locus=locus)
+        root_lhs = [
+            self.get_param_value("lh", locus=locus, bin=bin)
+            for bin in self.bin_names
+        ]
+        bprobs = self.get_param_value("bprobs")
+        return bprobs.dot(root_lhs)
 
     def get_full_length_likelihoods(self, locus=None):
         """Array of [site, motif] likelihoods from the root of the tree"""
@@ -525,8 +518,7 @@ class LikelihoodFunction(ParameterController):
         for dim in dims:
             new_result = []
             for r in result:
-                for cat in self._valuesForDimension(dim):
-                    new_result.append(r + [cat])
+                new_result.extend(r + [cat] for cat in self._valuesForDimension(dim))
             result = new_result
         return result
 
@@ -600,7 +592,7 @@ class LikelihoodFunction(ParameterController):
 
         is_discrete = isinstance(self.model, DiscreteSubstitutionModel)
 
-        if is_discrete and not length_as == "paralinear":
+        if is_discrete and length_as != "paralinear":
             raise ValueError(f"{length_as} invalid for discrete time process")
 
         assert length_as in ("ENS", "paralinear", None)
@@ -687,11 +679,7 @@ class LikelihoodFunction(ParameterController):
         get_value_of = self.get_param_value
         value_of_kw = dict(locus=locus)
 
-        if bin is None:
-            bin_names = self.bin_names
-        else:
-            bin_names = [bin]
-
+        bin_names = self.bin_names if bin is None else [bin]
         if len(bin_names) == 1:
             bprobs = [1.0]
         else:
@@ -808,8 +796,7 @@ class LikelihoodFunction(ParameterController):
             if dims not in group:
                 group[dims] = []
             group[dims].append(param)
-        table_order = list(group.keys())
-        table_order.sort()
+        table_order = sorted(group.keys())
         for table_dims in table_order:
             raw_table = self.get_param_value_dict(
                 dimensions=table_dims, params=group[table_dims]
@@ -1114,7 +1101,7 @@ class LikelihoodFunction(ParameterController):
         else:
             mprobs = self.get_param_value("mprobs", locus=locus, edge="root")
             mprobs = self._model.calc_word_probs(mprobs)
-            mprobs = dict((m, p) for (m, p) in zip(self._motifs, mprobs))
+            mprobs = dict(zip(self._motifs, mprobs))
             root_sequence = random_sequence(random_series, mprobs, sequence_length)
 
         simulated_sequences = evolver(self._tree, root_sequence)
@@ -1124,10 +1111,7 @@ class LikelihoodFunction(ParameterController):
     def all_psubs_DLC(self):
         """Returns True if every Psub matrix is Diagonal Largest in Column"""
         all_psubs = self.get_all_psubs()
-        for P in all_psubs.values():
-            if (P.to_array().diagonal() < P).any():
-                return False
-        return True
+        return not any((P.to_array().diagonal() < P).any() for P in all_psubs.values())
 
     def all_rate_matrices_unique(self):
         """Returns True if every rate matrix is unique for its Psub matrix"""

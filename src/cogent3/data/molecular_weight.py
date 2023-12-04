@@ -58,7 +58,7 @@ class WeightCalculator(object):
         if correction is None:
             correction = self.Correction
         get_mw = self.Weights.get
-        return sum([get_mw(i, 0) for i in seq]) + correction
+        return sum(get_mw(i, 0) for i in seq) + correction
 
 
 DnaMW = WeightCalculator(DnaWeights, DnaWeightCorrection)

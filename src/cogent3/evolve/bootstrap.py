@@ -161,10 +161,14 @@ class EstimateProbability(ParametricBootstrapCore):
         observed_LR = self.get_observed_LR()
         sample_LRs = self.get_sample_LR_list()
 
-        for (count, value) in enumerate(sample_LRs):
-            if value <= observed_LR:
-                return float(count) / len(sample_LRs)
-        return 1.0
+        return next(
+            (
+                float(count) / len(sample_LRs)
+                for count, value in enumerate(sample_LRs)
+                if value <= observed_LR
+            ),
+            1.0,
+        )
 
 
 class EstimateConfidenceIntervals(ParametricBootstrapCore):

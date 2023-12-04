@@ -23,11 +23,7 @@ def is_prime(n):
         return False
 
     sqrt_n = int(math.floor(math.sqrt(n)))
-    for i in range(3, sqrt_n + 1, 2):
-        if n % i == 0:
-            return False
-
-    return True
+    return all(n % i != 0 for i in range(3, sqrt_n + 1, 2))
 
 
 def main():

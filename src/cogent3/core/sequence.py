@@ -117,7 +117,7 @@ class SequenceI(object):
     def to_rich_dict(self):
         """returns {'name': name, 'seq': sequence, 'moltype': moltype.label}"""
         info = {} if self.info is None else self.info
-        if not info.get("Refs", None) is None and "Refs" in info:
+        if info.get("Refs", None) is not None and "Refs" in info:
             info.pop("Refs")
 
         info = info or None
@@ -477,10 +477,7 @@ class SequenceI(object):
         if function is None:
             # use identity scoring function
             function = lambda a, b: a != b
-        distance = 0
-        for first, second in zip(self, other):
-            distance += function(first, second)
-        return distance
+        return sum(function(first, second) for first, second in zip(self, other))
 
     def matrix_distance(self, other, matrix):
         """Returns distance between self and other using a score matrix.
@@ -526,7 +523,7 @@ class SequenceI(object):
             return 0.0
 
         is_gap = self.moltype.gaps.__contains__
-        return sum([is_gap(i) == is_gap(j) for i, j in zip(self, other)]) / min(
+        return sum(is_gap(i) == is_gap(j) for i, j in zip(self, other)) / min(
             len(self), len(other)
         )
 
@@ -542,9 +539,7 @@ class SequenceI(object):
 
         Uses self's gap characters for both sequences.
         """
-        if not self or not other:
-            return 0.0
-        return 1.0 - self.frac_same_gaps(other)
+        return 0.0 if not self or not other else 1.0 - self.frac_same_gaps(other)
 
     def frac_same_non_gaps(self, other):
         """Returns fraction of non-gap positions where self matches other.
@@ -567,10 +562,7 @@ class SequenceI(object):
             if i == j:
                 identities += 1
 
-        if count:
-            return identities / count
-        else:  # there were no positions that weren't gaps
-            return 0
+        return identities / count if count else 0
 
     def frac_diff_non_gaps(self, other):
         """Returns fraction of non-gap positions where self differs from other.
@@ -595,10 +587,7 @@ class SequenceI(object):
             if i != j:
                 diffs += 1
 
-        if count:
-            return diffs / count
-        else:  # there were no positions that weren't gaps
-            return 0
+        return diffs / count if count else 0
 
     def frac_similar(self, other, similar_pairs):
         """Returns fraction of positions where self[i] is similar to other[i].
@@ -632,14 +621,12 @@ class SequenceI(object):
                     first_nongap = i
                 last_nongap = i
         missing = self.moltype.missing
-        if first_nongap is None:  # sequence was all gaps
-            result = self.__class__([missing for _ in len(self)], info=self.info)
-        else:
-            prefix = missing * first_nongap
-            mid = str(self[first_nongap : last_nongap + 1])
-            suffix = missing * (len(self) - last_nongap - 1)
-            result = self.__class__(prefix + mid + suffix, info=self.info)
-        return result
+        if first_nongap is None:
+            return self.__class__([missing for _ in len(self)], info=self.info)
+        prefix = missing * first_nongap
+        mid = str(self[first_nongap : last_nongap + 1])
+        suffix = missing * (len(self) - last_nongap - 1)
+        return self.__class__(prefix + mid + suffix, info=self.info)
 
     def replace(self, oldchar, newchar):
         """return new instance with oldchar replaced by newchar"""
@@ -741,7 +728,7 @@ class SequenceI(object):
             ".c3seq .num_row {background-color:rgba(161, 195, 209, 0.5) !important; border-top: solid 1px black; }",
             ".c3seq .label { font-size: %dpt ; text-align: right !important; "
             "color: black !important; padding: 0 4px; }" % font_size,
-            "\n".join([".c3seq " + style for style in css]),
+            "\n".join([f".c3seq {style}" for style in css]),
             "</style>",
             '<div class="c3seq">',
             "\n".join(table),
@@ -765,8 +752,7 @@ class SequenceI(object):
         else:
             name = None
 
-        new_seq = self.__class__(str(self) + other_seq, name=name)
-        return new_seq
+        return self.__class__(str(self) + other_seq, name=name)
 
 
 @total_ordering
@@ -989,11 +975,10 @@ class Sequence(_Annotatable, SequenceI):
     def gapped_by_map_segment_iter(self, map, allow_gaps=True, recode_gaps=False):
         for span in map.spans:
             if span.lost:
-                if allow_gaps:
-                    unknown = span.terminal or recode_gaps
-                    seg = "-?"[unknown] * span.length
-                else:
+                if not allow_gaps:
                     raise ValueError(f"gap(s) in map {map}")
+                unknown = span.terminal or recode_gaps
+                seg = "-?"[unknown] * span.length
             else:
                 seg = self._seq[span.start : span.end]
                 if span.reverse:
@@ -1263,10 +1248,7 @@ class NucleicAcidSequence(Sequence):
         if not allow_partial and (not divisible_by_3 or len(end3) != 3):
             raise ValueError("seq length not divisible by 3")
 
-        if not divisible_by_3:
-            return False
-
-        return codons and gc.is_stop(codons[-3:])
+        return False if not divisible_by_3 else codons and gc.is_stop(codons[-3:])
 
     def trim_stop_codon(self, gc=None, allow_partial=False):
         """Removes a terminal stop codon from the sequence
@@ -1352,10 +1334,9 @@ class NucleicAcidSequence(Sequence):
                 if start is not None:
                     orfs.append((start, posn))
                 start = None
-            else:
-                if start is None:
-                    if (not atg) or gc.is_start(self[posn : posn + 3]):
-                        start = posn
+            elif start is None:
+                if (not atg) or gc.is_start(self[posn : posn + 3]):
+                    start = posn
         if start is not None:
             orfs.append((start, posn + 3))
         return orfs
@@ -1587,10 +1568,7 @@ class ArraySequenceBase(object):
         WARNING: Only checks for standard gap character (for speed), and
         does not check for ambiguous gaps, etc.
         """
-        if strip_existing_gaps:
-            s = self.degap()
-        else:
-            s = self
+        s = self.degap() if strip_existing_gaps else self
         c = self.__class__
         a = self.alphabet.gapped
         result = zeros(len(other), a.array_type) + a.gap_index
@@ -1657,22 +1635,23 @@ class ArraySequenceBase(object):
             shortest = min(len(self), len(other))
             if not hasattr(other, "_data"):
                 other = self.__class__(other)
-            distance = (self._data[:shortest] != other._data[:shortest]).sum()
+            return (self._data[:shortest] != other._data[:shortest]).sum()
         else:
-            distance = 0
             if use_indices:
                 self_seq = self._data
                 if hasattr(other, "_data"):
                     other_seq = other._data
             else:
                 self_seq = self.alphabet.from_indices(self._data)
-                if hasattr(other, "_data"):
-                    other_seq = other.alphabet.from_indices(other._data)
-                else:
-                    other_seq = other
-            for first, second in zip(self_seq, other_seq):
-                distance += function(first, second)
-        return distance
+                other_seq = (
+                    other.alphabet.from_indices(other._data)
+                    if hasattr(other, "_data")
+                    else other
+                )
+            return sum(
+                function(first, second)
+                for first, second in zip(self_seq, other_seq)
+            )
 
     def matrix_distance(self, other, matrix, use_indices=False):
         """Returns distance between self and other using a score matrix.
@@ -1697,11 +1676,8 @@ class ArraySequenceBase(object):
 
     def gap_array(self):
         """Returns array of 0/1 indicating whether each position is a gap."""
-        gap_indices = []
         a = self.alphabet
-        for c in self.moltype.gaps:
-            if c in a:
-                gap_indices.append(a.index(c))
+        gap_indices = [a.index(c) for c in self.moltype.gaps if c in a]
         gap_vector = None
         for i in gap_indices:
             if gap_vector is None:

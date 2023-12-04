@@ -513,13 +513,9 @@ def get_allowed_perturbations(counts, cutoff, alphabet, num_seqs=100):
     that the cutoff value * the total number of sequences in the alignment.
 
     """
-    result = []
     abs_cutoff = cutoff * num_seqs
 
-    for char, count in zip(alphabet, counts):
-        if count >= abs_cutoff:
-            result.append(char)
-    return result
+    return [char for char, count in zip(alphabet, counts) if count >= abs_cutoff]
 
 
 def probs_from_dict(d, alphabet):
@@ -654,9 +650,10 @@ def get_dg(position_probs, aln_probs):
      full alignment, given it's background frequency (list of floats)
 
     """
-    results = []
-    for position_prob, aln_prob in zip(position_probs, aln_probs):
-        results.append(log(position_prob / aln_prob))
+    results = [
+        log(position_prob / aln_prob)
+        for position_prob, aln_prob in zip(position_probs, aln_probs)
+    ]
     return array(results)
 
 
@@ -790,11 +787,7 @@ def sca_pair(
         )
 
     # get statistical energies for pos2 in full alignment
-    if dgs:
-        pos2_dg = dgs[pos2]
-    else:
-        pos2_dg = get_dg(pos2_probs, aln_probs)
-
+    pos2_dg = dgs[pos2] if dgs else get_dg(pos2_probs, aln_probs)
     # determine allowed perturbations
     if perturbations:
         allowed_perturbations = perturbations[pos1]
@@ -895,53 +888,44 @@ def sca_position(
     aln_freqs = freqs_from_aln(alignment, alphabet, scaled_aln_size)
     aln_probs = get_positional_probabilities(aln_freqs, natural_probs, scaled_aln_size)
     if not position_freqs:
-        position_freqs = []
-        for i in range(len(alignment)):
-            position_freqs.append(
-                get_positional_frequencies(alignment, i, alphabet, scaled_aln_size)
-            )
-
+        position_freqs = [
+            get_positional_frequencies(alignment, i, alphabet, scaled_aln_size)
+            for i in range(len(alignment))
+        ]
     if not position_probs:
-        position_probs = []
-        for i in range(len(alignment)):
-            position_probs.append(
-                get_positional_probabilities(
-                    position_freqs[i], natural_probs, scaled_aln_size
-                )
+        position_probs = [
+            get_positional_probabilities(
+                position_freqs[i], natural_probs, scaled_aln_size
             )
+            for i in range(len(alignment))
+        ]
     if not dgs:
-        dgs = []
-        for i in range(len(alignment)):
-            dgs.append(get_dg(position_probs[i], aln_probs))
-
+        dgs = [get_dg(position_probs[i], aln_probs) for i in range(len(alignment))]
     if not perturbations:
-        perturbations = []
-        for i in range(len(alignment)):
-            perturbations.append(
-                get_allowed_perturbations(
-                    position_freqs[i], cutoff, alphabet, scaled_aln_size
-                )
+        perturbations = [
+            get_allowed_perturbations(
+                position_freqs[i], cutoff, alphabet, scaled_aln_size
             )
-
-    result = []
-    for i in range(len(alignment)):
-        result.append(
-            sca_pair(
-                alignment,
-                position,
-                i,
-                cutoff,
-                position_freqs=position_freqs,
-                position_probs=position_probs,
-                dgs=dgs,
-                perturbations=perturbations,
-                scaled_aln_size=scaled_aln_size,
-                null_value=null_value,
-                return_all=return_all,
-                alphabet=alphabet,
-                background_freqs=background_freqs,
-            )
+            for i in range(len(alignment))
+        ]
+    result = [
+        sca_pair(
+            alignment,
+            position,
+            i,
+            cutoff,
+            position_freqs=position_freqs,
+            position_probs=position_probs,
+            dgs=dgs,
+            perturbations=perturbations,
+            scaled_aln_size=scaled_aln_size,
+            null_value=null_value,
+            return_all=return_all,
+            alphabet=alphabet,
+            background_freqs=background_freqs,
         )
+        for i in range(len(alignment))
+    ]
     return array(result)
 
 
@@ -982,54 +966,40 @@ def sca_alignment(
     natural_probs = probs_from_dict(background_freqs, alphabet)
     aln_freqs = freqs_from_aln(alignment, alphabet, scaled_aln_size)
     aln_probs = get_positional_probabilities(aln_freqs, natural_probs, scaled_aln_size)
-    # get all positional frequencies
-    position_freqs = []
-    for i in range(len(alignment)):
-        position_freqs.append(
-            get_positional_frequencies(alignment, i, alphabet, scaled_aln_size)
+    position_freqs = [
+        get_positional_frequencies(alignment, i, alphabet, scaled_aln_size)
+        for i in range(len(alignment))
+    ]
+    position_probs = [
+        get_positional_probabilities(
+            position_freqs[i], natural_probs, scaled_aln_size
         )
-
-    # get all positional probabilities
-    position_probs = []
-    for i in range(len(alignment)):
-        position_probs.append(
-            get_positional_probabilities(
-                position_freqs[i], natural_probs, scaled_aln_size
-            )
+        for i in range(len(alignment))
+    ]
+    dgs = [get_dg(position_probs[i], aln_probs) for i in range(len(alignment))]
+    perturbations = [
+        get_allowed_perturbations(
+            position_freqs[i], cutoff, alphabet, scaled_aln_size
         )
-
-    # get all delta_g vectors
-    dgs = []
-    for i in range(len(alignment)):
-        dgs.append(get_dg(position_probs[i], aln_probs))
-
-    # get all allowed perturbations
-    perturbations = []
-    for i in range(len(alignment)):
-        perturbations.append(
-            get_allowed_perturbations(
-                position_freqs[i], cutoff, alphabet, scaled_aln_size
-            )
+        for i in range(len(alignment))
+    ]
+    result = [
+        sca_position(
+            alignment,
+            i,
+            cutoff,
+            position_freqs=position_freqs,
+            position_probs=position_probs,
+            dgs=dgs,
+            perturbations=perturbations,
+            scaled_aln_size=scaled_aln_size,
+            null_value=null_value,
+            return_all=return_all,
+            alphabet=alphabet,
+            background_freqs=background_freqs,
         )
-
-    result = []
-    for i in range(len(alignment)):
-        result.append(
-            sca_position(
-                alignment,
-                i,
-                cutoff,
-                position_freqs=position_freqs,
-                position_probs=position_probs,
-                dgs=dgs,
-                perturbations=perturbations,
-                scaled_aln_size=scaled_aln_size,
-                null_value=null_value,
-                return_all=return_all,
-                alphabet=alphabet,
-                background_freqs=background_freqs,
-            )
-        )
+        for i in range(len(alignment))
+    ]
     return array(result)
 
 
@@ -1159,9 +1129,7 @@ def resampled_mi_pair(
 
     entropy = mi(col1.entropy, col2.entropy, seq_freqs.entropy)
     scales = calc_pair_scale(seqs, col1, col2, weights1, weights2)
-    scaled_mi = 1 - sum([w * seq_freqs[pr] for pr, e, w in scales if entropy <= e])
-
-    return scaled_mi
+    return 1 - sum(w * seq_freqs[pr] for pr, e, w in scales if entropy <= e)
 
 
 rmi_pair = resampled_mi_pair
@@ -1266,11 +1234,12 @@ def ancestral_state_position(
 ):
 
     ancestral_seqs = ancestral_seqs or get_ancestral_seqs(aln, tree)
-    result = []
-    for i in range(len(aln)):
-        result.append(
-            ancestral_state_pair(aln, tree, position, i, ancestral_seqs, null_value)
+    result = [
+        ancestral_state_pair(
+            aln, tree, position, i, ancestral_seqs, null_value
         )
+        for i in range(len(aln))
+    ]
     return array(result)
 
 
@@ -1384,7 +1353,7 @@ def sca_input_validation(alignment, **kwargs):
         required_parameters.append("background_freqs")
     for rp in required_parameters:
         if rp not in kwargs:
-            raise ValueError("Required parameter was not provided: " + rp)
+            raise ValueError(f"Required parameter was not provided: {rp}")
 
     # check that the value provided for cutoff is valid (ie. between 0 and 1)
     if not 0.0 <= kwargs["cutoff"] <= 1.0:
@@ -1424,7 +1393,7 @@ def ancestral_states_input_validation(alignment, **kwargs):
     required_parameters = ["tree"]
     for rp in required_parameters:
         if rp not in kwargs:
-            raise ValueError("Required parameter was not provided: " + rp)
+            raise ValueError(f"Required parameter was not provided: {rp}")
 
     # validate the tree
     validate_tree(alignment, kwargs["tree"])
@@ -1470,16 +1439,19 @@ def validate_position(alignment, position):
     """ValueError if position is outside the range of the alignment"""
     if not 0 <= position < len(alignment):
         raise ValueError(
-            "Position is outside the range of the alignment: " + str(position)
+            f"Position is outside the range of the alignment: {str(position)}"
         )
 
 
 def validate_alignment(alignment):
     """ValueError on ambiguous alignment characters"""
-    bad_seqs = []
-    for name, ambiguous_pos in list(alignment.get_ambiguous_positions().items()):
-        if ambiguous_pos:
-            bad_seqs.append(name)
+    bad_seqs = [
+        name
+        for name, ambiguous_pos in list(
+            alignment.get_ambiguous_positions().items()
+        )
+        if ambiguous_pos
+    ]
     if bad_seqs:
         raise ValueError(
             f"Ambiguous characters in sequences: {'; '.join(map(str, bad_seqs))}"
@@ -1497,17 +1469,14 @@ def coevolve_alignments_validation(
         alignment1.moltype != alignment2.moltype
     ) and method not in valid_methods_for_different_moltypes:
         raise AssertionError(
-            "Different MolTypes only supported for %s"
-            % " ".join(map(str, list(valid_methods_for_different_moltypes.keys())))
+            f'Different MolTypes only supported for {" ".join(map(str, list(valid_methods_for_different_moltypes.keys())))}'
         )
 
-    alignment1_names = set([n.split("+")[0].strip() for n in alignment1.names])
-    alignment2_names = set([n.split("+")[0].strip() for n in alignment2.names])
+    alignment1_names = {n.split("+")[0].strip() for n in alignment1.names}
+    alignment2_names = {n.split("+")[0].strip() for n in alignment2.names}
 
     if "tree" in kwargs:
-        tip_names = set(
-            [n.split("+")[0].strip() for n in kwargs["tree"].get_tip_names()]
-        )
+        tip_names = {n.split("+")[0].strip() for n in kwargs["tree"].get_tip_names()}
         assert (
             alignment1_names == alignment2_names == tip_names
         ), "Alignment and tree sequence names must perfectly overlap"
@@ -1727,19 +1696,10 @@ def coevolve_alignments(
     # If the user provided a filepath for the merged alignment, write it to
     # disk. This is sometimes useful for post-processing steps.
     if merged_aln_filepath:
-        merged_aln_file = open(merged_aln_filepath, "w")
-        merged_aln_file.write(merged_alignment.to_fasta())
-        merged_aln_file.close()
-
+        with open(merged_aln_filepath, "w") as merged_aln_file:
+            merged_aln_file.write(merged_alignment.to_fasta())
     if return_full:
-        # If the user requests the full result matrix (inter and intra
-        # molecular coevolution data), call coevolve_alignment on the
-        # merged alignment. Calling coevolve_alignment ensures that
-        # the correct validations are performed, rather than directly
-        # calling method.
-        result = coevolve_alignment(method, merged_alignment, **kwargs)
-        return result
-
+        return coevolve_alignment(method, merged_alignment, **kwargs)
     # Note: we only get here if the above if statement comes back False,
     # i.e., if we only want the intermolecular coevolution and don't care
     # about the intramolecular coevolution.
@@ -1763,7 +1723,7 @@ def coevolve_alignments(
     # and passed in -- that is done here, but there is a lot of repeated code.
     # I'm interested in suggestions for how to make this block of code more
     # compact (e.g., can I be making better use of kwargs?).
-    if method == mi_pair or method == nmi_pair or method == normalized_mi_pair:
+    if method in [mi_pair, nmi_pair, normalized_mi_pair]:
         positional_entropies = [
             CategoryCounter(p).entropy for p in merged_alignment.positions
         ]
@@ -2165,7 +2125,7 @@ def pickle_coevolution_result(coevolve_result, out_filepath="output.pkl"):
         infile = open(out_filepath, "wb")
         p = Pickler(infile)
     except IOError:
-        err = "Can't access filepath. Do you have write access? " + out_filepath
+        err = f"Can't access filepath. Do you have write access? {out_filepath}"
         raise IOError(err)
     p.dump(coevolve_result)
     infile.close()
@@ -2200,7 +2160,7 @@ def coevolution_matrix_to_csv(coevolve_matrix, out_filepath="output.csv"):
     try:
         f = open(out_filepath, "w")
     except IOError:
-        err = "Can't access filepath. Do you have write access? " + out_filepath
+        err = f"Can't access filepath. Do you have write access? {out_filepath}"
         raise IOError(err)
     f.write("\n".join([",".join([str(v) for v in row]) for row in coevolve_matrix]))
     f.close()
@@ -2275,10 +2235,11 @@ def aln_position_pairs_cmp_threshold(
     results = []
     # compile the matrix positions with cmp(value,threshold) == True
     for i, row in enumerate(coevolution_matrix):
-        for j, value in enumerate(row):
-            if value != null_value and cmp_function(value, threshold):
-                results.append((i, j))
-
+        results.extend(
+            (i, j)
+            for j, value in enumerate(row)
+            if value != null_value and cmp_function(value, threshold)
+        )
     # if working with intermolecular data only, need to convert
     # matrix positions to alignment positions
     if intermolecular_data_only:
@@ -2456,10 +2417,7 @@ def build_coevolution_matrix_filepath(
         result = "".join([output_dir, result])
     else:
         result = "".join([output_dir, "/", result])
-    # append output suffixes
-    result = ".".join([_f for _f in [result] + suffixes if _f])
-
-    return result
+    return ".".join([_f for _f in [result] + suffixes if _f])
 
 
 def parse_coevolution_matrix_filepath(filepath):
@@ -2490,8 +2448,7 @@ def parse_coevolution_matrix_filepath(filepath):
         _ = fields[3]  # extension
     except IndexError:
         raise ValueError(
-            "output filepath not in parsable format: %s. See doc string for format definition."
-            % filepath
+            f"output filepath not in parsable format: {filepath}. See doc string for format definition."
         )
 
     return (alignment_id, alphabet_id, method_id)

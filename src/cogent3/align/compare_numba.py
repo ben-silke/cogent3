@@ -47,11 +47,10 @@ def segments_from_diagonal(
                     if start < prior_end + min_gap_length:
                         (start, jumped_end) = result.pop()
                 was_high = 1
-        else:
-            if was_high:
-                result.append((start, i))
-                prior_end = i
-                was_high = 0
+        elif was_high:
+            result.append((start, i))
+            prior_end = i
+            was_high = 0
     if was_high:
         result.append((start, i_hi))
     return result

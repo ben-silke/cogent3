@@ -137,10 +137,7 @@ def py_calc_rows(
                             prev_value = source_posn[prev_state]
                             transition = T[prev_state, state]
                             if viterbi:
-                                if use_logs:
-                                    candidate = prev_value + transition
-                                else:
-                                    candidate = prev_value * transition
+                                candidate = prev_value + transition if use_logs else prev_value * transition
                                 # if DEBUG:
                                 #    print prev_state, prev_value, state
                                 if candidate > cumulative_score:
@@ -197,7 +194,7 @@ class TrackBack(object):
         return [(s, p) for (s, p, d) in self.tlist]
 
     def as_bin_pos_tuples(self, state_directions):
-        bin_map = dict((state, bin) for (state, bin, dx, dy) in state_directions)
+        bin_map = {state: bin for (state, bin, dx, dy) in state_directions}
         result = []
         for (state, posn, (dx, dy)) in self.tlist:
             pos = [[None, i - 1][d] for (i, d) in zip(posn, [dx, dy])]
@@ -305,11 +302,10 @@ class Pair(object):
 
     def edge2plh(self, edge, plhs):
         bins = plhs[0].shape[0]
-        plh = [
+        return [
             edge.sum_input_likelihoods(*[p[bin][1:-1] for p in plhs])
             for bin in range(bins)
         ]
-        return plh
 
     def get_pog(self, aligned_positions):
         (pog1, pog2) = [child.get_pog() for child in self.children]
@@ -332,10 +328,7 @@ class Pair(object):
         mantissas = numpy.zeros(shape, float)
         if dp_options.use_logs:
             mantissas[:] = numpy.log(0.0)
-        if dp_options.use_scaling:
-            exponents = numpy.ones(shape, int) * -10000
-        else:
-            exponents = None
+        exponents = numpy.ones(shape, int) * -10000 if dp_options.use_scaling else None
         return (
             ascontiguousarray(mantissas, dtype="float64"),
             ascontiguousarray(exponents, dtype="int64"),
@@ -378,10 +371,7 @@ class Pair(object):
 
         (mantissas, exponents) = rows
 
-        mantissa = 0.0
-        if kw["use_scaling"]:
-            mantissa = numpy.log(0.0)
-
+        mantissa = numpy.log(0.0) if kw["use_scaling"] else 0.0
         return self.aligner(
             self.plan,
             self.x_index,
@@ -504,13 +494,11 @@ class AlignablePOG(_Alignable):
         return iter(self.pred)
 
     def __getitem__(self, index):
-        # XXX the int case should be a different method?
         if isinstance(index, int):
             return self.pred[index]
-        else:
-            pog = self.pog[index]
-            leaf = self.leaf[index]
-            return AlignablePOG(leaf, pog)
+        pog = self.pog[index]
+        leaf = self.leaf[index]
+        return AlignablePOG(leaf, pog)
 
     def midlinks(self):
         return self.pog.midlinks()
@@ -562,18 +550,14 @@ class AlignableSeq(_Alignable):
             yield [i - 1]
 
     def __getitem__(self, index):
-        # XXX the int case should be a different method?
-        if isinstance(index, int):
-            if index == 0:
-                return []
-            elif 0 < index < len(self.index):
-                return [index - 1]
-            else:
-                raise IndexError(index)
-        # elif index == slice(None, None, None):
-        #    return self
-        else:
+        if not isinstance(index, int):
             return AlignableSeq(self.leaf[index])
+        if index == 0:
+            return []
+        elif 0 < index < len(self.index):
+            return [index - 1]
+        else:
+            raise IndexError(index)
 
     def midlinks(self):
         half = len(self.leaf) // 2
@@ -673,10 +657,7 @@ class PairEmissionProbs(object):
     def _calc_global_probs(
         self, pair, scores, kw, state_directions, T, rows, cells, backward=False
     ):
-        if kw["use_logs"]:
-            (impossible, inevitable) = (-numpy.inf, 0.0)
-        else:
-            (impossible, inevitable) = (0.0, 1.0)
+        (impossible, inevitable) = (-numpy.inf, 0.0) if kw["use_logs"] else (0.0, 1.0)
         (M, N) = pair.size
         (mantissas, exponents) = rows
         mantissas[0, 0, 0] = inevitable
@@ -797,8 +778,7 @@ class PairEmissionProbs(object):
         probs = self.dp(TM, dp_options, cells=cells, backward=backward)
         probs = numpy.array(probs)
         probs.shape = (len(p_rows), N - 1, len(T) - 1)
-        result = numpy.array([probs[p_rows.index(i)] for i in last_row])
-        return result
+        return numpy.array([probs[p_rows.index(i)] for i in last_row])
 
     def dp(self, TM, dp_options, cells=None, backward=False):
         """Score etc. from a Dynamic Programming function applied to this pair.
@@ -817,7 +797,7 @@ class PairEmissionProbs(object):
             if dp_options.local:
                 msg = "Local alignment"
             elif (
-                self.pair.size[0] - 2 >= 3
+                self.pair.size[0] >= 5
                 and not backward
                 and problem_size > HIRSCHBERG_LIMIT
             ):
@@ -1095,15 +1075,9 @@ class _ViterbiPath(object):
 
 class GlobalViterbiPath(_ViterbiPath):
     def get_alignable(self, ratio=None):
-        # Used during progressive sequence alignment.
-        # Because the alignment depends on the total length (so long as the
-        # model is reversable!) the same cached viterbi result can be re-used
-        # to calculate the partial likelihoods even if the root of the 2-seq
-        # tree is moved around.
-        alignable = self.pair_hmm.emission_probs.get_alignable(
+        return self.pair_hmm.emission_probs.get_alignable(
             self.aligned_positions, ratio=ratio
         )
-        return alignable
 
     def get_alignment(self):
         """The alignment as a standard PyCogent Alignment object"""

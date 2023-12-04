@@ -112,11 +112,11 @@ def _maxWidthIfTruncated(pars, delim, each):
     # list representation be if the strings were truncated at 'each'
     # characters and joined together with 'delim'.
     return max(
-        [
-            sum([min(len(par), each) for par in par_list])
+        (
+            sum(min(len(par), each) for par in par_list)
             + len(delim) * (len(par_list) - 1)
-            for par_list in pars.flat
-        ]
+        )
+        for par_list in pars.flat
     )
 
 
@@ -281,8 +281,7 @@ class _SubstitutionModel(object):
         return []
 
     def __repr__(self):
-        s = []
-        s.append(f"name={getattr(self, 'name', None)!r};")
+        s = [f"name={getattr(self, 'name', None)!r};"]
         if hasattr(self, "predicate_masks"):
             parlist = list(self.predicate_masks.keys())
             s.append(f"params={parlist};")
@@ -402,7 +401,7 @@ class _SubstitutionModel(object):
 
         if len(bin_names) > 1:
             bprobs = PartitionDefn(
-                [1.0 / len(bin_names) for bin in bin_names],
+                [1.0 / len(bin_names) for _ in bin_names],
                 name="bprobs",
                 dimensions=["locus"],
                 dimension=("bin", bin_names),
@@ -534,7 +533,7 @@ class _ContinuousSubstitutionModel(_SubstitutionModel):
                 raise ValueError(f'{desc} param "{param}" unknown')
 
     def _is_instantaneous(self, x, y):
-        diffs = sum([X != Y for (X, Y) in zip(x, y)])
+        diffs = sum(X != Y for (X, Y) in zip(x, y))
         return diffs == 1 or (
             diffs > 1
             and self.long_indels_are_instantaneous
@@ -557,8 +556,6 @@ class _ContinuousSubstitutionModel(_SubstitutionModel):
                     gap_strand = [X, Y].index(G)
                 elif gap_end is not None or [X, Y].index(G) != gap_strand:
                     return False  # can't start a second gap
-                else:
-                    pass  # extend open gap
             elif gap_start is not None:
                 gap_end = i
         return True
@@ -611,7 +608,7 @@ class _ContinuousSubstitutionModel(_SubstitutionModel):
             # this forces them to average to one, but no forced order
             # this means you can't force a param value to be shared across bins
             # so 1st above approach has to be used
-            whole = WeightedPartitionDefn(bprob_defn, bin_par_name + "_partn")
+            whole = WeightedPartitionDefn(bprob_defn, f"{bin_par_name}_partn")
         whole.bin_names = bprob_defn.bin_names
         return SelectForDimension(whole, "bin", name=bin_par_name)
 
@@ -623,10 +620,8 @@ class _ContinuousSubstitutionModel(_SubstitutionModel):
             else:
                 e_defn = ParamDefn(param_name, dimensions=["edge", "locus"])
                 # should be weighted by bprobs*rates not bprobs
-                b_defn = self._make_bin_param_defn(
-                    param_name, param_name + "_factor", bprobs
-                )
-                defn = ProductDefn(b_defn, e_defn, name=param_name + "_BE")
+                b_defn = self._make_bin_param_defn(param_name, f"{param_name}_factor", bprobs)
+                defn = ProductDefn(b_defn, e_defn, name=f"{param_name}_BE")
             params.append(defn)
         return params
 
@@ -648,10 +643,9 @@ class _ContinuousSubstitutionModel(_SubstitutionModel):
         length = LengthDefn()
         if self.with_rate and bprobs is not None:
             b_rate = self._make_bin_param_defn("rate", "rate", bprobs)
-            distance = ProductDefn(length, b_rate, name="distance")
+            return ProductDefn(length, b_rate, name="distance")
         else:
-            distance = length
-        return distance
+            return length
 
     def make_continuous_psub_defn(
         self, word_probs, mprobs_matrix, distance, rate_params
@@ -771,7 +765,7 @@ class Parametric(_ContinuousSubstitutionModel):
         parameter names, 'delim2' delimits motifs"""
         from cogent3.util.table import Table
 
-        labels = [m for m in self.alphabet]
+        labels = list(self.alphabet)
         pars = self.get_matrix_params()
         rows = []
         for i, row in enumerate(pars):
@@ -780,11 +774,7 @@ class Parametric(_ContinuousSubstitutionModel):
             rows.append(r)
 
         labels.insert(0, r"From\To")
-        if self.name:
-            title = f"{self.name} rate matrix"
-        else:
-            title = "rate matrix"
-
+        title = f"{self.name} rate matrix" if self.name else "rate matrix"
         t = Table(
             header=labels,
             data=rows,
@@ -792,8 +782,7 @@ class Parametric(_ContinuousSubstitutionModel):
             title=title,
             index_name=r"From\To",
         )
-        result = t if return_table else t.to_string(center=True)
-        return result
+        return t if return_table else t.to_string(center=True)
 
     def get_matrix_params(self):
         """Return the parameter assignment matrix."""
@@ -828,12 +817,10 @@ class Parametric(_ContinuousSubstitutionModel):
         return (r / pred_size) / ((t - r) / (inst_size - pred_size))
 
     def get_scaled_lengths_from_Q(self, Q, motif_probs, length):
-        lengths = {}
-        for rule in self.scale_masks:
-            lengths[rule] = length * self.get_scale_from_Qs(
-                [Q], [1.0], motif_probs, rule
-            )
-        return lengths
+        return {
+            rule: length * self.get_scale_from_Qs([Q], [1.0], motif_probs, rule)
+            for rule in self.scale_masks
+        }
 
     def get_scale_from_Qs(self, Qs, bin_probs, motif_probss, rule):
         rule = self.get_predicate_mask(rule)
@@ -999,9 +986,8 @@ class _Codon:
     def _is_instantaneous(self, x, y):
         if x == self.gapmotif or y == self.gapmotif:
             return x != y
-        else:
-            ndiffs = sum([X != Y for (X, Y) in zip(x, y)])
-            return ndiffs == 1
+        ndiffs = sum(X != Y for (X, Y) in zip(x, y))
+        return ndiffs == 1
 
     def get_predefined_predicates(self):
         codon_preds = _CodonPredicates(self.get_alphabet().get_genetic_code())

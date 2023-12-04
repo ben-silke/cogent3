@@ -33,15 +33,13 @@ def _is_Q_ok(Q):
     if not allclose(offd[offd < 0.0], 0.0):
         return False
     one = ones(n)
-    if not allclose(Q.dot(one), 0.0):
-        return False
-    return True
+    return bool(allclose(Q.dot(one), 0.0))
 
 
 def is_generator_unique(Q):
     """Conservatively tests whether a transition rate matrix uniquely yields
     its transition probability matrix"""
-    if not Q.shape[0] in (3, 4):
+    if Q.shape[0] not in (3, 4):
         raise NotImplementedError("Only Q of 3x3 or 4x4 supported")
     assert _is_Q_ok(Q), "Q must be a valid transition rate matrix"
 

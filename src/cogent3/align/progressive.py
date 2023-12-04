@@ -65,10 +65,7 @@ def TreeAlign(
         seq_names.sort()
         assert (
             tip_names == seq_names
-        ), "names don't match between seqs and tree: tree=%s; seqs=%s" % (
-            tip_names,
-            seq_names,
-        )
+        ), f"names don't match between seqs and tree: tree={tip_names}; seqs={seq_names}"
         ests_from_pairwise = False
     elif two_seqs:
         tree = make_tree(tip_names=seqs.names)

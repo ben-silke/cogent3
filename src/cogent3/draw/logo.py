@@ -86,10 +86,7 @@ def _char_hts_as_lists(data):
             # assume it's just a dict
             pass
 
-        if d:
-            d = list(d.items())
-        else:
-            d = None
+        d = list(d.items()) if d else None
         result.append(d)
 
     return result
@@ -149,7 +146,7 @@ def get_logo(
         d = sorted(d, key=lambda x: x[1])
 
         if ylim is None:
-            est_ylim = max(est_ylim, max([e[-1] for e in d]))
+            est_ylim = max(est_ylim, max(e[-1] for e in d))
         stack_data.append(d)
 
     stacks = []

@@ -89,7 +89,7 @@ class MotifProbModel(object):
         import random
 
         motif_probs = numpy.array(
-            [random.uniform(0.2, 1.0) for m in self.get_counted_alphabet()]
+            [random.uniform(0.2, 1.0) for _ in self.get_counted_alphabet()]
         )
         motif_probs /= sum(motif_probs)
         return motif_probs
@@ -155,9 +155,9 @@ class ComplexMotifProbModel(MotifProbModel):
         for i in range(num_states):
             old_word = self.tuple_alphabet[i]
             for j in range(num_states):
-                new_word = self.tuple_alphabet[j]
                 if self.mask[i, j]:
                     assert self.mask[i, j] == 1.0
+                    new_word = self.tuple_alphabet[j]
                     diffs = diff_pos(old_word, new_word)
                     assert len(diffs) == 1, (old_word, new_word)
                     diff = diffs[0]
@@ -232,8 +232,7 @@ class PosnSpecificMonomerProbModel(MonomerProbModel):
         size = monomer_probs.shape[-1]
         # should be constant
         extended_indices = self.mutated_posn * size + self.mutant_motif
-        result = monomer_probs.take(extended_indices) * self.mask
-        return result
+        return monomer_probs.take(extended_indices) * self.mask
 
     def make_motif_word_prob_defns(self):
         monomer_probs = PartitionDefn(

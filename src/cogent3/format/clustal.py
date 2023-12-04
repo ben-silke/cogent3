@@ -38,9 +38,7 @@ def clustal_from_alignment(aln, wrap=None):
     try:
         order = aln.RowOrder
     except:
-        order = list(aln.keys())
-        order.sort()
-
+        order = sorted(aln.keys())
     seqs = SequenceCollection(aln)
     clustal_list = ["CLUSTAL\n"]
 

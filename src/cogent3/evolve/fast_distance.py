@@ -101,13 +101,10 @@ def _hamming(matrix):
     total of the matrix, the proportion of changes, hamming distance, variance
     (the variance calculation is not yet implemented)
     """
-    # todo implement the estimate of the variance
-    invalid = None, None, None, None
     total = matrix.sum()
     dist = total - diag(matrix).sum()
     if total == 0:
-        return invalid
-
+        return None, None, None, None
     p = dist / total
 
     return total, p, dist, None
@@ -228,12 +225,9 @@ def _logdetcommon(matrix):
 def _paralinear(matrix):
     """the paralinear distance from a diversity matrix"""
 
-    invalid = (None,) * 4
-
     total, p, frequency, freqs, var_term = _logdetcommon(matrix)
     if frequency is None:
-        return invalid
-
+        return (None,) * 4
     r = matrix.shape[0]
     d_xy = -log(det(frequency) / sqrt((freqs[0] * freqs[1]).prod())) / r
     var = (var_term - (1 / sqrt(freqs[0] * freqs[1])).sum()) / (r ** 2 * total)
@@ -251,12 +245,9 @@ def _logdet(matrix, use_tk_adjustment=True):
 
     """
 
-    invalid = (None,) * 4
-
     total, p, frequency, freqs, var_term = _logdetcommon(matrix)
     if frequency is None:
-        return invalid
-
+        return (None,) * 4
     r = matrix.shape[0]
     if use_tk_adjustment:
         coeff = (sum(sum(freqs) ** 2) / 4 - 1) / (r - 1)
@@ -380,10 +371,10 @@ class _PairwiseDistance(object):
         off_diag = [
             (i, j) for i in range(self._dim) for j in range(self._dim) if i != j
         ]
-        off_diag = tuple([tuple(a) for a in zip(*off_diag)])
+        off_diag = tuple(tuple(a) for a in zip(*off_diag))
 
         done = 0.0
-        to_do = (len(names) * len(names) - 1) / 2
+        to_do = (len(names)**2 - 1) / 2
         for i in range(len(names) - 1):
             if i in dupes:
                 continue
@@ -465,10 +456,7 @@ class _PairwiseDistance(object):
             for name in names:
                 if name == add:
                     continue
-                if name == alias:
-                    val = 0
-                else:
-                    val = pwise.get((alias, name), None)
+                val = 0 if name == alias else pwise.get((alias, name), None)
                 pwise[(add, name)] = pwise[(name, add)] = val
 
         return pwise
@@ -685,10 +673,7 @@ def available_distances():
     """
     from cogent3.util.table import Table
 
-    rows = []
-    for n, c in _calculators.items():
-        rows.append([n, ", ".join(c.valid_moltypes)])
-
+    rows = [[n, ", ".join(c.valid_moltypes)] for n, c in _calculators.items()]
     table = Table(
         header=["Abbreviation", "Suitable for moltype"],
         data=rows,
@@ -787,11 +772,7 @@ class DistanceMatrix(DictArray):
             for j in range(len(names))
             if i != j
         }
-        if not dists:
-            result = None
-        else:
-            result = self.__class__(dists)
-        return result
+        return None if not dists else self.__class__(dists)
 
     def drop_invalid(self):
         """drops all rows / columns with an invalid entry"""

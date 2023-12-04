@@ -172,14 +172,8 @@ class POG(object):
 
     def __getitem__(self, index):
         # POGs need to be sliceable for the hirchberg algorithm.
-        if index.start is None:
-            start = 0
-        else:
-            start = index.start
-        if index.stop is None:
-            end = self.length
-        else:
-            end = index.stop
+        start = 0 if index.start is None else index.start
+        end = self.length if index.stop is None else index.stop
         assert end >= start, (start, end, index, self.length)
 
         def moved(i, j):

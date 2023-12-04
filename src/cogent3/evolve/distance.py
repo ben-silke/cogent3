@@ -23,7 +23,7 @@ __status__ = "Production"
 
 def get_name_combinations(names, group_size):
     """returns combinations of names"""
-    combined = list(tuple(sorted(p)) for p in combinations(names, group_size))
+    combined = [tuple(sorted(p)) for p in combinations(names, group_size)]
     combined.sort()
     return combined
 
@@ -103,12 +103,7 @@ class EstimateDistances(object):
         do_pair_align.
         """
 
-        if do_pair_align:
-            self._threeway = False
-        else:
-            # whether pairwise is to be estimated from 3-way
-            self._threeway = [threeway, False][do_pair_align]
-
+        self._threeway = False if do_pair_align else [threeway, False][do_pair_align]
         self._seq_collection = seqs
         self._seqnames = seqs.names[:]
         self._motif_probs = motif_probs
@@ -353,9 +348,7 @@ class EstimateDistances(object):
         """Returns a list of Newick format trees for supertree methods."""
         trees = []
         for comp_names, param_vals in list(self._param_ests.items()):
-            tips = []
-            for name in comp_names:
-                tips.append(repr(name) + f":{param_vals[name]}")
+            tips = [f"{repr(name)}:{param_vals[name]}" for name in comp_names]
             trees.append("(" + ",".join(tips) + ");")
 
         return trees

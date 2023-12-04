@@ -27,12 +27,12 @@ def nexus_from_alignment(aln, seq_type, wrap=50):
     if not aln or not num_seq:
         return ""
     aln_len = aln.seq_len
-    nexus_out = ["#NEXUS\n\nbegin data;"]
-    nexus_out.append("    dimensions ntax=%d nchar=%d;" % (num_seq, aln_len))
-    nexus_out.append(
-        f"    format datatype={seq_type} interleave=yes missing=? " + "gap=-;"
-    )
-    nexus_out.append("    matrix")
+    nexus_out = [
+        "#NEXUS\n\nbegin data;",
+        "    dimensions ntax=%d nchar=%d;" % (num_seq, aln_len),
+        f"    format datatype={seq_type} interleave=yes missing=? gap=-;",
+        "    matrix",
+    ]
     cur_ix = 0
     names_seqs = sorted(aln.named_seqs.items())
     while cur_ix < aln_len:

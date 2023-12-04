@@ -104,10 +104,8 @@ class Brent:
         elif len(brack) == 3:
             xa, xb, xc = brack
             if xa > xc:  # swap so xa < xc can be assumed
-                dum = xa
-                xa = xc
-                xc = dum
-            assert (xa < xb) and (xb < xc), "Not a bracketing interval."
+                xa, xc = xc, xa
+            assert xa < xb < xc, "Not a bracketing interval."
             fa = func(xa)
             fb = func(xb)
             fc = func(xc)
@@ -151,10 +149,7 @@ class Brent:
                 break
             infinities_present = [f for f in [fw, fv, fx] if numpy.isposinf(f)]
             if infinities_present or (abs(deltax) <= tol1):
-                if x >= xmid:
-                    deltax = a - x  # do a golden section step
-                else:
-                    deltax = b - x
+                deltax = a - x if x >= xmid else b - x
                 rat = _cg * deltax
             else:  # do a parabolic step
                 tmp1 = (x - w) * (fx - fv)
@@ -175,22 +170,13 @@ class Brent:
                     rat = p * 1.0 / tmp2  # if parabolic step is useful.
                     u = x + rat
                     if (u - a) < tol2 or (b - u) < tol2:
-                        if xmid - x >= 0:
-                            rat = tol1
-                        else:
-                            rat = -tol1
+                        rat = tol1 if xmid - x >= 0 else -tol1
                 else:
-                    if x >= xmid:
-                        deltax = a - x  # if it's not do a golden section step
-                    else:
-                        deltax = b - x
+                    deltax = a - x if x >= xmid else b - x
                     rat = _cg * deltax
 
             if abs(rat) < tol1:  # update by at least tol1
-                if rat >= 0:
-                    u = x + tol1
-                else:
-                    u = x - tol1
+                u = x + tol1 if rat >= 0 else x - tol1
             else:
                 u = x + rat
             fu = func(u)  # calculate new output value
@@ -316,12 +302,8 @@ def bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000):
     fa = func(*(xa,) + args)
     fb = func(*(xb,) + args)
     if fa < fb:  # Switch so fa > fb
-        dum = xa
-        xa = xb
-        xb = dum
-        dum = fa
-        fa = fb
-        fb = dum
+        xa, xb = xb, xa
+        fa, fb = fb, fa
     xc = xb + _gold * (xb - xa)
     fc = func(*((xc,) + args))
     funcalls = 3
@@ -330,18 +312,15 @@ def bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000):
         tmp1 = (xb - xa) * (fb - fc)
         tmp2 = (xb - xc) * (fb - fa)
         val = tmp2 - tmp1
-        if abs(val) < _verysmall_num:
-            denom = 2.0 * _verysmall_num
-        else:
-            denom = 2.0 * val
+        denom = 2.0 * _verysmall_num if abs(val) < _verysmall_num else 2.0 * val
         w = xb - ((xb - xc) * tmp2 - (xb - xa) * tmp1) / denom
         wlim = xb + grow_limit * (xc - xb)
         if iter > maxiter:
             raise RuntimeError("Too many iterations.")
         iter += 1
+        funcalls += 1
         if (w - xc) * (xb - w) > 0.0:
             fw = func(*((w,) + args))
-            funcalls += 1
             if fw < fc:
                 xa = xb
                 xb = w
@@ -358,10 +337,8 @@ def bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000):
         elif (w - wlim) * (wlim - xc) >= 0.0:
             w = wlim
             fw = func(*((w,) + args))
-            funcalls += 1
         elif (w - wlim) * (xc - w) > 0.0:
             fw = func(*((w,) + args))
-            funcalls += 1
             if fw < fc:
                 xb = xc
                 xc = w
@@ -373,7 +350,6 @@ def bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000):
         else:
             w = xc + _gold * (xc - xb)
             fw = func(*((w,) + args))
-            funcalls += 1
         xa = xb
         xb = xc
         xc = w
@@ -489,11 +465,7 @@ def fmin_powell(
     if maxfun is None:
         maxfun = N * 1000
 
-    if direc is None:
-        direc = eye(N, dtype=float)
-    else:
-        direc = asarray(direc, dtype=float)
-
+    direc = eye(N, dtype=float) if direc is None else asarray(direc, dtype=float)
     fval = squeeze(func(x))
     x1 = x.copy()
     iter = 0
@@ -553,12 +525,11 @@ def fmin_powell(
         warnflag = 2
         if disp:
             print("Warning: Maximum number of iterations has been exceeded")
-    else:
-        if disp:
-            print("Optimization terminated successfully.")
-            print(f"         Current function value: {fval:f}")
-            print("         Iterations: %d" % iter)
-            print("         Function evaluations: %d" % fcalls[0])
+    elif disp:
+        print("Optimization terminated successfully.")
+        print(f"         Current function value: {fval:f}")
+        print("         Iterations: %d" % iter)
+        print("         Function evaluations: %d" % fcalls[0])
 
     x = squeeze(x)
 

@@ -121,10 +121,10 @@ class GeneticCode:
         for c in stop_codons:
             del sense_codons[c]
         self.sense_codons = sense_codons
-        # create anticodons
-        ac = {}
-        for aa, codons in list(self.synonyms.items()):
-            ac[aa] = list(map(_simple_rc, codons))
+        ac = {
+            aa: list(map(_simple_rc, codons))
+            for aa, codons in list(self.synonyms.items())
+        }
         self.anticodons = ac
 
     def _analyze_quartet(self, codons, aa):
@@ -146,27 +146,20 @@ class GeneticCode:
         would also apply to a block like AUC AUA AUG -> [[AUC],[AUA,AUG]],
         although this latter pattern is not observed in the standard code.
         """
-        if aa[0] == aa[1]:
-            first_doublet = True
-        else:
-            first_doublet = False
-        if aa[2] == aa[3]:
-            second_doublet = True
-        else:
-            second_doublet = False
+        first_doublet = aa[0] == aa[1]
+        second_doublet = aa[2] == aa[3]
         if first_doublet and second_doublet and aa[1] == aa[2]:
             return [codons]
+        blocks = []
+        if first_doublet:
+            blocks.append(codons[:2])
         else:
-            blocks = []
-            if first_doublet:
-                blocks.append(codons[:2])
-            else:
-                blocks.extend([[codons[0]], [codons[1]]])
-            if second_doublet:
-                blocks.append(codons[2:])
-            else:
-                blocks.extend([[codons[2]], [codons[3]]])
-            return blocks
+            blocks.extend([[codons[0]], [codons[1]]])
+        if second_doublet:
+            blocks.append(codons[2:])
+        else:
+            blocks.extend([[codons[2]], [codons[3]]])
+        return blocks
 
     def _get_blocks(self):
         """Returns list of lists of codon blocks in the genetic code.
@@ -183,9 +176,7 @@ class GeneticCode:
         a quartet cannot span the boundary between two codon blocks whose first
         two bases differ.
         """
-        if hasattr(self, "_blocks"):
-            return self._blocks
-        else:
+        if not hasattr(self, "_blocks"):
             blocks = []
             curr_codons = []
             curr_aa = []
@@ -204,7 +195,7 @@ class GeneticCode:
             if curr_codons:
                 blocks.extend(self._analyze_quartet(curr_codons, curr_aa))
             self._blocks = blocks
-            return self._blocks
+        return self._blocks
 
     blocks = property(_get_blocks)
 
@@ -309,15 +300,17 @@ class GeneticCode:
         string representation of the amino acid in other. Always returns a
         2-character string.
         """
-        changes = {}
         try:
             other_code = other.code_sequence
         except AttributeError:  # try using other directly as sequence
             other_code = other
-        for codon, old, new in zip(self._codons, self.code_sequence, other_code):
-            if old != new:
-                changes[codon] = old + new
-        return changes
+        return {
+            codon: old + new
+            for codon, old, new in zip(
+                self._codons, self.code_sequence, other_code
+            )
+            if old != new
+        }
 
     def to_regex(self, seq):
         """returns a regex pattern with an amino acid expanded to its codon set
@@ -332,11 +325,7 @@ class GeneticCode:
         seq = list(str(seq))
         mappings = []
         for aa in seq:
-            if aa in ambigs:
-                aa = ambigs[aa]
-            else:
-                aa = [aa]
-
+            aa = ambigs[aa] if aa in ambigs else [aa]
             codons = []
             for a in aa:
                 codons.extend(self[a])

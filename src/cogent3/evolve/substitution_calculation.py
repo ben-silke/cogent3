@@ -88,7 +88,4 @@ class ExpDefn(CalculationDefn):
 
         eigen = CheckedExponentiator if check_eigen else FastExponentiator
 
-        if not allow_pade:
-            return eigen
-        else:
-            return _EigenPade(eigen=eigen)
+        return eigen if not allow_pade else _EigenPade(eigen=eigen)

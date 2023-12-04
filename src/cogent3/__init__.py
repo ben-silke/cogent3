@@ -2,6 +2,7 @@
 analysis experience within Jupyter notebooks plus supporting parallel
 execution on compute systems with 1000s of CPUs."""
 
+
 import os
 import pathlib
 import pickle
@@ -91,7 +92,7 @@ elif (sys.version_info.major, sys.version_info.minor) == (3, 7):
     )
 
 version = __version__
-version_info = tuple([int(v) for v in version.split(".") if v.isdigit()])
+version_info = tuple(int(v) for v in version.split(".") if v.isdigit())
 
 
 warn_env = "COGENT3_WARNINGS"
@@ -615,9 +616,7 @@ def make_tree(treestring=None, tip_names=None, format=None, underscore_unmunge=F
     if tip_names:
         tree_builder = TreeBuilder().create_edge
         tips = [tree_builder([], tip_name, {}) for tip_name in tip_names]
-        tree = tree_builder(tips, "root", {})
-        return tree
-
+        return tree_builder(tips, "root", {})
     if format is None and treestring.startswith("<"):
         format = "xml"
     parser = tree_xml_parse_string if format == "xml" else newick_parse_string
