@@ -114,26 +114,17 @@ def AllowedCharacters(chars, is_array=False, negate=False):
     try:
         chars = set(chars)
     except TypeError:
-        chars = set([chars])
+        chars = {chars}
 
     def just_chars(data):
-        if is_array:
-            data = set(data.flatten())
-        else:
-            data = set("".join(data))
+        data = set(data.flatten()) if is_array else set("".join(data))
         return data <= chars
 
     def not_chars(data):
-        if is_array:
-            data = set(data.flatten())
-        else:
-            data = set("".join(data))
+        data = set(data.flatten()) if is_array else set("".join(data))
         return not data & chars
 
-    if negate:
-        return not_chars
-
-    return just_chars
+    return not_chars if negate else just_chars
 
 
 class GapsOk:
@@ -183,19 +174,14 @@ class GapsOk:
         try:
             self.gap_chars = set(gap_chars)
         except TypeError:
-            self.gap_chars = set([gap_chars])
+            self.gap_chars = {gap_chars}
 
     def _get_gap_frac(self, data):
         length = len(data) * self.motif_length
         # flatten the data and count elements equal to gap
-        if self.is_array:
-            data = Counter(data.flatten())
-        else:
-            data = Counter("".join(data))
-
+        data = Counter(data.flatten()) if self.is_array else Counter("".join(data))
         num_gap = sum(data[g] for g in self.gap_chars)
-        gap_frac = num_gap / length
-        return gap_frac
+        return num_gap / length
 
     def gap_frac_ok(self, data):
         """fraction of gap characters <= allowed_frac"""
@@ -460,19 +446,12 @@ class _SequenceCollectionBase:
             alphabet, moltype, data
         )
         if not isinstance(info, InfoClass):
-            if info:
-                info = InfoClass(info)
-            else:
-                info = InfoClass()
+            info = InfoClass(info) if info else InfoClass()
         self.info = info
         # if we're forcing the same data, skip the validation
         if force_same_data:
             self._force_same_data(data, names)
-            if isinstance(data, dict):
-                curr_seqs = list(data.values())
-            else:
-                curr_seqs = data
-        # otherwise, figure out what we got and coerce it into the right type
+            curr_seqs = list(data.values()) if isinstance(data, dict) else data
         else:
             per_seq_names, curr_seqs, name_order = self._names_seqs_order(
                 conversion_f,
@@ -487,9 +466,7 @@ class _SequenceCollectionBase:
 
             # will take only the seqs and names that are in name_order
             if per_seq_names != name_order:
-                good_indices = []
-                for n in name_order:
-                    good_indices.append(per_seq_names.index(n))
+                good_indices = [per_seq_names.index(n) for n in name_order]
                 if hasattr(curr_seqs, "astype"):  # it's an array
                     # much faster to check than to raise exception in this case
                     curr_seqs = take(curr_seqs, good_indices, axis=0)
@@ -655,30 +632,25 @@ class _SequenceCollectionBase:
             # otherwise, names were passed in as Names: use this as the order
             # if we got names from the sequences, but otherwise assign the
             # names to successive sequences in order
-            if (names is None) or (None in names):
-                per_seq_names = name_order
-            else:  # got names from seqs, so assume name_order is in Names
-                per_seq_names = names
-
+            per_seq_names = name_order if (names is None) or (None in names) else names
         # check for duplicate names
         duplicates, fixed_names, fixed_seqs = self._strip_duplicates(
             per_seq_names, curr_seqs
         )
         if duplicates:
-            if remove_duplicate_names:
-                per_seq_names, curr_seqs = fixed_names, fixed_seqs
-                # if name_order doesn't have the same names as per_seq_names,
-                # replace it with per_seq_names
-                if (set(name_order) != set(per_seq_names)) or (
-                    len(name_order) != len(per_seq_names)
-                ):
-                    name_order = per_seq_names
-            else:
+            if not remove_duplicate_names:
                 raise ValueError(
                     "Some names were not unique. Duplicates are:\n"
                     + str(sorted(duplicates.keys()))
                 )
 
+            per_seq_names, curr_seqs = fixed_names, fixed_seqs
+            # if name_order doesn't have the same names as per_seq_names,
+            # replace it with per_seq_names
+            if (set(name_order) != set(per_seq_names)) or (
+                len(name_order) != len(per_seq_names)
+            ):
+                name_order = per_seq_names
         return per_seq_names, curr_seqs, name_order
 
     def _coerce_seqs(self, seqs, is_array):
@@ -719,11 +691,7 @@ class _SequenceCollectionBase:
         if isinstance(data, dict):
             return "dict"
         if isinstance(data, str):
-            if data.startswith(">"):
-                return "fasta"
-            else:
-                return "generic"
-
+            return "fasta" if data.startswith(">") else "generic"
         first = self._get_container_item(data)
         if first is None:
             return "empty"
@@ -734,7 +702,7 @@ class _SequenceCollectionBase:
             return "array"
         if isinstance(first, str) and first.startswith(">"):
             return "fasta"
-        if isinstance(first, Aligned) or isinstance(first, Sequence):
+        if isinstance(first, (Aligned, Sequence)):
             return "generic"
         try:
             dict(data)
@@ -762,10 +730,7 @@ class _SequenceCollectionBase:
     def __lt__(self, other):
         """cmp first tests as dict, then as str."""
         c = self.named_seqs < other
-        if not c:
-            return 0
-        else:
-            return str(self) < str(other)
+        return 0 if not c else str(self) < str(other)
 
     def iter_seqs(self, seq_order=None):
         """Iterates over values (sequences) in the alignment, in order.
@@ -871,8 +836,7 @@ class _SequenceCollectionBase:
                     yield row[i]
         else:
             for row in self.iter_seqs(seq_order):
-                for i in row:
-                    yield i
+                yield from row
 
     def get_identical_sets(self, mask_degen=False):
         """returns sets of names for sequences that are identical
@@ -1015,12 +979,7 @@ class _SequenceCollectionBase:
         """Returns True if alignment has sequences of different lengths."""
         seqs = self.seqs  # Get all sequences in alignment
         length = len(seqs[0])  # Get length of first sequence
-        for seq in seqs:
-            # If lengths differ
-            if length != len(seq):
-                return True
-        # lengths were all equal
-        return False
+        return any(length != len(seq) for seq in seqs)
 
     def to_phylip(self):
         """
@@ -1038,7 +997,7 @@ class _SequenceCollectionBase:
         data = {}
         moltype = self.moltype.label
         info = {} if self.info is None else self.info
-        if not info.get("Refs", None) is None and "Refs" in info:
+        if info.get("Refs", None) is not None and "Refs" in info:
             info.pop("Refs")
 
         info = info or None
@@ -1267,15 +1226,12 @@ class _SequenceCollectionBase:
         # do the translation
         try:
             for seqname in self.names:
-                if aligned:
-                    seq = self.get_gapped_seq(seqname)
-                else:
-                    seq = self.named_seqs[seqname]
+                seq = self.get_gapped_seq(seqname) if aligned else self.named_seqs[seqname]
                 pep = seq.get_translation(gc, incomplete_ok=incomplete_ok)
                 translated.append((seqname, pep))
             return self.__class__(translated, info=self.info, **kwargs)
         except AttributeError as msg:
-            raise AttributeError(f"{msg} -- {'Did you set a DNA moltype?'}")
+            raise AttributeError(f"{msg} -- Did you set a DNA moltype?")
 
     def get_seq(self, seqname):
         """Return a sequence object for the specified seqname."""
@@ -1286,12 +1242,7 @@ class _SequenceCollectionBase:
 
         Note: returns strings, NOT Sequence objects.
         """
-        align_dict = {}
-
-        for seq_name in self.names:
-            align_dict[seq_name] = str(self.named_seqs[seq_name])
-
-        return align_dict
+        return {seq_name: str(self.named_seqs[seq_name]) for seq_name in self.names}
 
     def get_ambiguous_positions(self):
         """Returns dict of seq:{position:char} for ambiguous chars.
@@ -1311,15 +1262,11 @@ class _SequenceCollectionBase:
         new_seqs = []
         aligned = isinstance(self, Alignment)
         for seq_name in self.names:
-            if aligned:
-                seq = self.named_seqs[seq_name].data
-            else:
-                seq = self.named_seqs[seq_name]
+            seq = self.named_seqs[seq_name].data if aligned else self.named_seqs[seq_name]
             new_seqs.append((seq_name, seq.degap()))
-        result = SequenceCollection(
+        return SequenceCollection(
             moltype=self.moltype, data=new_seqs, info=self.info, **kwargs
         )
-        return result
 
     def with_modified_termini(self):
         """Changes the termini to include termini char instead of gapmotif.
@@ -1348,10 +1295,7 @@ class _SequenceCollectionBase:
         stops = []
         aligned = isinstance(self, Alignment)
         for seq_name in self.names:
-            if aligned:
-                seq = self.named_seqs[seq_name].data
-            else:
-                seq = self.named_seqs[seq_name]
+            seq = self.named_seqs[seq_name].data if aligned else self.named_seqs[seq_name]
             stops.append(seq.has_terminal_stop(gc=gc, allow_partial=allow_partial))
         return max(stops)
 
@@ -1641,16 +1585,14 @@ class _SequenceCollectionBase:
             length.
         """
         # get max length
-        max_len = max([len(s) for s in self.seqs])
+        max_len = max(len(s) for s in self.seqs)
         # If a pad_length was passed in, make sure it is valid
         if pad_length is not None:
             pad_length = int(pad_length)
             if pad_length < max_len:
                 raise ValueError(
-                    "pad_length must be at greater or equal to maximum sequence length: %s"
-                    % (str(max_len))
+                    f"pad_length must be at greater or equal to maximum sequence length: {str(max_len)}"
                 )
-        # pad_length is max sequence length.
         else:
             pad_length = max_len
 
@@ -1659,10 +1601,7 @@ class _SequenceCollectionBase:
         aligned = isinstance(self, Alignment)
         # for each sequence, pad gaps to end
         for seq_name in self.names:
-            if aligned:
-                seq = self.named_seqs[seq_name].data
-            else:
-                seq = self.named_seqs[seq_name]
+            seq = self.named_seqs[seq_name].data if aligned else self.named_seqs[seq_name]
             padded_seq = seq + "-" * (pad_length - len(seq))
             new_seqs.append((seq_name, padded_seq))
 
@@ -1869,10 +1808,7 @@ class _SequenceCollectionBase:
 
             result = [pssm.score_indexed_seq(seq) for seq in ui.series(data)]
         else:
-            if names:
-                seqs = [self.named_seqs[n] for n in names]
-            else:
-                seqs = self.seqs
+            seqs = [self.named_seqs[n] for n in names] if names else self.seqs
             result = [pssm.score_seq(seq) for seq in ui.series(seqs)]
 
         return array(result)
@@ -1932,10 +1868,7 @@ class _SequenceCollectionBase:
             allow_gap=allow_gap,
             exclude_unobserved=exclude_unobserved,
         )
-        if counts is None:
-            return None
-
-        return counts.to_freq_array()
+        return None if counts is None else counts.to_freq_array()
 
     def entropy_per_seq(
         self,
@@ -1971,10 +1904,7 @@ class _SequenceCollectionBase:
             exclude_unobserved=exclude_unobserved,
             alert=alert,
         )
-        if probs is None:
-            return None
-
-        return probs.entropy()
+        return None if probs is None else probs.entropy()
 
 
 class SequenceCollection(_SequenceCollectionBase):
@@ -2015,7 +1945,7 @@ class SequenceCollection(_SequenceCollectionBase):
                 seq_dict[seq_id] = [gff_dict]
                 continue
             seq_dict[seq_id].append(gff_dict)
-        for seq_id in seq_dict.keys():
+        for seq_id in seq_dict:
             seq = self.named_seqs[seq_id]
             if not hasattr(seq, "annotations"):
                 seq = seq.data
@@ -2353,10 +2283,8 @@ class AlignmentI(object):
         """Returns string containing IUPAC consensus sequence of the alignment."""
         if alphabet is None:
             alphabet = self.moltype
-        consensus = []
         degen = alphabet.degenerate_from_seq
-        for col in self.positions:
-            consensus.append(degen(coerce_to_string(col)))
+        consensus = [degen(coerce_to_string(col)) for col in self.positions]
         return coerce_to_string(consensus)
 
     def majority_consensus(self):
@@ -2428,10 +2356,7 @@ class AlignmentI(object):
             allow_gap=allow_gap,
             exclude_unobserved=exclude_unobserved,
         )
-        if counts is None:
-            return None
-
-        return counts.to_freq_array()
+        return None if counts is None else counts.to_freq_array()
 
     def entropy_per_seq(
         self,
@@ -2468,10 +2393,7 @@ class AlignmentI(object):
             exclude_unobserved=exclude_unobserved,
             alert=alert,
         )
-        if probs is None:
-            return None
-
-        return probs.entropy()
+        return None if probs is None else probs.entropy()
 
     def no_degenerates(self, motif_length=1, allow_gap=False):
         """returns new alignment without degenerate characters
@@ -2536,10 +2458,7 @@ class AlignmentI(object):
         gaps_ok = GapsOk(
             gaps, allowed_gap_frac, is_array=is_array, motif_length=motif_length
         )
-        # if we're not deleting the 'naughty' seqs that contribute to the
-        # gaps, it's easy...
-        result = self.filtered(gaps_ok, motif_length=motif_length)
-        return result
+        return self.filtered(gaps_ok, motif_length=motif_length)
 
     def get_gap_array(self, include_ambiguity=True):
         """returns bool array with gap state True, False otherwise
@@ -2746,11 +2665,7 @@ class AlignmentI(object):
         names = name_order or self.names
         num_seqs = len(names)
 
-        seqs = []
-        for name in names:
-            seq = str(self.named_seqs[name])
-            seqs.append(seq)
-
+        seqs = [str(self.named_seqs[name]) for name in names]
         positions = list(zip(*seqs))
 
         for position in positions:
@@ -2903,19 +2818,9 @@ class AlignmentI(object):
             or name_order
             and len(name_order) < len(selected.names)
         ):
-            summary = ("%s x %s (truncated to %s x %s) %s alignment") % (
-                self.num_seqs,
-                len(self),
-                len(name_order) if name_order else len(selected.names),
-                limit if limit else len(selected),
-                selected.moltype.label,
-            )
+            summary = f"{self.num_seqs} x {len(self)} (truncated to {len(name_order) if name_order else len(selected.names)} x {limit if limit else len(selected)}) {selected.moltype.label} alignment"
         else:
-            summary = ("%s x %s %s alignment") % (
-                self.num_seqs,
-                len(self),
-                selected.moltype.label,
-            )
+            summary = f"{self.num_seqs} x {len(self)} {selected.moltype.label} alignment"
 
         text = [
             "<style>",
@@ -2926,7 +2831,7 @@ class AlignmentI(object):
             ".c3align .label { font-size: %dpt ; text-align: right !important; "
             "color: black !important; padding: 0 4px; display: table-cell !important; "
             "font-weight: normal !important; }" % font_size,
-            "\n".join([".c3align " + style for style in css]),
+            "\n".join([f".c3align {style}" for style in css]),
             "</style>",
             '<div class="c3align">',
             "\n".join(table),
@@ -3211,11 +3116,7 @@ class AlignmentI(object):
         results = gnj(dm, keep=1, show_progress=show_progress)
         kept_names = set(dm.template.names[0])
         if bootstrap:
-            if set(self.names) != kept_names:
-                subaln = self.take_seqs(kept_names)
-            else:
-                subaln = self
-
+            subaln = self.take_seqs(kept_names) if set(self.names) != kept_names else self
             for _ in ui.series(range(bootstrap), count=bootstrap, noun="bootstrap"):
                 b = subaln.sample(with_replacement=True)
                 try:

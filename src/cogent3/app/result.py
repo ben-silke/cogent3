@@ -230,8 +230,7 @@ class model_result(generic_result):
     def simulate_alignment(self):
         self.deserialised_values()
         if len(self) == 1:
-            aln = self.lf.simulate_alignment()
-            return aln
+            return self.lf.simulate_alignment()
         # assume we have results from 3 codon positions
         sim = []
         seqnames = None
@@ -363,12 +362,12 @@ class model_result(generic_result):
         except AttributeError:
             model = self.lf[1].model
 
-        if isinstance(model, DiscreteSubstitutionModel):
-            length_as = "paralinear"
-        else:
-            length_as = "ENS"
-
         if not hasattr(self, "_tree"):
+            length_as = (
+                "paralinear"
+                if isinstance(model, DiscreteSubstitutionModel)
+                else "ENS"
+            )
             if len(self) == 1:
                 tree = self.lf.get_annotated_tree(length_as=length_as)
             else:
@@ -613,12 +612,11 @@ class hypothesis_result(model_collection_result):
 
         None if LR < 0"""
         if self.LR == 0:
-            pvalue = 1
+            return 1
         elif self.LR > 0:
-            pvalue = chisqprob(self.LR, self.df)
+            return chisqprob(self.LR, self.df)
         else:
-            pvalue = None
-        return pvalue
+            return None
 
 
 class bootstrap_result(generic_result):

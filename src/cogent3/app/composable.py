@@ -52,8 +52,7 @@ def _make_logfile_name(process):
     parts = [part[: part.find("(")] for part in text]
     result = "-".join(parts)
     pid = os.getpid()
-    result = f"{result}-pid{pid}.log"
-    return result
+    return f"{result}-pid{pid}.log"
 
 
 def _get_origin(origin):
@@ -101,11 +100,7 @@ class NotCompleted(int):
     def __str__(self):
         name = self.__class__.__name__
         source = self.source or "Unknown"
-        val = (
-            f"{name}(type={self.type}, origin={self.origin}, "
-            f'source="{source}", message="{self.message}")'
-        )
-        return val
+        return f'{name}(type={self.type}, origin={self.origin}, source="{source}", message="{self.message}")'
 
     def to_rich_dict(self):
         """returns components for to_json"""
@@ -200,10 +195,9 @@ class Composable(ComposableType):
         if txt:
             txt += " + "
         txt += f"{self.__class__.__name__}({', '.join(self._formatted)})"
-        txt = textwrap.fill(
+        return textwrap.fill(
             txt, width=80, break_long_words=False, break_on_hyphens=False
         )
-        return txt
 
     def __repr__(self):
         return str(self)
@@ -262,7 +256,7 @@ class Composable(ComposableType):
             my_output = self._output_types
             their_name = other.__class__.__name__
             their_input = other._input_types
-            msg = msg % (their_name, their_input, my_name, my_output)
+            msg %= (their_name, their_input, my_name, my_output)
             raise TypeError(msg)
         self.output = other
         other.input = self
@@ -588,7 +582,7 @@ class _seq_loader:
         """
         if type(data) == str:
             with open_(data) as infile:
-                data = dict(record for record in self._parser(infile))
+                data = dict(iter(self._parser(infile)))
             seqs = self.klass(data=data, moltype=self.moltype)
             seqs.info.path = data
         elif not isinstance(data, SequenceCollection):
@@ -748,10 +742,9 @@ class user_function(Composable):
         if txt:
             txt += " + "
         txt += f"user_function(name='{self._user_func.__name__}', module='{self._user_func.__module__}')"
-        txt = textwrap.fill(
+        return textwrap.fill(
             txt, width=80, break_long_words=False, break_on_hyphens=False
         )
-        return txt
 
     def __repr__(self):
         return str(self)

@@ -23,15 +23,12 @@ def sum_input_likelihoods(child_indexes, result, likelihoods):  # pragma: no cov
         plhs = likelihoods[child]
         index_height = index.shape[0]
         result_width = result.shape[1]
-        if child == 0:
-            for parent_col in range(index_height):
-                child_col = index[parent_col]
-                for motif in range(result_width):
+        for parent_col in range(index_height):
+            child_col = index[parent_col]
+            for motif in range(result_width):
+                if child == 0:
                     result[parent_col, motif] = plhs[child_col, motif]
-        else:
-            for parent_col in range(index_height):
-                child_col = index[parent_col]
-                for motif in range(result_width):
+                else:
                     result[parent_col, motif] *= plhs[child_col, motif]
     return result
 

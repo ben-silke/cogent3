@@ -59,7 +59,7 @@ class _LikelihoodTreeEdge(object):
         (uniq, counts, self.index) = _indexed(list(zip(*assignments)))
 
         # extra column for gap
-        uniq.append(tuple([len(c.uniq) - 1 for c in children]))
+        uniq.append(tuple(len(c.uniq) - 1 for c in children))
         counts.append(0)
 
         self.uniq = numpy.asarray(uniq, self.integer_type)
@@ -134,11 +134,10 @@ class _LikelihoodTreeEdge(object):
     def get_edge(self, name):
         if self.edge_name == name:
             return self
-        else:
-            for (i, c) in self._indexed_children:
-                r = c.get_edge(name)
-                if r is not None:
-                    return r
+        for (i, c) in self._indexed_children:
+            r = c.get_edge(name)
+            if r is not None:
+                return r
         return None
 
     def make_partial_likelihoods_array(self):
@@ -300,11 +299,11 @@ class LikelihoodTreeLeaf(object):
         return numpy.sum(profile, axis=0)
 
     def get_ambiguous_positions(self):
-        ambig = {}
-        for (i, u) in enumerate(self.index):
-            if self.ambig[u] != 1.0:
-                ambig[i] = self.uniq[u]
-        return ambig
+        return {
+            i: self.uniq[u]
+            for i, u in enumerate(self.index)
+            if self.ambig[u] != 1.0
+        }
 
     def select_columns(self, cols):
         sub_index = [self.index[i] for i in cols]
@@ -319,10 +318,7 @@ class LikelihoodTreeLeaf(object):
         )
 
     def get_edge(self, name):
-        if self.edge_name == name:
-            return self
-        else:
-            return None
+        return self if self.edge_name == name else None
 
     def get_site_patterns(self, cols):
         return numpy.asarray(self.uniq)[cols]

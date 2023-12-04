@@ -79,7 +79,7 @@ class concat:
 
         names = []
         for aln in data:
-            if not (isinstance(aln, ArrayAlignment) or isinstance(aln, Alignment)):
+            if not (isinstance(aln, (ArrayAlignment, Alignment))):
                 raise TypeError(f"{type(aln)} invalid for concat")
             names.append(aln.names)
 
@@ -272,7 +272,7 @@ class take_codon_positions(ComposableAligned):
             1 <= min(positions) <= 3 and 1 <= max(positions) <= 3
         ), "Invalid codon positions"
 
-        by_index = True if len(positions) == 1 else False
+        by_index = len(positions) == 1
         if by_index:
             positions = positions[0] - 1
             self.func = self.take_codon_position
@@ -289,7 +289,7 @@ class take_codon_positions(ComposableAligned):
         fourfold_codon_sets = self._fourfold_degen_sets
 
         def ffold(x):
-            x = set(tuple(e) for e in list(x))
+            x = {tuple(e) for e in list(x)}
             for codon_set in fourfold_codon_sets:
                 if x <= codon_set:
                     return True
@@ -463,16 +463,14 @@ class min_length(ComposableSeq):
         if self._subtract_degen:
             if not hasattr(data.alphabet, "non_degen"):
                 name = self.__class__.__name__
-                msg = (
-                    "%s(subtract_degen=True) requires DNA, RNA or PROTEIN " "moltype"
-                ) % name
+                msg = f"{name}(subtract_degen=True) requires DNA, RNA or PROTEIN moltype"
                 raise ValueError(msg)
 
         lengths = data.get_lengths(
             allow_gap=not self._subtract_degen,
             include_ambiguity=not self._subtract_degen,
         )
-        length, _ = min([(l, n) for n, l in lengths.items()])
+        length, _ = min((l, n) for n, l in lengths.items())
 
         if length < self._min_length:
             msg = f"{length} < min_length {self._min_length}"
@@ -566,12 +564,10 @@ class fixed_length(ComposableAligned):
 
         if len(aln) < self._length:
             msg = f"{len(aln)} < min_length {self._length}"
-            result = NotCompleted("FALSE", self.__class__.__name__, msg, source=aln)
+            return NotCompleted("FALSE", self.__class__.__name__, msg, source=aln)
         else:
             start = self._start(len(aln) - self._length)
-            result = aln[start : start + self._length]
-
-        return result
+            return aln[start : start + self._length]
 
     def sample_positions(self, aln):
         if self._moltype and self._moltype != aln.moltype:
@@ -720,7 +716,7 @@ class omit_duplicated(ComposableSeq):
         duplicates = seqs.get_identical_sets(mask_degen=self._mask_degen)
         excludes = []
         for group in duplicates:
-            chosen = np_random.choice([e for e in group])
+            chosen = np_random.choice(list(group))
             group.remove(chosen)
             excludes.extend(group)
 

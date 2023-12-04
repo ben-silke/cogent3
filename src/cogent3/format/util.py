@@ -74,11 +74,7 @@ class _AlignmentFormatter:
 
         """
 
-        if alt_block_size:
-            block_size = alt_block_size
-        else:
-            block_size = self.block_size
-
+        block_size = alt_block_size if alt_block_size else self.block_size
         block_list = []
         seq_length = len(seq_string)
         for block in range(0, seq_length, block_size):

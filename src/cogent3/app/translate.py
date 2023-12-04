@@ -145,7 +145,7 @@ def get_fourfold_degenerate_sets(gc, alphabet=None, as_indices=True):
         ffold = set()
         to_indices = alphabet.to_indices
         for group in four_fold:
-            grp = frozenset([tuple(to_indices(element)) for element in group])
+            grp = frozenset(tuple(to_indices(element)) for element in group)
             ffold.add(grp)
         four_fold = ffold
 

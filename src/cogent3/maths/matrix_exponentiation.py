@@ -131,12 +131,9 @@ class PadeExponentiator(_Exponentiator):
             X = numpy.dot(A, X)
             cX = c * X
             N = N + cX
-            if not k % 2:
-                D = D + cX
-            else:
-                D = D - cX
+            D = D + cX if not k % 2 else D - cX
         F = solve(D, N)
-        for k in range(1, j + 1):
+        for _ in range(1, j + 1):
             F = numpy.dot(F, F)
         return F
 

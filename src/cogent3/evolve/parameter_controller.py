@@ -524,11 +524,7 @@ class AlignmentLikelihoodFunction(_LikelihoodParameterController):
                 locus_name = ""
             assert not set(aln.names).symmetric_difference(
                 tip_names
-            ), "Tree tip names %s and aln seq names %s don't match %s" % (
-                self.tree.get_tip_names(),
-                aln.names,
-                locus_name,
-            )
+            ), f"Tree tip names {self.tree.get_tip_names()} and aln seq names {aln.names} don't match {locus_name}"
             assert "root" not in aln.names, "'root' is a reserved name."
         with self.updates_postponed():
             for (locus_name, align) in zip(self.locus_names, aligns):
@@ -571,11 +567,7 @@ class SequenceLikelihoodFunction(_LikelihoodParameterController):
 
         for (name, seq) in list(seqs.items()):
             # if has uniq, probably already a likelihood tree leaf obj already
-            if hasattr(seq, "uniq"):
-                # XXX more checks - same alphabet as model, name etc ...
-                leaf = seq
-            else:
-                leaf = self.model.convert_sequence(seq, name)
+            leaf = seq if hasattr(seq, "uniq") else self.model.convert_sequence(seq, name)
             leaf = AlignableSeq(leaf)
             leaves[name] = leaf
             assert name != "root", "'root' is a reserved name."

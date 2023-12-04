@@ -105,10 +105,7 @@ class TreeGeometryBase(PhyloNode):
                 continue
 
             parent_frac = edge.parent.params.get("cum_length", 0)
-            if edge.is_tip():
-                frac = 1 - parent_frac
-            else:
-                frac = 1 / edge.params["max_child_depth"]
+            frac = 1 - parent_frac if edge.is_tip() else 1 / edge.params["max_child_depth"]
             edge.params["frac_pos"] = frac
             edge.params["cum_length"] = parent_frac + edge.params[self._length]
 
@@ -130,7 +127,7 @@ class TreeGeometryBase(PhyloNode):
     @property
     def min_x(self):
         if not self._min_x:
-            self._min_x = min([e.x for e in self.postorder()])
+            self._min_x = min(e.x for e in self.postorder())
         return self._min_x
 
     @property
@@ -166,13 +163,7 @@ class TreeGeometryBase(PhyloNode):
     @property
     def start(self):
         """x, y coordinate for line connecting parent to this node"""
-        # needs to ask parent, but has to do more than just get the parent
-        # end, parent needs to know
-        if self.is_root():
-            val = 0, self.y
-        else:
-            val = self.parent.x, self.y
-        return val
+        return (0, self.y) if self.is_root() else (self.parent.x, self.y)
 
     @property
     def end(self):
@@ -287,12 +278,11 @@ class SquareTreeGeometry(TreeGeometryBase):
         dist = child.y - self.y
         if np.allclose(dist, 0):
             return self.end
-        if dist < 0:
-            result = ordered[ordered.index((child.y, child.start)) + 1][1]
-        else:
-            result = ordered[ordered.index((child.y, child.start)) - 1][1]
-
-        return result
+        return (
+            ordered[ordered.index((child.y, child.start)) + 1][1]
+            if dist < 0
+            else ordered[ordered.index((child.y, child.start)) - 1][1]
+        )
 
     @extend_docstring_from(TreeGeometryBase.value_and_coordinate)
     def value_and_coordinate(self, attr="name", padding=0.05, max_attr_length=None):
@@ -313,11 +303,7 @@ class _AngularGeometry:
     @property
     def start(self):
         """x, y coordinate for line connecting parent to this node"""
-        if self.is_root():
-            val = 0, self.y
-        else:
-            val = self.parent.end
-        return val
+        return (0, self.y) if self.is_root() else self.parent.end
 
 
 class AngularTreeGeometry(_AngularGeometry, SquareTreeGeometry):
@@ -394,15 +380,11 @@ class CircularTreeGeometry(TreeGeometryBase):
     @property
     def start(self):
         """x, y coordinate for line connecting parent to this node"""
-        # needs to ask parent, but has to do more than just get the parent
-        # end, parent needs to know
         if self.is_root():
-            val = 0, 0
-        else:
-            # radius comes from parent
-            radius = self.parent.params["cum_length"]
-            val = polar_2_cartesian(self.theta, radius)
-        return val
+            return 0, 0
+        # radius comes from parent
+        radius = self.parent.params["cum_length"]
+        return polar_2_cartesian(self.theta, radius)
 
     @extend_docstring_from(TreeGeometryBase.value_and_coordinate)
     def value_and_coordinate(self, attr="name", padding=0.05, max_attr_length=None):
@@ -568,11 +550,10 @@ class Dendrogram(Drawable):
     def label_pad(self):
         default = 0.15 if isinstance(self.tree, CircularTreeGeometry) else 0.025
         if self._label_pad is None:
-            if not self.contemporaneous:
-                max_x = max(self.tree.max_x, abs(self.tree.min_x))
-                self._label_pad = max_x * default
-            else:
+            if self.contemporaneous:
                 self._label_pad = default
+            else:
+                self._label_pad = max(self.tree.max_x, abs(self.tree.min_x)) * default
         return self._label_pad
 
     @label_pad.setter

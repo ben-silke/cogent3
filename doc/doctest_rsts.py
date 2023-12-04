@@ -111,25 +111,19 @@ def main(file_paths, just, exclude, exit_on_first, suffix, verbose):
         just = just.split(",")
         new = []
         for fn in file_paths:
-            for sub_word in just:
-                if sub_word in fn:
-                    new.append(fn)
+            new.extend(fn for sub_word in just if sub_word in fn)
         file_paths = new
     elif exclude:
         exclude = exclude.split(",")
         new = []
         for fn in file_paths:
-            keep = True
-            for sub_word in exclude:
-                if sub_word in fn:
-                    keep = False
-                    break
+            keep = all(sub_word not in fn for sub_word in exclude)
             if keep:
                 new.append(fn)
         file_paths = new
 
     if verbose:
-        print("File paths, after filtering: %s" % str(file_paths))
+        print(f"File paths, after filtering: {str(file_paths)}")
 
     if suffix == "rst":
         execute_rsts(file_paths, exit_on_first, verbose)

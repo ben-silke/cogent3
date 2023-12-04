@@ -17,7 +17,7 @@ __status__ = "Production"
 
 
 @njit(numba.float64(numba.float64[:], numba.int64, numba.int64), cache=True)
-def goertzel_inner(x, N, period):  # pragma: no cover
+def goertzel_inner(x, N, period):    # pragma: no cover
     """returns the power from series x for period"""
     coeff = 2.0 * numpy.cos(2 * numpy.pi / period)
     s_prev = 0.0
@@ -27,8 +27,7 @@ def goertzel_inner(x, N, period):  # pragma: no cover
         s_prev2 = s_prev
         s_prev = s
 
-    power = numpy.sqrt(s_prev2 ** 2 + s_prev ** 2 - coeff * s_prev2 * s_prev)
-    return power
+    return numpy.sqrt(s_prev2 ** 2 + s_prev ** 2 - coeff * s_prev2 * s_prev)
 
 
 @njit(

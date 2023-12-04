@@ -62,10 +62,7 @@ def make_generic_scoring_dict(match, mtype):
     S = {}
     for a in mtype:
         for b in mtype:
-            if a == b:
-                score = match
-            else:
-                score = -1
+            score = match if a == b else -1
             S[a, b] = score
     return S
 
@@ -83,10 +80,7 @@ def _align_pairwise(
     score = vpath.get_score()
     if return_alignment:
         alignment = vpath.get_alignment()
-        if return_score:
-            return (alignment, score)
-        else:
-            return alignment
+        return (alignment, score) if return_score else alignment
     else:
         return score
 

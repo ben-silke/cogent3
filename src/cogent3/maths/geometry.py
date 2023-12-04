@@ -201,10 +201,7 @@ def alr_inv(x, col=-1):
     x = x.squeeze()
     if x.ndim != 1:
         raise ValueError("Input array must be 1D")
-    if col == -1:
-        x = append(x, 0)
-    else:
-        x = insert(x, col, 0)
+    x = append(x, 0) if col == -1 else insert(x, col, 0)
     ex = exp(x)
     sumexp = sum(ex)
     return ex / sumexp

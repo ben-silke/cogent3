@@ -19,12 +19,12 @@ def _get_app_attr(name, obj, mod, is_composable):
 
     _types = {"_input_types": [], "_output_types": [], "_data_types": []}
 
-    for tys in _types.keys():
+    for tys in _types:
         types = getattr(obj, tys, None) or []
         types = [types] if type(types) == str else types
         _types[tys] = [{None: ""}.get(e, e) for e in types]
 
-    row = [
+    return [
         mod.__name__,
         name,
         is_composable,
@@ -33,7 +33,6 @@ def _get_app_attr(name, obj, mod, is_composable):
         ", ".join(_types["_output_types"]),
         ", ".join(_types["_data_types"]),
     ]
-    return row
 
 
 def available_apps():

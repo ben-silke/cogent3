@@ -177,7 +177,7 @@ def make_forward_tree_defn(
     if len(bin_names) > 1:
         switch = ProbabilityParamDefn("bin_switch", dimensions=["locus"])
         bprobs = PartitionDefn(
-            [1.0 / len(bin_names) for bin in bin_names],
+            [1.0 / len(bin_names) for _ in bin_names],
             name="bprobs",
             dimensions=["locus"],
             dimension=("bin", bin_names),

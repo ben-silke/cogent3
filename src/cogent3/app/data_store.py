@@ -96,8 +96,8 @@ def load_record_from_json(data):
 
 
 class DataStoreMember(str):
-    def __new__(klass, name, parent=None, id=None):
-        result = str.__new__(klass, name)
+    def __new__(cls, name, parent=None, id=None):
+        result = str.__new__(cls, name)
         result.name = os.path.basename(name)
         result.parent = parent
         result._file = None
@@ -228,20 +228,12 @@ class ReadOnlyDataStoreBase:
             new = klass(self.source, suffix=suffix)
             return identifier in new
         identifier = self.get_relative_identifier(identifier)
-        result = False
-        for member in self.members:
-            if identifier in member:
-                result = True
-                break
-        return result
+        return any(identifier in member for member in self.members)
 
     def get_member(self, identifier):
         """returns DataStoreMember"""
         identifier = self.get_relative_identifier(identifier)
-        for member in self.members:
-            if identifier in member:
-                return member
-        return None
+        return next((member for member in self.members if identifier in member), None)
 
     def get_relative_identifier(self, identifier):
         """returns the identifier relative to store root path"""
@@ -296,11 +288,11 @@ class ReadOnlyDataStoreBase:
     def filtered(self, pattern=None, callback=None):
         """returns list of members for which callback returns True"""
         assert any([callback, pattern]), "Must provide a pattern or a callback"
-        if pattern:
-            result = [m for m in self if fnmatch(m, pattern)]
-        else:
-            result = [m for m in self if callback(m)]
-        return result
+        return (
+            [m for m in self if fnmatch(m, pattern)]
+            if pattern
+            else [m for m in self if callback(m)]
+        )
 
     def md5(self, identifier, force=True):
         """
@@ -488,7 +480,7 @@ class WritableDataStoreBase:
         new = relativeid
         num = 0
         while True:
-            if not str(relativeid) in self:
+            if str(relativeid) not in self:
                 if num:
                     new = str(relativeid).replace(suffixes, f"-{num}{suffixes}")
                 break
@@ -584,10 +576,7 @@ class WritableDirectoryDataStore(ReadOnlyDirectoryDataStore, WritableDataStoreBa
     def _has_other_suffixes(self, path, suffix):
         p = Path(path)
         allowed = {str(suffix).lower(), "log"}
-        for f in p.iterdir():
-            if get_format_suffixes(str(f))[0] not in allowed:
-                return True
-        return False
+        return any(get_format_suffixes(str(f))[0] not in allowed for f in p.iterdir())
 
     def _source_create_delete(self, if_exists, create):
         if not is_master_process():
@@ -1051,7 +1040,7 @@ class WritableTinyDbDataStore(ReadOnlyTinyDbDataStore, WritableDataStoreBase):
         if num:
             num += 1
             relativeid = str(relativeid).replace(suffixes, f"-{num}{suffixes}")
-            relativeid = str(relativeid).replace(suffixes, f"-{num}{suffixes}")
+            relativeid = relativeid.replace(suffixes, f"-{num}{suffixes}")
 
         data = path.read_text()
         m = self.write(str(relativeid), data)

@@ -2,6 +2,7 @@
 """
 This takes doctest files and turns them into standalone scripts.
 """
+
 import doctest
 import os
 import sys
@@ -22,12 +23,9 @@ for filename in sys.argv[1:]:
     if suffix != ".rst":
         print("not a .rst file")
         continue
-    f = open(filename, "r")
-    s = "".join(f.readlines())
-    f.close()
-
+    with open(filename, "r") as f:
+        s = "".join(f.readlines())
     s = doctest.script_from_examples(s)
-    f = open(name + ".py", "w")
-    f.write(s)
-    f.close()
-    print("->", name + ".py")
+    with open(f"{name}.py", "w") as f:
+        f.write(s)
+    print("->", f"{name}.py")

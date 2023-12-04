@@ -96,17 +96,16 @@ def as_map(slice, length):
         spans = []
         for i in slice:
             spans.extend(as_map(i, length).spans)
-        map = Map(spans=spans, parent_length=length)
+        return Map(spans=spans, parent_length=length)
     elif isinstance(slice, Map):
-        map = slice
-        # TODO reasons for failure when the following is not commented out
-        # should be checked further
-        # assert map.parent_length == length, (map, length)
+        return slice
+            # TODO reasons for failure when the following is not commented out
+            # should be checked further
+            # assert map.parent_length == length, (map, length)
     else:
         (lo, hi, step) = _norm_slice(slice, length)
         assert (step or 1) == 1
-        map = Map([(lo, hi)], parent_length=length)
-    return map
+        return Map([(lo, hi)], parent_length=length)
 
 
 class SpanI(object):
@@ -452,12 +451,11 @@ class Span(SpanI):
 
     def __lt__(self, other):
         """Compares indices of self with indices of other."""
-        if hasattr(other, "start") and hasattr(other, "end"):
-            s = (self.start, self.end, self.reverse)
-            o = (other.start, other.end, other.reverse)
-            return s < o
-        else:
+        if not hasattr(other, "start") or not hasattr(other, "end"):
             return type(self) < type(other)
+        s = (self.start, self.end, self.reverse)
+        o = (other.start, other.end, other.reverse)
+        return s < o
 
     def __eq__(self, other):
         """Compares indices of self with indices of other."""
@@ -535,12 +533,11 @@ _lost_span_cache = {}
 
 def LostSpan(length, value=None):
     global _lost_span_cache
-    if value is None and length < 1000:
-        if length not in _lost_span_cache:
-            _lost_span_cache[length] = _LostSpan(length, value)
-        return _lost_span_cache[length]
-    else:
+    if value is not None or length >= 1000:
         return _LostSpan(length, value)
+    if length not in _lost_span_cache:
+        _lost_span_cache[length] = _LostSpan(length, value)
+    return _lost_span_cache[length]
 
 
 class TerminalPadding(_LostSpan):
@@ -568,18 +565,11 @@ class Map(object):
 
         if spans is None:
             spans = []
+            diff = 0
             for (start, end) in locations:
-                diff = 0
                 reverse = start > end
                 if max(start, end) < 0 or min(start, end) > parent_length:
-                    raise RuntimeError(
-                        f"located outside sequence: {str((start, end, parent_length))}"
-                    )
-                elif min(start, end) > parent_length:
-                    diff = max(start, end) - parent_length
-                    start = [start, parent_length][start > parent_length]
-                    end = [end, parent_length][end > parent_length]
-
+                    raise RuntimeError(f"located outside sequence: {(start, end, parent_length)}")
                 span = Span(start, end, tidy, tidy, reverse=reverse)
                 if diff < 0:
                     spans += [LostSpan(-diff), span]
@@ -623,7 +613,7 @@ class Map(object):
         return self.length
 
     def __repr__(self):
-        return repr(self.spans) + f"/{self.parent_length}"
+        return f"{repr(self.spans)}/{self.parent_length}"
 
     def __getitem__(self, slice):
         # A possible shorter map at the same level
@@ -634,17 +624,11 @@ class Map(object):
         return Map(spans=new_parts, parent_length=self.parent_length)
 
     def __mul__(self, scale):
-        # For Protein -> DNA
-        new_parts = []
-        for span in self.spans:
-            new_parts.append(span * scale)
+        new_parts = [span * scale for span in self.spans]
         return Map(spans=new_parts, parent_length=self.parent_length * scale)
 
     def __div__(self, scale):
-        # For DNA -> Protein
-        new_parts = []
-        for span in self.spans:
-            new_parts.append(span / scale)
+        new_parts = [span / scale for span in self.spans]
         return Map(spans=new_parts, parent_length=self.parent_length // scale)
 
     def __add__(self, other):
@@ -661,10 +645,7 @@ class Map(object):
         )
 
     def get_covering_span(self):
-        if self.reverse:
-            span = (self.end, self.start)
-        else:
-            span = (self.start, self.end)
+        span = (self.end, self.start) if self.reverse else (self.start, self.end)
         return Map([span], parent_length=self.parent_length)
 
     def covered(self):
@@ -677,8 +658,7 @@ class Map(object):
                 continue
             delta[span.start] = delta.get(span.start, 0) + 1
             delta[span.end] = delta.get(span.end, 0) - 1
-        positions = list(delta.keys())
-        positions.sort()
+        positions = sorted(delta.keys())
         last_y = y = 0
         last_x = start = None
         result = []
@@ -789,16 +769,10 @@ class Map(object):
         v1/v2 are (start, end) unless the map is reversed, in which case it will
         be (end, start)"""
 
-        if self.reverse:
-            order_func = lambda x: (max(x), min(x))
-        else:
-            order_func = lambda x: x
-
-        coords = list(
+        order_func = (lambda x: (max(x), min(x))) if self.reverse else (lambda x: x)
+        return list(
             map(order_func, [(s.start, s.end) for s in self.spans if not s.lost])
         )
-
-        return coords
 
     def to_rich_dict(self):
         """returns dicts for contained spans [dict(), ..]"""
@@ -897,22 +871,19 @@ class Range(SpanI):
 
     def _get_start(self):
         """Finds earliest start of items in self.spans."""
-        return min([i.start for i in self.spans])
+        return min(i.start for i in self.spans)
 
     start = property(_get_start)
 
     def _get_end(self):
         """Finds latest end of items in self.spans."""
-        return max([i.end for i in self.spans])
+        return max(i.end for i in self.spans)
 
     end = property(_get_end)
 
     def _get_reverse(self):
         """reverse is True if any piece is reversed."""
-        for i in self.spans:
-            if i.reverse:
-                return True
-        return False
+        return any(i.reverse for i in self.spans)
 
     reverse = property(_get_reverse)
 
@@ -926,21 +897,13 @@ class Range(SpanI):
 
         other must either be a number or have start and end properties.
         """
-        if hasattr(other, "spans"):
-            for curr in other.spans:
-                found = False
-                for i in self.spans:
-                    if curr in i:
-                        found = True
-                        break
-                if not found:
-                    return False
-            return True
-        else:
-            for i in self.spans:
-                if other in i:
-                    return True
-            return False
+        if not hasattr(other, "spans"):
+            return any(other in i for i in self.spans)
+        for curr in other.spans:
+            found = any(curr in i for i in self.spans)
+            if not found:
+                return False
+        return True
 
     def overlaps(self, other):
         """Returns True if any positions in self are also in other."""
@@ -988,11 +951,7 @@ class Range(SpanI):
         spans = self.spans[:]
         spans.sort()
         for span in spans:
-            if span.reverse:
-                direction = reverse
-            else:
-                direction = forward
-
+            direction = reverse if span.reverse else forward
             found_overlap = False
             for other in direction:
                 if (

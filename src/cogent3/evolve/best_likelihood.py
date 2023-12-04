@@ -27,18 +27,13 @@ def _transpose(array):
     new_array = []
     num_cols = len(array[0])
     for col in range(num_cols):
-        new_row = []
-        for row in array:
-            new_row += [row[col]]
+        new_row = [row[col] for row in array]
         new_array.append(new_row)
     return new_array
 
 
 def _take(array, indices):
-    new_array = []
-    for index in indices:
-        new_array.append(array[index])
-    return new_array
+    return [array[index] for index in indices]
 
 
 def aligned_columns_to_rows(aln, motif_len, exclude_chars=None, allowed_chars="ACGT"):
@@ -67,8 +62,7 @@ def aligned_columns_to_rows(aln, motif_len, exclude_chars=None, allowed_chars="A
                 exclude_indices.update([motif_index])
 
     include_indices = set(range(len(array[0]))).difference(exclude_indices)
-    include_indices = list(include_indices)
-    include_indices.sort()
+    include_indices = sorted(include_indices)
     array = _transpose(array)
     array = _take(array, include_indices)
     return array
@@ -93,10 +87,7 @@ def get_ML_probs(columns_list, with_patterns=False):
     col_lnL_freqs = []
     for column_pattern, freq in list(col_freq_dict.items()):
         # note, the behaviour of / is changed due to the __future__ import
-        if with_patterns:
-            row = [column_pattern, freq / n, freq]
-        else:
-            row = [freq / n, freq]
+        row = [column_pattern, freq / n, freq] if with_patterns else [freq / n, freq]
         col_lnL_freqs.append(row)
     return col_lnL_freqs
 
@@ -150,7 +141,4 @@ def BestLogLikelihood(
     columns = aligned_columns_to_rows(aln, motif_length, exclude_chars, allowed_chars)
     num_cols = len(columns)
     log_likelihood = get_G93_lnL_from_array(columns)
-    if return_length:
-        return log_likelihood, num_cols
-
-    return log_likelihood
+    return (log_likelihood, num_cols) if return_length else log_likelihood

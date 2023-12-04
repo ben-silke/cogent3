@@ -299,14 +299,11 @@ def make_matches(monomers=None, gaps=None, degenerates=None):
     Strictness is True if i and j always match and False if they sometimes
     match (e.g. A always matches A, but W sometimes matches R).
     """
-    result = {}
     # allow defaults to be left blank without problems
     monomers = monomers or {}
     gaps = gaps or {}
     degenerates = degenerates or {}
-    # all monomers always match themselves and no other monomers
-    for i in monomers:
-        result[(i, i)] = True
+    result = {(i, i): True for i in monomers}
     # all gaps always match all other gaps
     for i in gaps:
         for j in gaps:
@@ -645,13 +642,12 @@ class MolType(object):
         if make_alphabet_group:  # note: must use _original_ ambiguities here
             self.alphabets = AlphabetGroup(motifset, ambiguities, moltype=self)
             self.alphabet = self.alphabets.base
+        elif isinstance(motifset, Enumeration):
+            self.alphabet = motifset
+        elif max(len(motif) for motif in motifset) == 1:
+            self.alphabet = CharAlphabet(motifset, moltype=self)
         else:
-            if isinstance(motifset, Enumeration):
-                self.alphabet = motifset
-            elif max(len(motif) for motif in motifset) == 1:
-                self.alphabet = CharAlphabet(motifset, moltype=self)
-            else:
-                self.alphabet = Alphabet(motifset, moltype=self)
+            self.alphabet = Alphabet(motifset, moltype=self)
         # set the other properties
         self.degenerates = ambiguities and ambiguities.copy() or {}
         self.degenerates[self.missing] = "".join(motifset) + self.gap
@@ -864,9 +860,7 @@ class MolType(object):
         Note that the value of items in self.All will be the string containing
         the possibly degenerate set of symbols that the items expand to.
         """
-        all = {}
-        for i in self.alphabet:
-            all[i] = i
+        all = {i: i for i in self.alphabet}
         for key, val in list(self.degenerates.items()):
             all[key] = val
         for i in self.gaps:
@@ -924,8 +918,7 @@ class MolType(object):
             pair = tuple(sorted([m, self.complement(m)]))
             motif_pairs.append(pair)
 
-        motif_pairs = set(motif_pairs)
-        return motif_pairs
+        return set(motif_pairs)
 
     def __contains__(self, item):
         """A MolType contains every character it knows about."""
@@ -983,34 +976,22 @@ class MolType(object):
     def first_gap(self, sequence):
         """Returns the index of the first gap in the sequence, or None."""
         gap = self.gaps
-        for i, s in enumerate(sequence):
-            if s in gap:
-                return i
-        return None
+        return next((i for i, s in enumerate(sequence) if s in gap), None)
 
     def first_degenerate(self, sequence):
         """Returns the index of first degenerate symbol in sequence, or None."""
         degen = self.degenerates
-        for i, s in enumerate(sequence):
-            if s in degen:
-                return i
-        return None
+        return next((i for i, s in enumerate(sequence) if s in degen), None)
 
     def first_invalid(self, sequence):
         """Returns the index of first invalid symbol in sequence, or None."""
         all = self.All
-        for i, s in enumerate(sequence):
-            if s not in all:
-                return i
-        return None
+        return next((i for i, s in enumerate(sequence) if s not in all), None)
 
     def first_non_strict(self, sequence):
         """Returns the index of first non-strict symbol in sequence, or None."""
         monomers = self.alphabet
-        for i, s in enumerate(sequence):
-            if s not in monomers:
-                return i
-        return None
+        return next((i for i, s in enumerate(sequence) if s not in monomers), None)
 
     def disambiguate(self, sequence, method="strip"):
         """Returns a non-degenerate sequence from a degenerate one.
@@ -1094,8 +1075,7 @@ class MolType(object):
     def count_gaps(self, sequence):
         """Counts the gaps in the specified sequence."""
         gaps = self.gaps
-        gap_count = sum(1 for s in sequence if s in gaps)
-        return gap_count
+        return sum(1 for s in sequence if s in gaps)
 
     def get_degenerate_positions(self, sequence, include_gap=True):
         """returns indices matching degenerate characters"""
@@ -1108,11 +1088,7 @@ class MolType(object):
     def count_degenerate(self, sequence):
         """Counts the degenerate bases in the specified sequence."""
         degen = self.degenerates
-        degen_count = 0
-        for s in sequence:
-            if s in degen:
-                degen_count += 1
-        return degen_count
+        return sum(1 for s in sequence if s in degen)
 
     def possibilities(self, sequence):
         """Counts number of possible sequences matching the sequence.
@@ -1149,10 +1125,7 @@ class MolType(object):
         gaps are only allowed to match other gaps.
         """
         m = self.matches
-        for pair in zip(first, second):
-            if pair not in m:
-                return False
-        return True
+        return all(pair in m for pair in zip(first, second))
 
     def can_mismatch(self, first, second):
         """Returns True if any position in 1st could cause a mismatch with 2nd.
@@ -1164,10 +1137,7 @@ class MolType(object):
         if not first or not second:
             return False
 
-        for pair in zip(first, second):
-            if not m.get(pair, None):
-                return True
-        return False
+        return any(not m.get(pair, None) for pair in zip(first, second))
 
     def must_match(self, first, second):
         """Returns True if all positions in 1st must match positions in second."""
@@ -1188,10 +1158,7 @@ class MolType(object):
         p = self.pairs
         sec = list(second)
         sec.reverse()
-        for pair in zip(first, sec):
-            if pair not in p:
-                return False
-        return True
+        return all(pair in p for pair in zip(first, sec))
 
     def can_mispair(self, first, second):
         """Returns True if any position in 1st could mispair with 2nd.
@@ -1208,10 +1175,7 @@ class MolType(object):
 
         sec = list(second)
         sec.reverse()
-        for pair in zip(first, sec):
-            if not p.get(pair, None):
-                return True
-        return False
+        return any(not p.get(pair, None) for pair in zip(first, sec))
 
     def must_pair(self, first, second):
         """Returns True if all positions in 1st must pair with second.
@@ -1246,23 +1210,19 @@ class MolType(object):
         if result:
             return result
         # then, try converting case
-        symbols = frozenset([s.upper() for s in symbols])
+        symbols = frozenset(s.upper() for s in symbols)
         result = inv_degens.get(symbols, None)
         if result:
             return result
-        symbols = frozenset([s.lower() for s in symbols])
+        symbols = frozenset(s.lower() for s in symbols)
         result = inv_degens.get(symbols, None)
         if result:
             return result
         # finally, try to find the minimal subset containing the symbols
-        symbols = frozenset([s.upper() for s in symbols])
-        lengths = {}
-        for i in inv_degens:
-            if symbols.issubset(i):
-                lengths[len(i)] = i
+        symbols = frozenset(s.upper() for s in symbols)
+        lengths = {len(i): i for i in inv_degens if symbols.issubset(i)}
         if lengths:  # found at least some matches
-            sorted = list(lengths.keys())
-            sorted.sort()
+            sorted = sorted(lengths.keys())
             return inv_degens[lengths[sorted[0]]]
 
         # if we got here, nothing worked
@@ -1409,10 +1369,7 @@ class _CodonAlphabet(Alphabet):
 def CodonAlphabet(gc=1, include_stop_codons=False):
     if isinstance(gc, (int, str)):
         gc = get_code(gc)
-    if include_stop_codons:
-        motifset = list(gc.codons)
-    else:
-        motifset = list(gc.sense_codons)
+    motifset = list(gc.codons) if include_stop_codons else list(gc.sense_codons)
     motifset = [codon.upper().replace("U", "T") for codon in motifset]
     a = _CodonAlphabet(motifset, moltype=DNA)
     a._gc = gc
@@ -1457,8 +1414,7 @@ SequenceCollection.moltype = BYTES
 def _make_moltype_dict():
     env = globals()
     moltypes = {}
-    for key in env:
-        obj = env[key]
+    for key, obj in env.items():
         if not isinstance(obj, MolType):
             continue
         if obj.label is not None:

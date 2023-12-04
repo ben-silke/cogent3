@@ -57,18 +57,11 @@ class PhylipFormatter(_AlignmentFormatter):
             for block in range(0, self.align_length, self.block_size):
                 if not block:
                     # write the otu name
-                    if len(seq_name) > 9:
-                        prefix = "%-10s" % seq_name[:9]
-                    else:
-                        prefix = "%-10s" % seq_name
+                    prefix = "%-10s" % seq_name[:9] if len(seq_name) > 9 else "%-10s" % seq_name
                 else:
                     prefix = " " * 10
 
-                if block + self.block_size > self.align_length:
-                    to = self.align_length
-                else:
-                    to = block + self.block_size
-
+                to = min(block + self.block_size, self.align_length)
                 seqs.append(f"{prefix}{seq[block:to]}\n")
 
         return header + "".join(seqs)

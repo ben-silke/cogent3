@@ -123,15 +123,11 @@ class _GenericPredicate(predicate):
         self.__doc__ = repr(self)
 
     def __repr__(self):
-        if hasattr(self, "_op_repr"):
-            return "(%s)" % (" %s " % self._op_repr).join(
-                [repr(p) for p in self.subpredicates]
-            )
-        else:
-            return "%s(%s)" % (
-                self.__class__.__name__,
-                ",".join(["(%s)" % repr(p) for p in self.subpredicates]),
-            )
+        return (
+            f'({f" {self._op_repr} ".join([repr(p) for p in self.subpredicates])})'
+            if hasattr(self, "_op_repr")
+            else f'{self.__class__.__name__}({",".join([f"({repr(p)})" for p in self.subpredicates])})'
+        )
 
 
 # Boolean logic on motif pair predicates
@@ -202,10 +198,7 @@ class DirectedMotifChange(predicate):
         self.diff_at = diff_at
 
     def __repr__(self):
-        if self.diff_at is not None:
-            diff = "[%d]" % self.diff_at
-        else:
-            diff = ""
+        diff = "[%d]" % self.diff_at if self.diff_at is not None else ""
         return f"{self.from_motif}>{self.to_motif}{diff}"
 
     def test_motif(self, motifs, query):
@@ -234,8 +227,7 @@ class DirectedMotifChange(predicate):
         alphabet = model.get_alphabet()
         if alphabet.get_motif_len() < self.motiflen:
             raise ValueError(
-                "alphabet motifs (%s) too short for %s (%s)"
-                % (alphabet.get_motif_len(), repr(self), self.motiflen)
+                f"alphabet motifs ({alphabet.get_motif_len()}) too short for {repr(self)} ({self.motiflen})"
             )
 
         resolve = model.moltype.ambiguities.__getitem__
@@ -258,10 +250,7 @@ class DirectedMotifChange(predicate):
 
 class UndirectedMotifChange(DirectedMotifChange):
     def __repr__(self):
-        if self.diff_at is not None:
-            diff = "[%d]" % self.diff_at
-        else:
-            diff = ""
+        diff = "[%d]" % self.diff_at if self.diff_at is not None else ""
         return f"{self.from_motif}/{self.to_motif}{diff}"
 
     def test_motifs(self, from_motifs, to_motifs, x, y):
@@ -274,12 +263,10 @@ class UndirectedMotifChange(DirectedMotifChange):
 
 def MotifChange(x, y=None, forward_only=False, diff_at=None):
     if y is None:
-        y = ""
-        for i in range(len(x)):
-            if i == diff_at or diff_at is None:
-                y += "?"
-            else:
-                y += x[i]
+        y = "".join(
+            "?" if i == diff_at or diff_at is None else x[i]
+            for i in range(len(x))
+        )
     if forward_only:
         return DirectedMotifChange(x, y, diff_at=diff_at)
     else:
@@ -291,7 +278,7 @@ class UserPredicate(predicate):
         self.f = f
 
     def __repr__(self):
-        return "UserPredicate(%s)" % (getattr(self.f, "__name__", None) or repr(self.f))
+        return f'UserPredicate({getattr(self.f, "__name__", None) or repr(self.f)})'
 
     def interpret(self, model):
         return self.f

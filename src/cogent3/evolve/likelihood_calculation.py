@@ -111,14 +111,12 @@ def make_partial_likelihood_defns(edge, lht, psubs, fixed_motifs):
 
 def recursive_lht_build(edge, leaves):
     if edge.istip():
-        lhe = leaves[edge.name]
-    else:
-        lht_children = []
-        for child in edge.children:
-            lht = recursive_lht_build(child, leaves)
-            lht_children.append(lht)
-        lhe = LikelihoodTreeEdge(lht_children, edge_name=edge.name)
-    return lhe
+        return leaves[edge.name]
+    lht_children = []
+    for child in edge.children:
+        lht = recursive_lht_build(child, leaves)
+        lht_children.append(lht)
+    return LikelihoodTreeEdge(lht_children, edge_name=edge.name)
 
 
 class LikelihoodTreeDefn(CalculationDefn):

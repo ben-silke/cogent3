@@ -66,10 +66,7 @@ class _MotifNumberArray(DictArray):
         motifs = self.motifs
         if remaining is not None:
             if type(names) != tuple:
-                # we're indexing a row, motifs unchanged
-                row_indices = None
-                if result.ndim == 2:
-                    row_indices = remaining.names[0]
+                row_indices = remaining.names[0] if result.ndim == 2 else None
             elif type(names[0]) == type(names[1]) == slice:
                 # slicing rows and, motifs
                 row_indices, motifs = remaining.names
@@ -115,7 +112,7 @@ class _MotifNumberArray(DictArray):
         if not set(indices) <= set(current):
             if (
                 isinstance(indices[0], int)
-                and 0 <= min(indices)
+                and min(indices) >= 0
                 and max(indices) < len(current)
             ):
                 current = list(range(len(current)))
@@ -167,7 +164,7 @@ def _get_ordered_motifs_from_tabular(data, index=1):
 
     chars = []
     for entry in data:
-        if not entry[index] in chars:
+        if entry[index] not in chars:
             chars.append(entry[index])
     return chars
 
@@ -220,11 +217,7 @@ class MotifCountsArray(_MotifNumberArray):
             data = data + pseudocount
         axis = None if self.array.ndim == 1 else 1
         row_sum = data.sum(axis=axis)
-        if axis is not None:
-            freqs = data / numpy.vstack(row_sum)
-        else:
-            freqs = data / row_sum
-        return freqs
+        return data / numpy.vstack(row_sum) if axis is not None else data / row_sum
 
     def to_freq_array(self, pseudocount=0):
         """
@@ -355,8 +348,7 @@ class MotifFreqsArray(_MotifNumberArray):
         series = [
             digitize(random(), cumsum[i], right=False) for i in range(self.shape[0])
         ]
-        seq = "".join([self.motifs[i] for i in series])
-        return seq
+        return "".join([self.motifs[i] for i in series])
 
     def to_pssm(self, background=None):
         """returns a PSSM array
@@ -386,14 +378,11 @@ class MotifFreqsArray(_MotifNumberArray):
 
         if wrap is None:
             mit = get_mi_char_heights(self)
-            logo = get_logo(mit, height=height, width=width, ylim=ylim, colours=colours)
-            return logo
-
+            return get_logo(mit, height=height, width=width, ylim=ylim, colours=colours)
         wrap = min(wrap, self.shape[0])
         rows, remainder = divmod(self.shape[0], wrap)
         num_rows = rows + 1 if remainder else rows
 
-        axnum = 1
         logo = None
         xlim_text = {
             "showarrow": False,
@@ -406,7 +395,7 @@ class MotifFreqsArray(_MotifNumberArray):
             "yanchor": "bottom",
             "yref": None,
         }
-        for i in range(0, self.shape[0], wrap):
+        for axnum, i in enumerate(range(0, self.shape[0], wrap), start=1):
             axis = "axis" if axnum == 1 else f"axis{axnum}"
             ydomain = get_domain(num_rows, axnum - 1, is_y=True, space=vspace)
             segment = self[i : i + wrap, :]
@@ -441,8 +430,6 @@ class MotifFreqsArray(_MotifNumberArray):
                 logo.layout[f"x{axis}"] = sublogo.layout[f"x{axis}"]
                 logo.layout[f"y{axis}"] = sublogo.layout[f"y{axis}"]
 
-            axnum += 1
-
         return logo
 
     def pairwise_jsm(self) -> dict:
@@ -468,7 +455,7 @@ class PSSM(_MotifNumberArray):
         row_sum = data.sum(axis=1)
 
         # are we dealing with counts data?
-        if 0 <= data.min() and 1 < data.max():
+        if data.min() >= 0 and data.max() > 1:
             # convert to freqs data
             data = data / numpy.vstack(row_sum)
             row_sum = data.sum(axis=1)
@@ -508,9 +495,12 @@ class PSSM(_MotifNumberArray):
         if self.motif_length == 1:
             indexed = [get_index(c, num_motifs) for c in seq]
         else:
-            indexed = []
-            for i in range(0, self.shape[0] - self.motif_length + 1, self.motif_length):
-                indexed.append(get_index(seq[i : i + self.motif_length], num_motifs))
+            indexed = [
+                get_index(seq[i : i + self.motif_length], num_motifs)
+                for i in range(
+                    0, self.shape[0] - self.motif_length + 1, self.motif_length
+                )
+            ]
         indexed = numpy.array(indexed)
         return indexed
 

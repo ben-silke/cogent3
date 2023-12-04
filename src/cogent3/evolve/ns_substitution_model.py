@@ -26,13 +26,11 @@ __status__ = "Production"
 
 def _gen_sym_preds():
     pair = {"A": "T", "T": "A", "G": "C", "C": "G"}
-    sym_preds = []
-    for f, t in "AG", "AT", "CG", "CT", "GT":
-        sym_preds.append(
-            MotifChange(f, t, forward_only=True)
-            | MotifChange(pair[f], pair[t], forward_only=True)
-        )
-    return sym_preds
+    return [
+        MotifChange(f, t, forward_only=True)
+        | MotifChange(pair[f], pair[t], forward_only=True)
+        for f, t in ("AG", "AT", "CG", "CT", "GT")
+    ]
 
 
 _sym_preds = _gen_sym_preds()

@@ -35,7 +35,7 @@ class PsubMatrixDefn(PartitionDefn):
         PartitionDefn.__init__(self, default, name, dimensions, dimension, size, **kw)
 
         (dim_name, dim_cats) = self.internal_dimension
-        self.internal_dimensions = (dim_name, dim_name + "2")
+        self.internal_dimensions = dim_name, f"{dim_name}2"
         self.array_template = DictArrayTemplate(dim_cats, dim_cats)
 
     def _make_default_value(self):
@@ -47,8 +47,7 @@ class PsubMatrixDefn(PartitionDefn):
     def check_value_is_valid(self, value, is_constant):
         if value.shape != (self.size, self.size):
             raise ValueError(
-                "Wrong array shape %s for %s, expected (%s,%s)"
-                % (value.shape, self.name, self.size, self.size)
+                f"Wrong array shape {value.shape} for {self.name}, expected ({self.size},{self.size})"
             )
         for part in value:
             PartitionDefn.check_value_is_valid(self, part, is_constant)
@@ -70,7 +69,7 @@ class PsubMatrixDefn(PartitionDefn):
                 rows = []
                 for part in value:
                     (ratios, partition) = self._make_partition_cell(
-                        self.name + "_part", scope, part
+                        f"{self.name}_part", scope, part
                     )
                     all_cells.extend(ratios)
                     rows.append(partition)

@@ -194,7 +194,7 @@ class _seq_loader:
             path = SingleReadDataStore(path)[0]
 
         data = path.read().splitlines()
-        data = dict(record for record in self._parser(data))
+        data = dict(iter(self._parser(data)))
         seqs = self.klass(data=data, moltype=self.moltype)
         seqs.info.source = abs_path
 
@@ -381,10 +381,7 @@ class load_tabular(ComposableTabular):
             return make_motif_counts_from_tabular(data)
         if self.as_type == "motif_freqs":
             return make_motif_freqs_from_tabular(data)
-        if self.as_type == "pssm":
-            return make_pssm_from_tabular(data)
-
-        return None
+        return make_pssm_from_tabular(data) if self.as_type == "pssm" else None
 
 
 class write_tabular(_checkpointable, ComposableTabular):
@@ -441,8 +438,7 @@ class write_tabular(_checkpointable, ComposableTabular):
             identifier = self._make_output_identifier(data)
 
         output = data.to_string(format=self._format)
-        stored = self.data_store.write(identifier, output)
-        return stored
+        return self.data_store.write(identifier, output)
 
 
 class write_seqs(_checkpointable):

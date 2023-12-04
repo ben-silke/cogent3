@@ -60,7 +60,7 @@ def raise_invalid_vals(key, val):
     """raises RuntimeError on invalid values for keys"""
     if key not in valid_values:
         return True
-    if not str(val) in valid_values[key]:
+    if str(val) not in valid_values[key]:
         raise AssertionError(
             "Invalid bedgraph key/val pair: "
             + f"got {key}={val}; valid values are {valid_values[key]}"
@@ -69,10 +69,7 @@ def raise_invalid_vals(key, val):
 
 def booleans(key, val):
     """returns ucsc formatted boolean"""
-    if val in (1, True, "on", "On", "ON"):
-        val = "on"
-    else:
-        val = "off"
+    val = "on" if val in (1, True, "on", "On", "ON") else "off"
     return val
 
 
@@ -93,7 +90,7 @@ def get_header(name=None, description=None, color=None, **kwargs):
         if not set(kwargs) <= set(bedgraph_fields):
             not_allowed = set(kwargs) - set(bedgraph_fields)
             raise RuntimeError(
-                f"incorrect arguments provided to bedgraph {str(list(not_allowed))}"
+                f"incorrect arguments provided to bedgraph {list(not_allowed)}"
             )
 
         if "altColor" in kwargs:
